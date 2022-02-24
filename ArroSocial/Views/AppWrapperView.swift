@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+var tabs = [AppPages.home, AppPages.explore, AppPages.activity, AppPages.settings]
+
 struct AppWrapperView: View {
     @State var selectedTab = "house"
     
@@ -23,20 +25,19 @@ struct AppWrapperView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                Color.green
-                    .overlay(Text("home"))
+                HomeView()
                     .tag("house")
                     .ignoresSafeArea(.all, edges: .all)
                 Color.blue
-                    .overlay(Text("explore"))
+                    .overlay(Text(tabs[1]))
                     .tag("globe.americas")
                     .ignoresSafeArea(.all, edges: .all)
                 Color.yellow
-                    .overlay(Text("activity"))
+                    .overlay(Text(tabs[2]))
                     .tag("bell")
                     .ignoresSafeArea(.all, edges: .all)
                 Color.purple
-                    .overlay(Text("settings"))
+                    .overlay(Text(tabs[3]))
                     .tag("gear")
                     .ignoresSafeArea(.all, edges: .all)
             }
@@ -57,13 +58,13 @@ struct AppWrapperView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 25, height: 25)
                                 .modifier(Poppins(fontWeight: selectedTab == image ? AppFont.semiBold : AppFont.medium))
-                                .foregroundColor(selectedTab == image ? Color.black : Color.gray)
+                                .foregroundColor(selectedTab == image ? Color(AppColors.purple) : Color.gray)
 //                                .fontWeight(selectedTab == image ? .bold : .none)
                                 .padding(selectedTab == image ? 15 : 0)
-                                .background(Color.white.opacity(selectedTab == image ? 1 : 0))
+                                .background(Color(AppColors.secondary).opacity(selectedTab == image ? 1 : 0))
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .clipShape(Circle())
-                                .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -45 : 0)
+                                .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -42 : 0)
                             
                         }
                         .onAppear() {
@@ -83,7 +84,7 @@ struct AppWrapperView: View {
             }
             .padding(.horizontal , 30)
             .padding(.vertical)
-            .background(Color.white.clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
+            .background(Color(AppColors.secondary).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
             .padding(.horizontal)
             .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
         }
@@ -93,9 +94,8 @@ struct AppWrapperView: View {
     
 }
 
-var tabs = ["house", "globe.americas", "bell", "gear"]
 
-struct HomeView_Previews: PreviewProvider {
+struct AppWrapperView_Preview: PreviewProvider {
     static var previews: some View {
         AppWrapperView()
     }

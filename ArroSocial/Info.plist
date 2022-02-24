@@ -5,6 +5,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Regular.ttf</string>
+		<string>Lobster-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
 		<string>Poppins-Medium.ttf</string>
 	</array>

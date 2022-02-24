@@ -39,7 +39,7 @@ struct Poppins: ViewModifier {
     func getFont() -> Font {
         switch(sizeCategory) {
         case .extraSmall:
-            return Font.custom("Poppins-\(fontWeight)\(fontWeight)\(fontWeight)", size: 16 * getStyleFactor())
+            return Font.custom("Poppins-\(fontWeight)", size: 16 * getStyleFactor())
         case .small:
             return Font.custom("Poppins-\(fontWeight)", size: 21 * getStyleFactor())
         case .medium:

@@ -17,6 +17,8 @@
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
+		4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD91F927C80F23007A95F7 /* HomeView.swift */; };
+		4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
+		4BFD91F927C80F23007A95F7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 				4B6AF02627C724890070B7E8 /* Info.plist */,
 				4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */,
 				4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */,
+				4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */,
 				4B6AF02027C724790070B7E8 /* Poppins-SemiBold.ttf */,
 				4B6AF01D27C7244F0070B7E8 /* Helpers */,
 				4B6AF01C27C724430070B7E8 /* Views */,
@@ -88,6 +93,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4BFD91F827C80F17007A95F7 /* Home */,
 				4B6AF01027C6F9660070B7E8 /* ContentView.swift */,
 				4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */,
 			);
@@ -101,6 +107,14 @@
 				4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4BFD91F827C80F17007A95F7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4BFD91F927C80F23007A95F7 /* HomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6AF02327C724790070B7E8 /* Poppins-SemiBold.ttf in Resources */,
+				4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */,
 				4B6AF01627C6F9670070B7E8 /* Preview Assets.xcassets in Resources */,
 				4B6AF01327C6F9670070B7E8 /* Assets.xcassets in Resources */,
 				4B6AF02427C724790070B7E8 /* Poppins-Regular.ttf in Resources */,
@@ -179,6 +194,7 @@
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
+				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 			);

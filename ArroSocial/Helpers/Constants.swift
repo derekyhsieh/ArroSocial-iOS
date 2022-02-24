@@ -11,6 +11,7 @@ struct AppFont {
     static let medium = "Medium"
     static let regular = "Regular"
     static let semiBold = "SemiBold"
+    static let lobster = "Lobster-Regular"
 }
 
 struct AppPages {
@@ -18,4 +19,10 @@ struct AppPages {
     static let explore = "globe.americas"
     static let activity = "bell"
     static let settings = "gear"
+}
+
+struct AppColors {
+    static let background = "background"
+    static let secondary = "secondary"
+    static let purple = "purple"
 }
