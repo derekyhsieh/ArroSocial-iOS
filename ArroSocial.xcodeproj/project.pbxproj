@@ -16,7 +16,7 @@
 		4B6AF02427C724790070B7E8 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */; };
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
-		4B6AF02A27C7283F0070B7E8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* HomeView.swift */; };
+		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
-		4B6AF02927C7283F0070B7E8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				4B6AF01027C6F9660070B7E8 /* ContentView.swift */,
-				4B6AF02927C7283F0070B7E8 /* HomeView.swift */,
+				4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,7 +179,7 @@
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
-				4B6AF02A27C7283F0070B7E8 /* HomeView.swift in Sources */,
+				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct AppWrapperView: View {
     @State var selectedTab = "house"
     
     @State var tabBarCenter: CGFloat = 0
@@ -63,7 +63,7 @@ struct HomeView: View {
                                 .background(Color.white.opacity(selectedTab == image ? 1 : 0))
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .clipShape(Circle())
-                                .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -50 : 0)
+                                .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -45 : 0)
                             
                         }
                         .onAppear() {
@@ -97,7 +97,7 @@ var tabs = ["house", "globe.americas", "bell", "gear"]
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        AppWrapperView()
     }
 }
 
@@ -123,12 +123,12 @@ struct CurveShape: Shape {
             path.move(to: CGPoint(x: center - 50, y: 0))
             
             let to1 = CGPoint(x: center, y: 35)
-            let control1 = CGPoint(x: center - 25, y: 0)
-            let control2 = CGPoint(x: center - 25, y: 35)
+            let control1 = CGPoint(x: center - 30, y: 0)
+            let control2 = CGPoint(x: center - 30, y: 35)
             
             let to2 = CGPoint(x: center + 50, y: 0)
-            let control3 = CGPoint(x: center + 25, y: 35)
-            let control4 = CGPoint(x: center + 25, y: 0)
+            let control3 = CGPoint(x: center + 30, y: 35)
+            let control4 = CGPoint(x: center + 30, y: 0)
             
             path.addCurve(to: to1, control1: control1, control2: control2)
             path.addCurve(to: to2, control1: control3, control2: control4)

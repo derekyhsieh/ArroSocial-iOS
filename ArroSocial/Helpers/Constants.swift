@@ -12,3 +12,10 @@ struct AppFont {
     static let regular = "Regular"
     static let semiBold = "SemiBold"
 }
+
+struct AppPages {
+    static let home = "house"
+    static let explore = "globe.americas"
+    static let activity = "bell"
+    static let settings = "gear"
+}

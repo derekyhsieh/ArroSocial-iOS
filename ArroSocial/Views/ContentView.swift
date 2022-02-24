@@ -13,7 +13,7 @@ struct ContentView: View {
             
             
             VStack {
-                HomeView()
+                AppWrapperView()
                 
                 
                 
