@@ -38,9 +38,6 @@ struct HomeView: View {
                     print("new post")
                 }) {
                     
-                    
-                    
-                    
                     Image(systemName: "plus")
                         .font(Font.system(size: 35, weight: .semibold))
                         .frame(width: 30, height: 30)
@@ -59,6 +56,10 @@ struct HomeView: View {
             .padding(.horizontal)
             .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
             
+            
+         
+            
+            PostCell()
             
             Spacer()
             
