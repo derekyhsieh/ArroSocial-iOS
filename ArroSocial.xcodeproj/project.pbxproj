@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533CE27CC3F930059C7C7 /* PostModel.swift */; };
 		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B1533CE27CC3F930059C7C7 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroSocialApp.swift; sourceTree = "<group>"; };
@@ -51,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B1533CD27CC3EDB0059C7C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4B1533CE27CC3F930059C7C7 /* PostModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4B6AF00227C6F9660070B7E8 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +86,7 @@
 				4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */,
 				4B6AF02027C724790070B7E8 /* Poppins-SemiBold.ttf */,
 				4B6AF01D27C7244F0070B7E8 /* Helpers */,
+				4B1533CD27CC3EDB0059C7C7 /* Models */,
 				4B6AF01C27C724430070B7E8 /* Views */,
 				4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */,
 				4B6AF01227C6F9670070B7E8 /* Assets.xcassets */,
@@ -195,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B69182327C9677E000CCD1D /* PostCell.swift in Sources */,
+				4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,

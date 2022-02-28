@@ -8,54 +8,120 @@
 import SwiftUI
 
 struct PostCell: View {
-    var image: Image = Image(systemName: "person.fill")
+    @State var post: PostModel
     var body: some View {
-        RoundedRectangle(cornerRadius: 15)
-            .stroke(Color(AppColors.secondary), lineWidth: 10)
-            .frame(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height / 3)
-            .overlay(
-                VStack {
-                    HStack {
-                        
-                        image
-                            .font(.system(size: 50))
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(.white))
-                                    .padding(7)
-                                    
-                                    .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 0)
-                                    
-                                    .background(
-                                        
-                                        RoundedRectangle(cornerRadius: 10).strokeBorder(Color(AppColors.purple), lineWidth: 3)
-                                            .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 0)
-                                    )
-                            )
-                        
-                        
-                        Spacer()
-                    }
+        ZStack {
+            
+            RoundedRectangle(cornerRadius: 25)
+                .fill(Color(AppColors.background))
+   
+            VStack {
+                
+                post.image
+                    .resizable()
+                  
+                    .aspectRatio(contentMode: .fill)
                     
-                    Spacer()
+                    .frame(maxWidth: .infinity)
+                    .frame(maxHeight: 200)
+                    .clipped()
+                    .cornerRadius(25)
+                    
+                
+                
+                HStack {
+                    
+                    HStack(alignment: .top) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(AppColors.purple), lineWidth: 1.5)
+                                .frame(width: 62, height: 62)
+                                
+                                
+                            
+                            Image("person")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 55, height: 55)
+                                .cornerRadius(10)
+                            
+                            
+                            
+          
+                        }
+                        
+                        
+                            Text("@" + post.username)
+                                .modifier(Poppins(fontWeight: AppFont.semiBold, .caption))
+                    }
+              
+
+
+                    
+                    
+                    .padding(.horizontal)
+                    
+                    Spacer(minLength: 0)
+                    
+                    VStack {
+                        
+                        Button(action: {post.likedByUser.toggle()}) {
+                            Image(systemName: post.likedByUser ? "heart.fill" : "heart")
+                                .foregroundColor(post.likedByUser ? Color("heart") : Color(.gray))
+                                .font(.title)
+                            .foregroundColor(Color.secondary)
+                        }
+                   
+                        
+                        Text("\(post.likeCount)")
+                            .font(.custom("Poppins-Regular", size: 12))
+                            .foregroundColor(.gray)
+                    }
+                    VStack {
+                        Image(systemName: "bubble.left")
+                            .font(.title)
+                            .foregroundColor(.gray)
+                        Text("\(post.likeCount)")
+                            .font(.custom("Poppins-Regular", size: 12))
+                            .foregroundColor(.clear)
+                    }
                 }
-                    .padding()
-            )
+                .padding(.vertical)
+                
+                
+                Text(post.caption ?? "")
+                    .frame(maxWidth: .infinity)
+                    
+                Spacer()
+            }
+            .frame(width: UIScreen.main.bounds.width - 75)
+            .padding()
+            .padding(.top)
+        }
+        .frame(width: UIScreen.main.bounds.width - 50)
+        .frame(height: 450)
+        .shadow(color: Color("lightShadow"), radius: 8, x: -8, y: -8)
+    
+        .shadow(color: Color("darkShadow"), radius: 8, x: 8, y: 8)
+        .padding()
+       
+       
+        
+    
+        
+       
         
         
     }
 }
 
+let data = PostModel(id: UUID(), postID: "123", userID: "123", userPicture: Image("person"), username: "JaneDoe", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d2"), dateCreated: Date(), likeCount: 123, likedByUser: true)
 struct PostCell_Previews: PreviewProvider {
+
     static var previews: some View {
-        VStack {
-            PostCell()
-                .padding()
-        }
-        .background(Color(AppColors.background))
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        //        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
+        PostCell(post: data)
+//        PostCell(userProfilePic: Image("person"), username: "JaneDoe", numberOfLikes: 102, isFollowing: true, caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d3"))
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

@@ -87,6 +87,8 @@ struct AppWrapperView: View {
             .background(Color(AppColors.secondary).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
             .padding(.horizontal)
             .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
+            .shadow(color: Color.black, radius: 50, x: -10, y: 0)
+            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }

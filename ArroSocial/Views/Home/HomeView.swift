@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.colorScheme) var colorScheme // check if is in dark mode or light
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 
                 Text("Arro\nSocial")
                     .font(Font.custom(AppFont.lobster, size: 27))
-                    .foregroundColor(.white)
+//                    .foregroundColor(.white)
                 
                 Spacer()
                 
@@ -25,11 +27,12 @@ struct HomeView: View {
                     
                         .frame(width: 30, height: 30)
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                        
                         .padding(15)
                         .background(
                             RoundedRectangle(cornerRadius: 20).strokeBorder(Color(AppColors.secondary), lineWidth: 2.5)
-                                .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 0)
+                                .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 0)
                         )
                 }
                 
@@ -47,7 +50,7 @@ struct HomeView: View {
                         .padding(15)
                         .background(
                             RoundedRectangle(cornerRadius: 20).strokeBorder(Color(AppColors.secondary), lineWidth: 2.5)
-                                .shadow(color: Color.black.opacity(0.7), radius: 3, x: 0, y: 0)
+                                .shadow(color: Color.black.opacity(0.3), radius: 3, x: 0, y: 0)
                         )
                 }
                 
@@ -55,13 +58,30 @@ struct HomeView: View {
             }
             .padding(.horizontal)
             .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-            
+            .padding(.bottom)
             
          
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 15) {
+//                    PostCell(userProfilePic: Image("person"), username: "JaneDoe", numberOfLikes: 316, isFollowing: true, caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d1"))
+//                    
+//                    PostCell(userProfilePic: Image("person"), username: "JohnDoe", numberOfLikes: 0, isFollowing: false, caption: "Lorem ipsum dolor sitconsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et adsfasdfsda fasdfasdfasdfasdf", image: Image("d2"))
+//                    
+//                    PostCell(userProfilePic: Image("person"), username: "JohnDoe", numberOfLikes: 22, isFollowing: false, caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et adsfasdfsda fasdfasdfasdfasdf", image: Image("d3"))
+                    PostCell(post: data)
+                    PostCell(post: data)
+                    PostCell(post: data)
+                    PostCell(post: data)
+                    PostCell(post: data)
+                    
+                }
+              
+                Spacer()
+            }
+            .padding(.horizontal)
+     
             
-            PostCell()
-            
-            Spacer()
+           
             
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -73,5 +93,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .preferredColorScheme(.dark)
     }
 }
