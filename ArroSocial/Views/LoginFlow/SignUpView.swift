@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var emailIsOk: Bool = false
+    @State private var passwordIsOk: Bool = false
+    
+    @State private var reenterIsOk: Bool = false
     @State private var email: String = "" // by default it's empty
     @State private var password: String = "" // by default it's empty
     @State private var reenter: String = "" // by default it's empty
@@ -39,15 +43,27 @@ struct SignUpView: View {
                         .modifier(Poppins(fontWeight: AppFont.semiBold, .title))
                         .padding(.bottom, 30)
                         .foregroundColor(.black)
-                 
-                    TextField("email address", text: $email)
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(50.0)
-                        .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
-                        .padding(.vertical)
+                    
+                    HStack {
+                        TextField("email address", text: $email)
+                            .font(.title3)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(50.0)
+                            .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
+                            .padding(.vertical)
+                            .keyboardType(.emailAddress)
+                            .onChange(of: email) { email in
+                                self.emailIsOk = isValidEmail(email)
+                            }
+                        if(emailIsOk) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(Color.green)
+                            
+                        }
+                        
+                    }
                     
                     SecureField("password", text: $password)
                         .font(.title3)
@@ -57,8 +73,11 @@ struct SignUpView: View {
                         .cornerRadius(50.0)
                         .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                         .padding(.vertical)
+                        .onChange(of: password) { newValue in
+                            print(newValue)
+                        }
                     
-                    SecureField("reeenter password", text: $reenter)
+                    SecureField("re-eenter password", text: $reenter)
                         .font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -72,7 +91,7 @@ struct SignUpView: View {
                             .padding(.vertical)
                         
                     }
-                
+                    
                     Text(errorMessage)
                         .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
@@ -93,7 +112,7 @@ struct SignUpView: View {
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
+        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }

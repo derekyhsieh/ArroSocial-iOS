@@ -44,7 +44,7 @@ struct WelcomeView: View {
                             .navigationBarHidden(true),
                         
                         label: {
-                            Text("Sign In")
+                            Text("Sign Up")
                                 .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
                                 .foregroundColor(Color(AppColors.purple))
                                 .padding()
@@ -77,13 +77,4 @@ struct WelcomeView_Previews: PreviewProvider {
     }
 }
 
-// let back swipe functionality still work when navigation bar is hidden
-extension UINavigationController: UIGestureRecognizerDelegate {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
-    }
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
-    }
-}
+

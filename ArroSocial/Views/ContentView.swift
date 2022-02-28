@@ -11,8 +11,9 @@ struct ContentView: View {
     var body: some View {
         
         
-        //                AppWrapperView()
-        
+//                        AppWrapperView()
+//            .environment(\.colorScheme, .dark)
+//
         
         WelcomeView()
             .environment(\.colorScheme, .light)
