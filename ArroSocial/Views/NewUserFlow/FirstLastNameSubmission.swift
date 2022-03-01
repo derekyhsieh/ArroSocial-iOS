@@ -15,7 +15,8 @@ struct FirstLastNameSubmission: View {
         VStack {
             Text("Enter your first name and last name")
                 .foregroundColor(color)
-                .modifier(Poppins(fontWeight: AppFont.semiBold, .title2))
+                .font(.custom(("Poppins-"+AppFont.semiBold), size: 40))
+                .minimumScaleFactor(0.4)
                 .multilineTextAlignment(.center)
             
             TextField("First Name", text: $firstN)
@@ -26,6 +27,7 @@ struct FirstLastNameSubmission: View {
                 .cornerRadius(50.0)
                 .shadow(color: Color.black.opacity(0.1), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                 .padding(.vertical)
+                .foregroundColor(color)
 //                .padding()
             
             TextField("Last Name", text: $lastN)
@@ -34,6 +36,7 @@ struct FirstLastNameSubmission: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
                 .cornerRadius(50.0)
+                .foregroundColor(color)
                 .shadow(color: Color.black.opacity(0.1), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                 .padding(.vertical)
                 

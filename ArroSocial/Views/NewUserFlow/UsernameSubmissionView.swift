@@ -14,12 +14,16 @@ struct UsernameSubmissionView: View {
         VStack {
             Text("Pick a username")
                 .foregroundColor(color)
-                .modifier(Poppins(fontWeight: AppFont.semiBold, .title2))
+                .font(.custom(("Poppins-"+AppFont.semiBold), size: 50))
+                .minimumScaleFactor(0.7)
+            
                 .multilineTextAlignment(.center)
             
             TextField("username", text: ($username))
                 .font(.title3)
                 .padding()
+                .textInputAutocapitalization(.never)
+                .foregroundColor(color)
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
                 .cornerRadius(50.0)

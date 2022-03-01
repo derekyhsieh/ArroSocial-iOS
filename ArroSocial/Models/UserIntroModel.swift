@@ -18,7 +18,7 @@ struct NewUserPages: Identifiable {
 
 
 var pages: [NewUserPages] = [
-    NewUserPages(title: "username", color: Color(AppColors.lightBlue)),
-    NewUserPages(title: "name", color: Color(AppColors.blue)),
+    NewUserPages(title: "username", color: Color(AppColors.blue)),
+    NewUserPages(title: "name", color: Color(AppColors.lightBlue)),
     NewUserPages(title: "profile picture", color: Color(AppColors.purple)),
 ]

@@ -25,9 +25,11 @@ struct ProfilePictureSubmission: View {
             }
             
             Text("Tap on the circle to import your own profile picture")
+            
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(color)
-                .modifier(Poppins(fontWeight: AppFont.semiBold, .headline))
+                .font(.custom(("Poppins-"+AppFont.semiBold), size: 30))
+                .minimumScaleFactor(0.5)
                 .multilineTextAlignment(.center)
             
             Button(action: {
@@ -35,7 +37,7 @@ struct ProfilePictureSubmission: View {
             }) {
                 
                 PrimaryButton(title: "Shuffle")
-                    .frame(width: UIScreen.main.bounds.width / 3)
+                    .frame(width: UIScreen.main.bounds.width / 2)
             }
    
             Spacer(minLength: 0)

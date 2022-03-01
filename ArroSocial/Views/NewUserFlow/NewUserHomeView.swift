@@ -86,6 +86,7 @@ struct NewUserHomeView: View {
                     // update offset
                     let index = min(getIndex() + 1, pages.count - 1)
                     offset = CGFloat(index) * screenSize.width
+                    hideKeyboard()
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.title2.bold())
