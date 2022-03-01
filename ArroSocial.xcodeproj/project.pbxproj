@@ -13,6 +13,9 @@
 		4B1533DE27CC7FBA0059C7C7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533DD27CC7FBA0059C7C7 /* SignUpView.swift */; };
 		4B1533E027CC80330059C7C7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533DF27CC80330059C7C7 /* LoginView.swift */; };
 		4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533E127CC83940059C7C7 /* Extensions.swift */; };
+		4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533E627CDCB930059C7C7 /* NewUserHomeView.swift */; };
+		4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */; };
+		4B1533EB27CDCD600059C7C7 /* OffsetPageTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533EA27CDCD600059C7C7 /* OffsetPageTabView.swift */; };
 		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
@@ -35,6 +38,9 @@
 		4B1533DD27CC7FBA0059C7C7 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4B1533DF27CC80330059C7C7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		4B1533E127CC83940059C7C7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4B1533E627CDCB930059C7C7 /* NewUserHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserHomeView.swift; sourceTree = "<group>"; };
+		4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroModel.swift; sourceTree = "<group>"; };
+		4B1533EA27CDCD600059C7C7 /* OffsetPageTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageTabView.swift; sourceTree = "<group>"; };
 		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroSocialApp.swift; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				4B1533CE27CC3F930059C7C7 /* PostModel.swift */,
+				4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -87,6 +94,15 @@
 				4B1533DF27CC80330059C7C7 /* LoginView.swift */,
 			);
 			path = LoginFlow;
+			sourceTree = "<group>";
+		};
+		4B1533E527CDCA590059C7C7 /* NewUserFlow */ = {
+			isa = PBXGroup;
+			children = (
+				4B1533E627CDCB930059C7C7 /* NewUserHomeView.swift */,
+				4B1533EA27CDCD600059C7C7 /* OffsetPageTabView.swift */,
+			);
+			path = NewUserFlow;
 			sourceTree = "<group>";
 		};
 		4B6AF00227C6F9660070B7E8 = {
@@ -134,6 +150,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4B1533E527CDCA590059C7C7 /* NewUserFlow */,
 				4B1533DC27CC7FA00059C7C7 /* LoginFlow */,
 				4B1533D827CC7F580059C7C7 /* Components */,
 				4BFD91F827C80F17007A95F7 /* Home */,
@@ -240,12 +257,15 @@
 				4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */,
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
+				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B1533DE27CC7FBA0059C7C7 /* SignUpView.swift in Sources */,
 				4B1533E027CC80330059C7C7 /* LoginView.swift in Sources */,
+				4B1533EB27CDCD600059C7C7 /* OffsetPageTabView.swift in Sources */,
 				4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */,
 				4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
+				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,

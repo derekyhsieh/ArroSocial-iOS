@@ -11,7 +11,6 @@ struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var emailIsOk: Bool = false
     @State private var passwordIsOk: Bool = false
-    
     @State private var reenterIsOk: Bool = false
     @State private var email: String = "" // by default it's empty
     @State private var password: String = "" // by default it's empty
@@ -54,37 +53,75 @@ struct SignUpView: View {
                             .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                             .padding(.vertical)
                             .keyboardType(.emailAddress)
-                            .onChange(of: email) { email in
-                                self.emailIsOk = isValidEmail(email)
+                            .onChange(of: email) { emailValue in
+                                withAnimation {
+                                    // animate state var for checkmark when email is valid
+                                    self.emailIsOk = isValidEmail(emailValue)
+                                }
                             }
                         if(emailIsOk) {
-                            Image(systemName: "checkmark")
+                            Text(Image(systemName: "checkmark"))
+                                .fontWeight(.bold)
                                 .foregroundColor(Color.green)
+                            
                             
                         }
                         
                     }
                     
-                    SecureField("password", text: $password)
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(50.0)
-                        .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
-                        .padding(.vertical)
-                        .onChange(of: password) { newValue in
-                            print(newValue)
+                    HStack {
+                        SecureField("password", text: $password)
+                            .font(.title3)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(50.0)
+                            .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
+                            .padding(.vertical)
+                            .onChange(of: password) { passwordValue in
+                                withAnimation {
+                                    // animate state var for checkmark when email is valid
+                                    self.passwordIsOk = isValidPassword(passwordValue)
+                                }
                         }
+                        if(passwordIsOk) {
+                            Text(Image(systemName: "checkmark"))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.green)
+                            
+                            
+                        }
+                    }
+                
                     
-                    SecureField("re-eenter password", text: $reenter)
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(50.0)
-                        .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
-                        .padding(.vertical)
+                    HStack {
+                        SecureField("re-eenter password", text: $reenter)
+                            .font(.title3)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(50.0)
+                            .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
+                            .padding(.vertical)
+                            .onChange(of: reenter) { reenterValue in
+                                withAnimation {
+                                    // animate state var for checkmark when valid
+                                    if reenterValue == self.password {
+                                       reenterIsOk = true
+                                    } else {
+                                        reenterIsOk = false
+                                    }
+                                }
+                        }
+                        
+                        if reenterIsOk {
+                            Text(Image(systemName: "checkmark"))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.green)
+                            
+                        }
+                    }
+                    
                     
                     Button(action: {checkUserInputFieldsForProblem()}) {
                         PrimaryButton(title: "Sign Up")
@@ -95,6 +132,7 @@ struct SignUpView: View {
                     Text(errorMessage)
                         .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
+                        .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                     
                 }
                 Spacer()
@@ -117,6 +155,18 @@ struct SignUpView: View {
         return emailPred.evaluate(with: email)
     }
     
+    func isValidPassword(_ password: String) -> Bool {
+        let numbers = CharacterSet(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
+        if password.count <= 7 {
+            return false
+        } else if password.rangeOfCharacter(from: numbers) == nil {
+            return false
+        }
+        
+        return true
+    }
+
+    
     func checkUserInputFieldsForProblem() {
         
         
@@ -125,7 +175,10 @@ struct SignUpView: View {
         }
         else if !isValidEmail(self.email) {
             errorMessage = "Please enter a valid email address"
-        } else if password != reenter {
+        } else if !isValidPassword(self.password){
+          errorMessage = "Password must contain at least 1 number"
+        }
+        else if password != reenter {
             errorMessage = "Password and reenter password fields must be the same"
         } else {
             errorMessage = ""
