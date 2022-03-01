@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewUserHomeView: View {
     var screenSize: CGSize
+    @State var username: String = ""
     @State var offset: CGFloat = 0
     var body: some View {
         VStack {
@@ -18,7 +19,7 @@ struct NewUserHomeView: View {
                 Image("arro-logo")
                     .resizable()
                     .renderingMode(.template)
-                    .foregroundColor(Color(AppColors.purple))
+                    .foregroundColor(pages[getIndex()].color)
                     .frame(width: 50, height: 50)
                     .aspectRatio(contentMode: .fit)
                 
@@ -31,27 +32,30 @@ struct NewUserHomeView: View {
                 
                 
                 HStack(spacing: 0) {
-                    ForEach((1...3), id: \.self) { number in
-                        VStack {
-                            Text("\(number)")
-                                .frame(height: screenSize.height / 3 )
-                            
-                            VStack(alignment: .leading, spacing: 22) {
-                                Text("title")
-                                    .modifier(Poppins(fontWeight: AppFont.semiBold, .largeTitle))
-                                    .foregroundColor(pages[number - 1].color)
-                                
-                                Text("description")
-                                    .modifier(Poppins(fontWeight: AppFont.regular))
-                                    .foregroundColor(.secondary)
-                                
-                            }
+                    VStack {
+                            UsernameSubmissionView(username: $username, color: pages[0].color)
                             .padding(.top, 50 )
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding()
                         .frame(width: screenSize.width)
+                    
+                    VStack {
+                        FirstLastNameSubmission(color: pages[1].color)
+                        .padding(.top, 50 )
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .padding()
+                    .frame(width: screenSize.width)
+                    
+                    VStack {
+                        ProfilePictureSubmission(username: $username, color: pages[2].color)
+                        .padding(.top, 50 )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding()
+                    .frame(width: screenSize.width)
+                    
                 }
             }
             // animated paging indicator
