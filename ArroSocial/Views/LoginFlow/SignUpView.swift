@@ -141,7 +141,7 @@ struct SignUpView: View {
                     .fill(Color.gray.opacity(0.5))
                     .frame(maxWidth: .infinity, maxHeight: 2)
                 Spacer()
-                Text("Read our Terms & Conditions.")
+                Text("Read our Terms & Conditions")
                     .foregroundColor(Color(AppColors.purple))
                 
             }

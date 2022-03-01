@@ -23,6 +23,7 @@ struct AppPages {
 
 struct AppColors {
     static let background = "background"
+    static let bg = "BgColor"
     static let secondary = "secondary"
     static let purple = "purple"
     static let blue = "blue"

@@ -79,7 +79,7 @@ struct LoginView: View {
                     .fill(Color.gray)
                     .frame(maxWidth: .infinity, maxHeight: 2)
                 Spacer()
-                Text("Read our Terms & Conditions.")
+                Text("Read our Terms & Conditions")
                     .foregroundColor(Color(AppColors.purple))
                 
             }

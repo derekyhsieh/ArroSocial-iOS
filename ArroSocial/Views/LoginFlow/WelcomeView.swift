@@ -19,7 +19,7 @@ struct WelcomeView: View {
         } else {
             NavigationView {
                 ZStack {
-                    Color.gray.opacity(0.2).edgesIgnoringSafeArea(.all)
+                    Color(AppColors.bg).edgesIgnoringSafeArea(.all)
                     VStack {
                         Spacer()
                         
@@ -64,13 +64,21 @@ struct WelcomeView: View {
                             })
                             .navigationBarHidden(true)
                         
-                        HStack {
-                            Text("New around here? ")
-                                .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
-                            Text("More about Arro Social")
-                                .foregroundColor(Color(AppColors.purple))
-                                .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
+                        Button(action: {
+                            // open arro social website
+                            guard let url = URL(string: "https://arro.io") else { return }
+                            UIApplication.shared.open(url)
+                        }) {
+                            HStack {
+                                Text("New around here? ")
+                                    .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
+                                    .foregroundColor(Color.black)
+                                Text("More about Arro Social")
+                                    .foregroundColor(Color(AppColors.purple))
+                                    .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
+                            }
                         }
+                     
                     }
                     .padding()
                     .padding(.bottom)
