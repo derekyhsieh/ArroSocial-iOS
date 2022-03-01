@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct NewUserHomeView: View {
+    @Binding var isShowingNewUserWalkthrough: Bool
     var screenSize: CGSize
     @State var username: String = ""
     @State var offset: CGFloat = 0
     var body: some View {
         VStack {
             Button(action: {
-                
+                withAnimation {
+                    isShowingNewUserWalkthrough = false
+                }
+           
             }) {
                 Image("arro-logo")
                     .resizable()
@@ -130,13 +134,13 @@ struct NewUserHomeView: View {
     }
 }
 
-struct NewUserHome_Previews: PreviewProvider {
-    static var previews: some View {
-        // get screen size
-        GeometryReader { proxy in
-            let size = proxy.size
-            
-            NewUserHomeView(screenSize: size)
-        }
-    }
-}
+//struct NewUserHome_Previews: PreviewProvider {
+//    static var previews: some View {
+//        // get screen size
+//        GeometryReader { proxy in
+//            let size = proxy.size
+//
+//            NewUserHomeView(screenSize: size)
+//        }
+//    }
+//}

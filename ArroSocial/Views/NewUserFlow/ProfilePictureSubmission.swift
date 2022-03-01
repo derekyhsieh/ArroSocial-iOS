@@ -18,9 +18,10 @@ struct ProfilePictureSubmission: View {
                     .fill(generatedProfileColor)
                     .frame(width: 200, height: 200)
                     .overlay(
-                        Text(generateProfilePicText())
+                        Text(username.count == 0 ? "as" : (username.prefix(2)))
                             .foregroundColor(Color.white)
-                            .modifier(Poppins(fontWeight: AppFont.semiBold, .largeTitle))
+//                            .modifier(Poppins(fontWeight: AppFont.semiBold, .largeTitle))
+                            .font(.custom(("Poppins-"+AppFont.semiBold), size: 90))
                     )
             }
             

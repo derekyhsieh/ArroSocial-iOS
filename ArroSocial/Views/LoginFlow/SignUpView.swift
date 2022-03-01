@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Binding var showNewUserWalkthrough: Bool
     @State private var emailIsOk: Bool = false
     @State private var passwordIsOk: Bool = false
     @State private var reenterIsOk: Bool = false
@@ -176,21 +177,24 @@ struct SignUpView: View {
         else if !isValidEmail(self.email) {
             errorMessage = "Please enter a valid email address"
         } else if !isValidPassword(self.password){
-          errorMessage = "Password must contain at least 1 number"
+          errorMessage = "Password must contain at least 1 number and be 8 characters or longer"
         }
         else if password != reenter {
             errorMessage = "Password and reenter password fields must be the same"
         } else {
             errorMessage = ""
+            withAnimation {
+                self.showNewUserWalkthrough = true
+            }
         }
     }
 }
 
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView()
-            .preferredColorScheme(.light)
-    }
-}
+//struct SignUpView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpView()
+//            .preferredColorScheme(.light)
+//    }
+//}
 
 

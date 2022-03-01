@@ -15,14 +15,14 @@ struct ContentView: View {
 //            .environment(\.colorScheme, .dark)
 //
         
-//        WelcomeView()
-//            .environment(\.colorScheme, .light)
+        WelcomeView()
+            .environment(\.colorScheme, .light)
         
-        GeometryReader { proxy in
-            let size = proxy.size
-            
-            NewUserHomeView(screenSize: size)
-        }
+//        GeometryReader { proxy in
+//            let size = proxy.size
+//
+//            NewUserHomeView(screenSize: size)
+//        }
     }
     
 }

@@ -15,7 +15,8 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            Color(AppColors.background).edgesIgnoringSafeArea(.all)
+            Color("BgColor").edgesIgnoringSafeArea(.all)
+            
             VStack {
                 
                 HStack {
@@ -23,7 +24,7 @@ struct LoginView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color.black)
                             .font(.title2)
                     }
                     
@@ -37,13 +38,13 @@ struct LoginView: View {
                     Text("Log In")
                         .modifier(Poppins(fontWeight: AppFont.semiBold, .title))
                         .padding(.bottom, 30)
-                        .foregroundColor(Color.white)
-                 
+                        .foregroundColor(Color.black)
+                    
                     TextField("email address", text: $email)
                         .font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.black)
+                        .background(Color.white)
                         .cornerRadius(50.0)
                         .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                         .padding(.vertical)
@@ -52,7 +53,7 @@ struct LoginView: View {
                         .font(.title3)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.black)
+                        .background(Color.white)
                         .cornerRadius(50.0)
                         .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
                         .padding(.vertical)
@@ -68,8 +69,8 @@ struct LoginView: View {
                             .padding(.vertical)
                         
                     }
-                
-                   
+                    
+                    
                     
                 }
                 Spacer()
@@ -88,7 +89,7 @@ struct LoginView: View {
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
+        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
@@ -97,12 +98,19 @@ struct LoginView: View {
         
         
         if email.isEmpty || password.isEmpty {
-            errorMessage = "All fields must be entered"
+            withAnimation
+            {
+                errorMessage = "All fields must be entered"
+            }
         }
         else if !isValidEmail(self.email) {
-            errorMessage = "Please enter a valid email address"
+            withAnimation {
+                errorMessage = "Please enter a valid email address"
+            }
         } else {
-            errorMessage = ""
+            withAnimation {
+                errorMessage = ""
+            }
         }
     }
 }
@@ -110,6 +118,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-//            .preferredColorScheme(.dark)
+            .preferredColorScheme(.light)
     }
 }

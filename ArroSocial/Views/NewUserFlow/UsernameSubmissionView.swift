@@ -23,6 +23,7 @@ struct UsernameSubmissionView: View {
                 .font(.title3)
                 .padding()
                 .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
