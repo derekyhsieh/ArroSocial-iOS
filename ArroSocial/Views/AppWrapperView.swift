@@ -25,9 +25,9 @@ struct AppWrapperView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                HomeView()
+                HomeFeedView()
                     .tag("house")
-                    .ignoresSafeArea(.all, edges: .all)
+                    .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue
                     .overlay(Text(tabs[1]))
                     .tag("globe.americas")
@@ -61,7 +61,7 @@ struct AppWrapperView: View {
                                 .foregroundColor(selectedTab == image ? Color(AppColors.purple) : Color.gray)
 //                                .fontWeight(selectedTab == image ? .bold : .none)
                                 .padding(selectedTab == image ? 15 : 0)
-                                .background(Color(AppColors.secondary).opacity(selectedTab == image ? 1 : 0))
+                                .background(Color(.white).opacity(selectedTab == image ? 1 : 0))
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .clipShape(Circle())
                                 .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -42 : 0)
@@ -84,11 +84,11 @@ struct AppWrapperView: View {
             }
             .padding(.horizontal , 30)
             .padding(.vertical)
-            .background(Color(AppColors.secondary).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
+            .background(Color(.white).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
             .padding(.horizontal)
             .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
-            .shadow(color: Color.black, radius: 50, x: -10, y: 0)
-            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
+            .shadow(color: Color.black.opacity(0.1), radius: 70, x: -10, y: 0)
+            .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
         }
         .ignoresSafeArea(.all, edges: .bottom)
     }

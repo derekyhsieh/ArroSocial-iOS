@@ -9,9 +9,11 @@ import SwiftUI
 
 struct NewUserHomeView: View {
     @Binding var isShowingNewUserWalkthrough: Bool
+    @Binding var isShowingWelcome: Bool
     var screenSize: CGSize
     @State var username: String = ""
     @State var offset: CGFloat = 0
+    @State private var indexNumber = 0
     var body: some View {
         VStack {
             Button(action: {
@@ -86,11 +88,27 @@ struct NewUserHomeView: View {
                 
                 Spacer()
                 
+                // TODO: FIX BUG FOR END //////////
+                
                 Button(action: {
                     // update offset
                     let index = min(getIndex() + 1, pages.count - 1)
                     offset = CGFloat(index) * screenSize.width
+                    
+                    // need to find when user is at end of walkthrough
+                    if(index == 2 || offset == screenSize.width * 2) {
+                        indexNumber += 1
+                    }
+                    print(index)
+                    // need to have top if statemnet run twice in order for the paging view to be done
+                    if(indexNumber >= 2 && index == 2) {
+                        print("ENDED")
+                        withAnimation {
+                            self.isShowingWelcome = false
+                        }
+                    }
                     hideKeyboard()
+                    
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.title2.bold())

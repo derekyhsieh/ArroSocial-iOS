@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isShowingWelcome: Bool = true
     var body: some View {
         
-        
-//                        AppWrapperView()
-//            .environment(\.colorScheme, .dark)
-//
-        
-        WelcomeView()
-            .environment(\.colorScheme, .light)
-        
-//        GeometryReader { proxy in
-//            let size = proxy.size
-//
-//            NewUserHomeView(screenSize: size)
-//        }
+        if isShowingWelcome {
+            
+            WelcomeView(isShowingWelcome: $isShowingWelcome)
+                .environment(\.colorScheme, .light)
+        } else {
+            
+            AppWrapperView()
+        }
+  
     }
     
 }

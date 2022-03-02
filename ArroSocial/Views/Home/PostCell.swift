@@ -115,7 +115,7 @@ struct PostCell: View {
     }
 }
 
-let data = PostModel(id: UUID(), postID: "123", userID: "123", userPicture: Image("person"), username: "JaneDoe", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d2"), dateCreated: Date(), likeCount: 123, likedByUser: true)
+
 struct PostCell_Previews: PreviewProvider {
 
     static var previews: some View {

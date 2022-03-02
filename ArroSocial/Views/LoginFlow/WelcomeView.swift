@@ -9,10 +9,11 @@ import SwiftUI
 
 struct WelcomeView: View {
     @State var showNewUserWalkthrough: Bool = false
+    @Binding var isShowingWelcome: Bool
     var body: some View {
         if showNewUserWalkthrough {
             GeometryReader { proxy in
-                NewUserHomeView(isShowingNewUserWalkthrough: $showNewUserWalkthrough, screenSize: proxy.size)
+                NewUserHomeView(isShowingNewUserWalkthrough: $showNewUserWalkthrough, isShowingWelcome: $isShowingWelcome, screenSize: proxy.size)
 
             }
                 .transition(.move(edge: .trailing))
@@ -89,10 +90,10 @@ struct WelcomeView: View {
     }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        WelcomeView()
-    }
-}
+//struct WelcomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WelcomeView()
+//    }
+//}
 
 
