@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-var tabs = [AppPages.home, AppPages.explore, AppPages.activity, AppPages.settings]
+var tabs = [AppPages.home, AppPages.messages, AppPages.search, AppPages.settings]
 
 struct AppWrapperView: View {
     @State var selectedTab = "house"
@@ -26,20 +26,19 @@ struct AppWrapperView: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
                 HomeFeedView()
-                    .tag("house")
+                    .tag(tabs[0])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue
                     .overlay(Text(tabs[1]))
-                    .tag("globe.americas")
+                    .tag(tabs[1])
                     .ignoresSafeArea(.all, edges: .all)
                 Color.yellow
                     .overlay(Text(tabs[2]))
-                    .tag("bell")
+                    .tag(tabs[2])
                     .ignoresSafeArea(.all, edges: .all)
-                Color.purple
-                    .overlay(Text(tabs[3]))
-                    .tag("gear")
-                    .ignoresSafeArea(.all, edges: .all)
+                SettingsView()
+                    .tag(tabs[3])
+                    .ignoresSafeArea(.all, edges: [.leading, .trailing])
             }
             
             HStack(spacing: 0) {

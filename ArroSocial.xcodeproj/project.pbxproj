@@ -32,6 +32,7 @@
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
+		4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE709D27D080F400F42F8C /* SettingsView.swift */; };
 		4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD91F927C80F23007A95F7 /* HomeView.swift */; };
 		4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
+		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4BFD91F927C80F23007A95F7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4BEE709C27D0802E00F42F8C /* Settings */,
 				4B1533E527CDCA590059C7C7 /* NewUserFlow */,
 				4B1533DC27CC7FA00059C7C7 /* LoginFlow */,
 				4B1533D827CC7F580059C7C7 /* Components */,
@@ -181,6 +184,14 @@
 				4B1533E127CC83940059C7C7 /* Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4BEE709C27D0802E00F42F8C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4BEE709D27D080F400F42F8C /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		4BFD91F827C80F17007A95F7 /* Home */ = {
@@ -289,6 +300,7 @@
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
+				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

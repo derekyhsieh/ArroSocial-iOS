@@ -16,8 +16,8 @@ struct AppFont {
 
 struct AppPages {
     static let home = "house"
-    static let explore = "globe.americas"
-    static let activity = "bell"
+    static let messages = "message"
+    static let search = "magnifyingglass"
     static let settings = "gear"
 }
 

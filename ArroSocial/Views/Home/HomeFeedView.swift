@@ -18,9 +18,9 @@ struct HomeFeedView: View {
                         Image(systemName: "arrow.uturn.up")
                         
                             .font(.title.bold())
-                            .frame(width: 35, height: 35)
+                            .frame(width: 30, height: 30)
                             .foregroundColor(.white)
-                            .padding(13)
+                            .padding(10)
                             .background(Color(AppColors.purple) .clipShape(Circle()))
                             .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0.0, y: 16)
                         
@@ -29,21 +29,33 @@ struct HomeFeedView: View {
                     }
                     
                     Spacer()
+                    
                     Button(action: {}) {
                         Image(systemName: "plus")
                             .font(.title.bold())
                             .frame(width: 30, height: 30)
-                            .padding(5)
-                            .foregroundColor(.black)
+                            .padding(10)
+                            .padding(.horizontal, 10)
+                            .foregroundColor(Color.black.opacity(0.7))
+                            .background(
+                                Circle()
+                                    .fill(Color.gray.opacity(0.15))
+                                    .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0.0, y: 16)
+                            )
                     }
+                    
                     Spacer()
+    
                     
                     HStack {
                         
-                        Circle()
-                            .fill(Color(AppColors.blue))
+//                        Circle()
+//                            .fill(Color(AppColors.blue))
+                        Image("person")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 40, height: 40)
-                            .overlay(Text("de"))
+                            .clipShape(Circle())
                             .font(.custom("Poppins-SemiBold", size: 20))
                             .foregroundColor(.white)
                             .padding(.trailing, 5)

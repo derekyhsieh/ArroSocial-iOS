@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PrimaryButton: View {
+    var color: Color? = Color(AppColors.purple)
     var title: String
     var body: some View {
         Text(title)
@@ -15,7 +16,7 @@ struct PrimaryButton: View {
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color(AppColors.purple))
+            .background(color)
             .cornerRadius(50)
     }
 }
