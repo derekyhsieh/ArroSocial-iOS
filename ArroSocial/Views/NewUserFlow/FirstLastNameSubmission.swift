@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FirstLastNameSubmission: View {
-    @State private var firstN: String = ""
-    @State private var lastN: String = ""
+    @Binding var firstN: String
+    @Binding var lastN: String
     var color: Color
     var body: some View {
         VStack {
@@ -46,8 +46,8 @@ struct FirstLastNameSubmission: View {
     }
 }
 
-struct FirstLastNameSubmission_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstLastNameSubmission(color: Color(AppColors.blue))
-    }
-}
+//struct FirstLastNameSubmission_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FirstLastNameSubmission(color: Color(AppColors.blue))
+//    }
+//}

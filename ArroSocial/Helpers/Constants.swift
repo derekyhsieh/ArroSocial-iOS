@@ -29,3 +29,17 @@ struct AppColors {
     static let blue = "blue"
     static let lightBlue = "lightBlue"
 }
+
+// Firestore Collection constants
+struct FSCollections {
+    static let users = "users"
+}
+
+// Firestore user data constants
+struct FSUserData {
+    static let username = "username"
+    static let fName = "first_name"
+    static let lName = "last_name"
+    static let profilePicture = "profile_picture"
+    static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
+}

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfilePictureSubmission: View {
-    @State private var generatedProfileColor: Color = Color.random()
+    @Binding var generatedProfileColor: Color
     @Binding var username: String
     var color: Color
     var body: some View {

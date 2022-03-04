@@ -11,126 +11,170 @@ struct NewUserHomeView: View {
     @Binding var isShowingNewUserWalkthrough: Bool
     @Binding var isShowingWelcome: Bool
     var screenSize: CGSize
+    
+    
+    // MARK: VARS FOR ONBOARDING THAT GET WRITTEN
     @State var username: String = ""
+    @State var fName: String = ""
+    @State var lName: String = ""
+    @State var backgroundColor: Color = Color.random()
+    
+    
     @State var offset: CGFloat = 0
     @State private var indexNumber = 0
     @State private var isDeletingUser: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
-        VStack {
-            
-            Button(action: {
+            VStack {
                 
-                self.deleteUser()
-           
-            }) {
-                Image("arro-logo")
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundColor(pages[getIndex()].color)
-                    .frame(width: 50, height: 50)
-                    .aspectRatio(contentMode: .fit)
+                Button(action: {
+                    
+                    self.deleteUser()
+                    
+                }) {
+                    Image("arro-logo")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(pages[getIndex()].color)
+                        .frame(width: 50, height: 50)
+                        .aspectRatio(contentMode: .fit)
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
                 
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-            
-            OffsetPageTabView(offset: $offset) {
-                
-                
-                
-                HStack(spacing: 0) {
-                    VStack {
+                OffsetPageTabView(offset: $offset) {
+                    
+                    
+                    
+                    HStack(spacing: 0) {
+                        VStack {
                             UsernameSubmissionView(username: $username, color: pages[0].color)
-                            .padding(.top, 50 )
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, 50 )
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding()
                         .frame(width: screenSize.width)
-                    
-                    VStack {
-                        FirstLastNameSubmission(color: pages[1].color)
-                        .padding(.top, 50 )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding()
-                    .frame(width: screenSize.width)
-                    
-                    VStack {
-                        ProfilePictureSubmission(username: $username, color: pages[2].color)
-                        .padding(.top, 50 )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding()
-                    .frame(width: screenSize.width)
-                    
-                }
-            }
-            // animated paging indicator
-            HStack(alignment: .bottom) {
-                
-                HStack(spacing: 12) {
-                    ForEach(pages.indices, id: \.self) { index in
-                        Capsule()
-                            .fill(pages[getIndex()].color)
-                        // changes width only for current index
-                            .frame(width: getIndex() == index ? 20 : 7, height: 7)
+                        
+                        VStack {
+                            
+                            FirstLastNameSubmission(firstN: $fName, lastN: $lName, color: pages[1].color)
+                                .padding(.top, 50 )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                        }
+                        .padding()
+                        .frame(width: screenSize.width)
+                        
+                        VStack {
+                            ProfilePictureSubmission(generatedProfileColor: $backgroundColor, username: $username, color: pages[2].color)
+                                .padding(.top, 50 )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding()
+                        .frame(width: screenSize.width)
                         
                     }
                 }
-                .overlay(
-                    Capsule()
-                        .fill(pages[getIndex()].color)
-                        .frame(width: 20, height: 7)
-                        .offset(x: getIndicatorOffset())
-                    , alignment: .leading
-                )
-                .offset(y: -15)
-                .padding()
-                
-                Spacer()
-                
-                // TODO: FIX BUG FOR END //////////
-                
-                Button(action: {
-                    // update offset
-                    let index = min(getIndex() + 1, pages.count - 1)
-                    offset = CGFloat(index) * screenSize.width
+                // animated paging indicator
+                HStack(alignment: .bottom) {
                     
-                    // need to find when user is at end of walkthrough
-                    if(index == 2 || offset == screenSize.width * 2) {
-                        indexNumber += 1
-                    }
-                    print(index)
-                    // need to have top if statemnet run twice in order for the paging view to be done
-                    if(indexNumber >= 2 && index == 2) {
-                        print("ENDED")
-                        withAnimation {
-                            self.isShowingWelcome = false
+                    HStack(spacing: 12) {
+                        ForEach(pages.indices, id: \.self) { index in
+                            Capsule()
+                                .fill(pages[getIndex()].color)
+                            // changes width only for current index
+                                .frame(width: getIndex() == index ? 20 : 7, height: 7)
+                            
                         }
                     }
-                    hideKeyboard()
+                    .overlay(
+                        Capsule()
+                            .fill(pages[getIndex()].color)
+                            .frame(width: 20, height: 7)
+                            .offset(x: getIndicatorOffset())
+                        , alignment: .leading
+                    )
+                    .offset(y: -15)
+                    .padding()
                     
-                }) {
-                    Image(systemName: "chevron.right")
-                        .font(.title2.bold())
-                        .foregroundColor(Color.white)
-                        .padding(20)
-                        .background(
-                            pages[getIndex()].color,
-                            in: Circle()
+                    Spacer()
+                    
+                    // TODO: FIX BUG FOR END //////////
+                    
+                    Button(action: {
+                        // update offset
+                        let index = min(getIndex() + 1, pages.count - 1)
+                        offset = CGFloat(index) * screenSize.width
+                        print(offset)
+                        
+                        // need to find when user is at end of walkthrough
+                        if(index == 2 || offset == screenSize.width * 2) {
+                            indexNumber += 1
+                        }
+                        // need to have top if statemnet run twice in order for the paging view to be done
+                        
+                        if(fName != "" && lName != "" && username != "" && indexNumber >= 2 && index == 2) {
+                            // ended onboarding
                             
-                        )
+                            withAnimation {
+                                self.isLoading = true
+                                
+                                AuthenticationService.instance.updateUserInfo(profilePicture: nil, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
+                                    
+                                    // make sure user id isn't nil
+                                    if let userID = userID {
+                                        
+                                        if isError {
+                                            print("error writing user data to firestore: userID: " + userID)
+                                            return
+                                        } else {
+                                            print("successfully written user data to firestore: \(userID)")
+                                            self.isLoading = false
+                                            self.isShowingWelcome = false
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    } else {
+                                        // user id is not nil - should be impossible but just in case
+                                        print("error getting user id from current user")
+                                        return
+                                    }
+                                    
+                                    // no errors
+                                    
+                                    
+                                }
+                                
+                                //                            self.isShowingWelcome = false
+                            }
+                        }
+                        hideKeyboard()
+                        
+                    }) {
+                        Image(systemName: "chevron.right")
+                            .font(.title2.bold())
+                            .foregroundColor(Color.white)
+                            .padding(20)
+                            .background(
+                                pages[getIndex()].color,
+                                in: Circle()
+                                
+                            )
+                    }
+                    .padding()
+                    //                .offset(y: -20)
                 }
-                .padding()
-                //                .offset(y: -20)
+                
             }
-            
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        // animating when index changes
-        .animation(.easeInOut, value: getIndex())
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            // animating when index changes
+            .animation(.easeInOut, value: getIndex())
             if isDeletingUser {
                 ProgressView("Deleting Account...")
                     .padding()
@@ -144,7 +188,24 @@ struct NewUserHomeView: View {
                             .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0, y: 0)
                     )
             }
-       
+            
+            if self.isLoading {
+                ProgressView("Creating Account")
+                    .padding()
+                    .padding()
+                    .padding()
+                    .scaleEffect(1.5, anchor: .center)
+                    .accentColor(Color(AppColors.purple))
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0, y: 0)
+                    )
+            }
+            
+            
+            
+            
         }
         
     }

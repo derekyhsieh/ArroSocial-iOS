@@ -12,11 +12,11 @@ struct ContentView: View {
     var body: some View {
         
         if isShowingWelcome {
-            
+
             WelcomeView(isShowingWelcome: $isShowingWelcome)
                 .environment(\.colorScheme, .light)
         } else {
-            
+
             AppWrapperView()
         }
   
