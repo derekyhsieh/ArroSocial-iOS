@@ -14,12 +14,15 @@ struct NewUserHomeView: View {
     @State var username: String = ""
     @State var offset: CGFloat = 0
     @State private var indexNumber = 0
+    @State private var isDeletingUser: Bool = false
+    
     var body: some View {
+        ZStack {
         VStack {
+            
             Button(action: {
-                withAnimation {
-                    isShowingNewUserWalkthrough = false
-                }
+                
+                self.deleteUser()
            
             }) {
                 Image("arro-logo")
@@ -128,6 +131,21 @@ struct NewUserHomeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         // animating when index changes
         .animation(.easeInOut, value: getIndex())
+            if isDeletingUser {
+                ProgressView("Deleting Account...")
+                    .padding()
+                    .padding()
+                    .padding()
+                    .scaleEffect(1.5, anchor: .center)
+                    .accentColor(Color(AppColors.purple))
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0, y: 0)
+                    )
+            }
+       
+        }
         
     }
     
@@ -149,6 +167,21 @@ struct NewUserHomeView: View {
         // error handling
         let index = min(Int(progress), pages.count - 1)
         return (index)
+    }
+    
+    func deleteUser() {
+        AuthenticationService.instance.deleteUser(hasUserCompletedOnboarding: false, userHasData: false) { error in
+            if let error = error {
+                // error present
+                print(error)
+            } else {
+                // success
+                withAnimation {
+                    self.isDeletingUser = false
+                    self.isShowingNewUserWalkthrough = false
+                }
+            }
+        }
     }
 }
 
