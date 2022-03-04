@@ -26,6 +26,7 @@
 		4B3EB73E27D09FDD004C002C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73D27D09FDD004C002C /* FirebaseAuth */; };
 		4B3EB74027D09FDD004C002C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73F27D09FDD004C002C /* FirebaseFirestore */; };
 		4B3EB74227D09FDD004C002C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB74127D09FDD004C002C /* FirebaseStorage */; };
+		4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42724927D1E0C600984206 /* AuthenticationService.swift */; };
 		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
@@ -58,6 +59,7 @@
 		4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
 		4B1DB73527CF33FA0075ED5D /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4B42724927D1E0C600984206 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroSocialApp.swift; sourceTree = "<group>"; };
@@ -130,6 +132,22 @@
 			path = NewUserFlow;
 			sourceTree = "<group>";
 		};
+		4B42724727D1E03A00984206 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				4B42724827D1E04100984206 /* Authentication */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		4B42724827D1E04100984206 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				4B42724927D1E0C600984206 /* AuthenticationService.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		4B6AF00227C6F9660070B7E8 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +172,7 @@
 				4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */,
 				4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */,
 				4B6AF02027C724790070B7E8 /* Poppins-SemiBold.ttf */,
+				4B42724727D1E03A00984206 /* Backend */,
 				4B6AF01D27C7244F0070B7E8 /* Helpers */,
 				4B1533CD27CC3EDB0059C7C7 /* Models */,
 				4B6AF01C27C724430070B7E8 /* Views */,
@@ -322,6 +341,7 @@
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
+				4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

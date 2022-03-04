@@ -17,6 +17,7 @@ struct SignUpView: View {
     @State private var password: String = "" // by default it's empty
     @State private var reenter: String = "" // by default it's empty
     @State private var errorMessage: String = ""
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
@@ -84,7 +85,7 @@ struct SignUpView: View {
                                     // animate state var for checkmark when email is valid
                                     self.passwordIsOk = isValidPassword(passwordValue)
                                 }
-                        }
+                            }
                         if(passwordIsOk) {
                             Text(Image(systemName: "checkmark"))
                                 .fontWeight(.bold)
@@ -93,7 +94,7 @@ struct SignUpView: View {
                             
                         }
                     }
-                
+                    
                     
                     HStack {
                         SecureField("re-eenter password", text: $reenter)
@@ -108,12 +109,12 @@ struct SignUpView: View {
                                 withAnimation {
                                     // animate state var for checkmark when valid
                                     if reenterValue == self.password {
-                                       reenterIsOk = true
+                                        reenterIsOk = true
                                     } else {
                                         reenterIsOk = false
                                     }
                                 }
-                        }
+                            }
                         
                         if reenterIsOk {
                             Text(Image(systemName: "checkmark"))
@@ -146,6 +147,20 @@ struct SignUpView: View {
                 
             }
             .padding()
+            
+            if isLoading {
+                ProgressView()
+                    .padding()
+                    .padding()
+                    .scaleEffect(1.5, anchor: .center)
+                    .accentColor(Color(AppColors.purple))
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0, y: 0)
+                    )
+            }
+            
         }
     }
     
@@ -166,7 +181,7 @@ struct SignUpView: View {
         
         return true
     }
-
+    
     
     func checkUserInputFieldsForProblem() {
         
@@ -177,24 +192,46 @@ struct SignUpView: View {
         else if !isValidEmail(self.email) {
             errorMessage = "Please enter a valid email address"
         } else if !isValidPassword(self.password){
-          errorMessage = "Password must contain at least 1 number and be 8 characters or longer"
+            errorMessage = "Password must contain at least 1 number and be 8 characters or longer"
         }
         else if password != reenter {
             errorMessage = "Password and reenter password fields must be the same"
         } else {
             errorMessage = ""
+            
             withAnimation {
-                self.showNewUserWalkthrough = true
+                // start progress view loading indicator
+                self.isLoading = true
             }
+
+            AuthenticationService.instance.createNewUser(email: self.email, password: self.password) { errorMessage, email in
+                if(errorMessage != nil) {
+                    // there were errors with authentication
+                    print(errorMessage!)
+                } else {
+                    // no errors with authentication and proceed
+                    
+                    // stop loading indicator
+                    self.isLoading = false
+                    
+                    withAnimation {
+                        print(email)
+                        self.showNewUserWalkthrough = true
+                    }
+                }
+            }
+            
+            
         }
     }
 }
 
-//struct SignUpView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignUpView()
-//            .preferredColorScheme(.light)
-//    }
-//}
+struct SignUpView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        SignUpView(showNewUserWalkthrough: .constant(false))
+            .preferredColorScheme(.light)
+    }
+}
 
 
