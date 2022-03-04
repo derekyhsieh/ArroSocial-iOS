@@ -53,6 +53,7 @@ struct SignUpView: View {
                             .background(Color.white)
                             .cornerRadius(50.0)
                             .shadow(color: Color.black.opacity(0.08), radius: 60, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 16)
+                            .textInputAutocapitalization(.never)
                             .padding(.vertical)
                             .keyboardType(.emailAddress)
                             .onChange(of: email) { emailValue in
@@ -203,11 +204,17 @@ struct SignUpView: View {
                 // start progress view loading indicator
                 self.isLoading = true
             }
-
+            
             AuthenticationService.instance.createNewUser(email: self.email, password: self.password) { errorMessage, email in
                 if(errorMessage != nil) {
                     // there were errors with authentication
                     print(errorMessage!)
+                    
+                    withAnimation {
+                        self.isLoading = false
+                        self.errorMessage = errorMessage!
+                    }
+                    
                 } else {
                     // no errors with authentication and proceed
                     
