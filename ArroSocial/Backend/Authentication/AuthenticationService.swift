@@ -110,7 +110,7 @@ class AuthenticationService {
                         FSUserData.lName: lastName as Any,
                         FSUserData.generatedProfilePictureBackgroundColorInHex: profilePictureBackgroundColor as Any
                     ]
-
+                    
                     
                     // can unwrap current user id with a bang since we checked before if user id was present
                     DB_BASE.collection(FSCollections.users).document(currentUserID!).setData(data) { error in
@@ -142,9 +142,46 @@ class AuthenticationService {
     ///   - password: password linked to user's account
     ///   - handler: returns an optional error message as a completion handler
     func signInUser(email: String, password: String, handler: @escaping(_ errorMessage: String?) -> ()) {
-        //  
+        //
     }
     
+    
+    ///  Checks whether username exists in Firestore user collection "username" field (if someone already has that same username)
+    /// - Parameters:
+    ///   - username: check for this username
+    ///   - handler: completition handler returns an error from database and boolean that tells if username exists in database
+    func checkIfUsernameExistsInDatabase(username: String, handler: @escaping(_ error: Error?, _ usernameExists: Bool) -> ()) {
+        
+        // sanitizing username
+        let cleanedUsername = username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        let DB_REF = DB_BASE.collection(FSCollections.users).whereField(FSUserData.username, isEqualTo: cleanedUsername).limit(to: 1)
+        DB_REF.getDocuments { (querySnapshot, error) in
+            
+            if let error = error {
+                // error fetching
+                handler(error, false)
+                return
+            }
+            
+            if let documents = querySnapshot?.documents{
+                if(documents.isEmpty) {
+                    // didnt find anything
+                    handler(nil, false)
+                    return
+                } else {
+                    // did find user with that username
+                    handler(nil, true)
+                    return
+                }
+            }
+        }
+        
+    }
+    
+    
+    
+    // MARK: PRIVATE VARIABLES
     
     /// returns current logged in user's unique identifier
     /// - Parameter handler: returns optional error message and userID in callback
@@ -159,17 +196,19 @@ class AuthenticationService {
         return
         
     }
-
+    
+    
+    
     
 }
 
 
 // MARK: Command to put in Firebase console to delete all users created - saves 2 clicks and automates
 /*
-     setInterval(() => {
-         document.getElementsByClassName('edit-account-button mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base')[0].click()
-         let deleteButtonPosition = document.getElementsByClassName('mat-focus-indicator mat-menu-item ng-star-inserted').length - 1
-         document.getElementsByClassName('mat-focus-indicator mat-menu-item ng-star-inserted')[deleteButtonPosition].click()
-         document.getElementsByClassName('confirm-button mat-focus-indicator mat-raised-button mat-button-base mat-warn')[0].click()
-     }, 1000)
+ setInterval(() => {
+ document.getElementsByClassName('edit-account-button mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base')[0].click()
+ let deleteButtonPosition = document.getElementsByClassName('mat-focus-indicator mat-menu-item ng-star-inserted').length - 1
+ document.getElementsByClassName('mat-focus-indicator mat-menu-item ng-star-inserted')[deleteButtonPosition].click()
+ document.getElementsByClassName('confirm-button mat-focus-indicator mat-raised-button mat-button-base mat-warn')[0].click()
+ }, 1000)
  */

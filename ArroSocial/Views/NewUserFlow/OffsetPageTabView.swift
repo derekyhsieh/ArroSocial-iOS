@@ -57,7 +57,6 @@ struct OffsetPageTabView<Content: View>: UIViewRepresentable {
         let currentOffset = uiView.contentOffset.x
         
         if currentOffset != offset {
-                print("updating")
             uiView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
         }
         
