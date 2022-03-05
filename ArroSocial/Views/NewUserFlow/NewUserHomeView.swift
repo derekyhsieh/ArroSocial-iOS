@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import SSToastMessage
 
 struct NewUserHomeView: View {
     @Binding var isShowingNewUserWalkthrough: Bool
     @Binding var isShowingWelcome: Bool
+    @State var clickedAttempts: Int = 0
     var screenSize: CGSize
     
     
@@ -24,6 +26,8 @@ struct NewUserHomeView: View {
     @State private var indexNumber = 0
     @State private var isDeletingUser: Bool = false
     @State private var isLoading: Bool = false
+    @State private var errorMessage: String = ""
+    @State private var isShowingErrorFloat: Bool = false
     
     var body: some View {
         ZStack {
@@ -155,12 +159,20 @@ struct NewUserHomeView: View {
                                 }
                             } else {
                                 // MARK: popup that user did not complete fields
+                                
+                                // shakes button with error
+                                withAnimation(.default) {
+                                    self.clickedAttempts += 1
+                                }
+                                
                                 print("user has not completed all onboarding fields")
+                                self.errorMessage = "Please complete all parts of the onboarding"
+                                self.isShowingErrorFloat = true
                             }
                             
                         }
                         
-          
+                        
                         hideKeyboard()
                         
                     }) {
@@ -175,6 +187,7 @@ struct NewUserHomeView: View {
                             )
                     }
                     .padding()
+                    .modifier(Shake(animatableData: CGFloat(clickedAttempts)))
                     //                .offset(y: -20)
                 }
                 
@@ -214,7 +227,9 @@ struct NewUserHomeView: View {
             
             
         }
-        
+        .present(isPresented: $isShowingErrorFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.0, closeOnTap: true, closeOnTapOutside: true) {
+            self.createErrorFloater()
+        }
     }
     
     // custom offset for indicators (bottom left)
@@ -225,6 +240,27 @@ struct NewUserHomeView: View {
         let maxWidth: CGFloat = 19
         
         return progress * maxWidth
+    }
+    
+    private func createErrorFloater() -> some View {
+        
+        VStack {
+            Text(self.errorMessage)
+                .foregroundColor(.white)
+                .modifier(Poppins(fontWeight: AppFont.medium, .caption2))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+            //
+            //            Text("Tap to dismiss")
+            //                .foregroundColor(Color.white.opacity(0.8))
+            //                .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
+        }
+        .padding()
+        .frame(width: UIScreen.main.bounds.width - 30, height: 100)
+        .background(Color.red)
+        .cornerRadius(15)
+        .shadow(color: Color.black.opacity(0.8), radius: 0.25, x: 0, y: 0)
+        
     }
     
     // changes index based on offset of paging view

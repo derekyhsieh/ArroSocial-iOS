@@ -38,6 +38,8 @@
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
+		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
+		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
 		4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE709D27D080F400F42F8C /* SettingsView.swift */; };
 		4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD91F927C80F23007A95F7 /* HomeView.swift */; };
 		4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */; };
@@ -73,6 +75,7 @@
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
+		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4BFD91F927C80F23007A95F7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 			files = (
 				4B3EB73C27D09FDD004C002C /* FirebaseAnalytics in Frameworks */,
 				4B3EB74227D09FDD004C002C /* FirebaseStorage in Frameworks */,
+				4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */,
 				4B3EB73E27D09FDD004C002C /* FirebaseAuth in Frameworks */,
 				4B3EB74027D09FDD004C002C /* FirebaseFirestore in Frameworks */,
 			);
@@ -212,6 +216,7 @@
 				4B6AF01E27C7245A0070B7E8 /* Constants.swift */,
 				4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */,
 				4B1533E127CC83940059C7C7 /* Extensions.swift */,
+				4BED1BB127D314FA00DB6830 /* Animations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 				4B3EB73D27D09FDD004C002C /* FirebaseAuth */,
 				4B3EB73F27D09FDD004C002C /* FirebaseFirestore */,
 				4B3EB74127D09FDD004C002C /* FirebaseStorage */,
+				4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */,
 			);
 			productName = ArroSocial;
 			productReference = 4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */;
@@ -287,6 +293,7 @@
 			mainGroup = 4B6AF00227C6F9660070B7E8;
 			packageReferences = (
 				4B3EB73A27D09FDD004C002C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4BED1BAB27D2DFEA00DB6830 /* XCRemoteSwiftPackageReference "SSToastMessage" */,
 			);
 			productRefGroup = 4B6AF00C27C6F9660070B7E8 /* Products */;
 			projectDirPath = "";
@@ -333,6 +340,7 @@
 				4B1533EB27CDCD600059C7C7 /* OffsetPageTabView.swift in Sources */,
 				4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */,
 				4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */,
+				4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
@@ -558,6 +566,14 @@
 				kind = branch;
 			};
 		};
+		4BED1BAB27D2DFEA00DB6830 /* XCRemoteSwiftPackageReference "SSToastMessage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimformSolutionsPvtLtd/SSToastMessage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -580,6 +596,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B3EB73A27D09FDD004C002C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BED1BAB27D2DFEA00DB6830 /* XCRemoteSwiftPackageReference "SSToastMessage" */;
+			productName = SSToastMessage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
