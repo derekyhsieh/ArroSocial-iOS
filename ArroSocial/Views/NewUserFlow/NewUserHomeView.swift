@@ -108,7 +108,6 @@ struct NewUserHomeView: View {
                         // update offset
                         let index = min(getIndex() + 1, pages.count - 1)
                         offset = CGFloat(index) * screenSize.width
-                        print(offset)
                         
                         // need to find when user is at end of walkthrough
                         if(index == 2 || offset == screenSize.width * 2) {
@@ -116,44 +115,52 @@ struct NewUserHomeView: View {
                         }
                         // need to have top if statemnet run twice in order for the paging view to be done
                         
-                        if(fName != "" && lName != "" && username != "" && indexNumber >= 2 && index == 2) {
-                            // ended onboarding
+                        if(indexNumber >= 2 && index == 2 && offset == screenSize.width * 2) {
+                            // reached end of onboarding
                             
-                            withAnimation {
-                                self.isLoading = true
+                            if(fName != "" && lName != "" && username != "") {
+                                // ended onboarding
                                 
-                                AuthenticationService.instance.updateUserInfo(profilePicture: nil, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
+                                withAnimation {
+                                    self.isLoading = true
                                     
-                                    // make sure user id isn't nil
-                                    if let userID = userID {
+                                    AuthenticationService.instance.updateUserInfo(profilePicture: nil, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
                                         
-                                        if isError {
-                                            print("error writing user data to firestore: userID: " + userID)
-                                            return
+                                        // make sure user id isn't nil
+                                        if let userID = userID {
+                                            
+                                            if isError {
+                                                print("error writing user data to firestore: userID: " + userID)
+                                                return
+                                            } else {
+                                                print("successfully written user data to firestore: \(userID)")
+                                                self.isLoading = false
+                                                self.isShowingWelcome = false
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
                                         } else {
-                                            print("successfully written user data to firestore: \(userID)")
-                                            self.isLoading = false
-                                            self.isShowingWelcome = false
+                                            // user id is not nil - should be impossible but just in case
+                                            print("error getting user id from current user")
+                                            return
                                         }
                                         
+                                        // no errors
                                         
                                         
-                                        
-                                        
-                                    } else {
-                                        // user id is not nil - should be impossible but just in case
-                                        print("error getting user id from current user")
-                                        return
                                     }
-                                    
-                                    // no errors
-                                    
-                                    
                                 }
-                                
-                                //                            self.isShowingWelcome = false
+                            } else {
+                                // MARK: popup that user did not complete fields
+                                print("user has not completed all onboarding fields")
                             }
+                            
                         }
+                        
+          
                         hideKeyboard()
                         
                     }) {
