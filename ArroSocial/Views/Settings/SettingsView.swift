@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
+    @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
+    @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
+    @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -19,9 +24,9 @@ struct SettingsView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ZStack(alignment: .bottomTrailing) {
                         Circle()
-                            .fill(Color(AppColors.blue))
+                            .fill(Color(hexString: profilePicColorBackground) ?? Color(AppColors.purple))
                             .frame(width: 125, height: 125)
-                            .overlay(Text("de"))
+                            .overlay(Text(username.prefix(2)))
                             .font(.custom("Poppins-SemiBold", size: 40))
                             .foregroundColor(.white)
                             .padding(.trailing, 5)
@@ -41,7 +46,7 @@ struct SettingsView: View {
                     
                     
                     
-                    Text("Derek Hsieh")
+                    Text(firstName + " " + lastName)
                         .foregroundColor(Color.black)
                         .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
                         .padding()
@@ -186,6 +191,13 @@ struct SettingsView: View {
     
     private func signOut() {
         // sign out logic
+        AuthenticationService.instance.signOutCurrentUser { error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("successfully signed out user")
+            }
+        }
     }
 }
 

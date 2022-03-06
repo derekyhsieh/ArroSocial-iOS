@@ -62,6 +62,7 @@ struct LoginView: View {
                     Text(errorMessage)
                         .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
+                        .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                     
                     
                     
@@ -111,6 +112,14 @@ struct LoginView: View {
         } else {
             withAnimation {
                 errorMessage = ""
+                AuthenticationService.instance.signInUser(email: self.email, password: self.password) { error in
+                    if let error = error {
+                        self.errorMessage = error.localizedDescription
+                    } else {
+                        // user is successfully signed in
+                        
+                    }
+                }
             }
         }
     }

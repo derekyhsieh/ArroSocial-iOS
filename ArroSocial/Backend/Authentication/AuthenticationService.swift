@@ -88,10 +88,7 @@ class AuthenticationService {
     func updateUserInfo(profilePicture: Image?, username: String?, firstName: String?, lastName: String?, profilePictureBackgroundColor: String?, handler: @escaping(_ isError: Bool,  _ userID: String?) -> ()) {
         
         
-        self.getCurrentUserID { errorMessage, userID in
-            if(errorMessage != nil) {
-                // error here getting user id
-                print(errorMessage!)
+        self.getCurrentUserID { errorMessage, userID in if(errorMessage != nil) { // error here getting user id print(errorMessage!)
                 handler(true , nil)
                 return
             } else {
@@ -136,13 +133,65 @@ class AuthenticationService {
     }
     
     
+    // TODO: write documentation for this function later
+    func getUserInfo(userID: String, handler: @escaping(_ error: Error?, _ userID: String?, _ username: String?, _ firstName: String?, _ lastName: String?, _ profilePictureBackgroundColor: String?, _ profilePicture: Image?) -> ()) {
+        // reference for document
+        let documentRef = DB_BASE.collection(FSCollections.users).document(userID)
+        
+        documentRef.getDocument { document, error in
+            // check if document with user id exists
+            
+            if let error = error {
+                print("error: \(error): [AuthService.getUserInfo()]")
+                handler(error, nil, nil, nil, nil, nil, nil)
+                return
+            }
+            if let document = document, document.exists {
+                
+                let userID = document.documentID
+                let username = document.get(FSUserData.username) as! String
+                let firstName = document.get(FSUserData.fName) as! String
+                let lastName = document.get(FSUserData.lName) as! String
+                let profilePictureBackgroundColor = document.get(FSUserData.generatedProfilePictureBackgroundColorInHex) as! String
+                
+                // TODO: LATER CHECK IF UPLOADED PROFILE PICTURE EXISTS
+                
+                handler(nil, userID, username, firstName, lastName, profilePictureBackgroundColor, nil)
+                return
+            }
+              
+        }
+        
+        
+     }
+    
+    
     /// Signs in user using email and string with Firebase Authentication
     /// - Parameters:
     ///   - email: email linked to user's account
     ///   - password: password linked to user's account
     ///   - handler: returns an optional error message as a completion handler
-    func signInUser(email: String, password: String, handler: @escaping(_ errorMessage: String?) -> ()) {
-        //
+    func signInUser(email: String, password: String, handler: @escaping(_ error: Error?) -> ()) {
+        let cleanedEmail = email.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        Auth.auth().signIn(withEmail: cleanedEmail, password: password) { authDataResult, error in
+            if let error = error {
+                print("error in AuthenticationService.signInUser()")
+                handler(error)
+                return
+            }
+            print("successfully signed in to user")
+            self.setCurrentUserDefaultsWhenSignedIn { isSuccessful in
+                if isSuccessful {
+                    print("succesfully set all user data in user defaults")
+                } else {
+                    handler(CustomError.userDefaultsNotSet)
+                    return
+                }
+            }
+            
+            handler(nil)
+            return
+        }
     }
     
     
@@ -179,16 +228,75 @@ class AuthenticationService {
         
     }
     
+    func signOutCurrentUser(handler: @escaping(_ error: Error?) -> ()) {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("error signing out: \(error) [AuthSerivce.signOutCurrentUser()]")
+            handler(error)
+            return
+        }
+        
+        // wipe all user defaults stored
+        self.resetAllUserDefaults()
+        handler(nil)
+    }
+    
+    ///  persists user data for basic user data (username, first name, last name, and profile picture background color if they did not upload their own) when user signs in to app
+    /// - Parameter handler: completition handler that returns a boolean whether the operation was succesfull
+    private func setCurrentUserDefaultsWhenSignedIn(handler: @escaping(_ isSuccessful: Bool) -> ()) {
+        self.getCurrentUserID { errorMessage, userID in
+            // after getting user id
+            if let errorMessage = errorMessage {
+                // no user id
+                print(errorMessage)
+                handler(false)
+                return
+            } else {
+                self.getUserInfo(userID: userID!) { error, userID, username, firstName, lastName, profilePictureBackgroundColor, profilePicture in
+                    if let error = error {
+                        // error
+                        print(error.localizedDescription)
+                        handler(false)
+                           return
+                    }
+                    // no error set user defaults
+                    
+                    UserDefaults.standard.set(userID, forKey: CurrentUserDefaults.userID)
+                    UserDefaults.standard.set(username, forKey: CurrentUserDefaults.username)
+                    UserDefaults.standard.set(firstName, forKey: CurrentUserDefaults.fName)
+                    UserDefaults.standard.set(lastName, forKey: CurrentUserDefaults.lName)
+                    UserDefaults.standard.set(profilePictureBackgroundColor, forKey: CurrentUserDefaults.profilePicColor)
+                    if let profilePicture = profilePicture {
+                        UserDefaults.standard.set(profilePicture, forKey: CurrentUserDefaults.profilePicture)
+                    }
+                    
+                }
+            }
+        }
+    }
+    
     
     
     // MARK: PRIVATE VARIABLES
+    
+    
+    /// Removes and resets all user defaults stored
+    private func resetAllUserDefaults() {
+        let defaults = UserDefaults.standard
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
+    }
+    
     
     /// returns current logged in user's unique identifier
     /// - Parameter handler: returns optional error message and userID in callback
     private func getCurrentUserID(handler: @escaping(_ errorMessage: String?, _ userID: String?) -> ()) {
         guard let userID = Auth.auth().currentUser?.uid else {
             // error
-            handler("error getting current user ID [AUTH SERVICE]", nil)
+            handler("error getting current user ID [AuthService.getCurrentUserID()]", nil)
             return
         }
         // no errors returned uid successfully
