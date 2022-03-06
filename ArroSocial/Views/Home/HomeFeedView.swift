@@ -73,7 +73,7 @@ struct HomeFeedView: View {
                         //                            .foregroundColor(.white)
                         //                            .padding(.trailing, 5)
                         
-                        Text("@derekhsieh")
+                        Text("@\(self.username)")
                             .foregroundColor(.black)
                             .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                     }
