@@ -9,15 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isShowingWelcome: Bool = true
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     var body: some View {
         
-        if isShowingWelcome {
+        if currentUserID == nil {
 
             WelcomeView(isShowingWelcome: $isShowingWelcome)
                 .environment(\.colorScheme, .light)
+                .transition(.move(edge: .leading))
         } else {
 
             AppWrapperView()
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
         }
   
     }

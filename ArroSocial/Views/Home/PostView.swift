@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostView: View {
     @State var post: PostModel
-    @State private var showsMenu: Bool = false
+    @State private var showsMenu: Bool = true
     var body: some View {
         ZStack {
             post.image

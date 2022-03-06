@@ -7,7 +7,11 @@
 
 import SwiftUI
 
+
 struct HomeFeedView: View {
+    @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
+    @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    
     var body: some View {
         ZStack {
             Color(AppColors.bg).edgesIgnoringSafeArea(.all)
@@ -45,20 +49,29 @@ struct HomeFeedView: View {
                     }
                     
                     Spacer()
-    
+                    
                     
                     HStack {
                         
-//                        Circle()
-//                            .fill(Color(AppColors.blue))
-                        Image("person")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                        Circle()
+                            .fill(Color(hexString: self.profilePicColorBackground) ?? Color(AppColors.purple))
                             .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            .font(.custom("Poppins-SemiBold", size: 20))
-                            .foregroundColor(.white)
-                            .padding(.trailing, 5)
+                        // first 2 letters of username
+                            .overlay(
+                                Text(username.prefix(2))
+                                    .font(.custom("Poppins-SemiBold", size: 20))
+                                    .foregroundColor(.white)
+                            )
+                        
+                        
+                        //                        Image("person")
+                        //                            .resizable()
+                        //                            .aspectRatio(contentMode: .fill)
+                        //                            .frame(width: 40, height: 40)
+                        //                            .clipShape(Circle())
+                        //                            .font(.custom("Poppins-SemiBold", size: 20))
+                        //                            .foregroundColor(.white)
+                        //                            .padding(.trailing, 5)
                         
                         Text("@derekhsieh")
                             .foregroundColor(.black)

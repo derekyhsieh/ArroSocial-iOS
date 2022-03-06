@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var email: String = "" // by default it's empty
     @State private var password: String = "" // by default it's empty
     @State private var errorMessage: String = ""
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
@@ -62,6 +63,7 @@ struct LoginView: View {
                     Text(errorMessage)
                         .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
+                        .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                     
                     
                     
@@ -85,6 +87,19 @@ struct LoginView: View {
                 
             }
             .padding()
+            
+            if isLoading {
+                ProgressView()
+                    .padding()
+                    .padding()
+                    .scaleEffect(1.5, anchor: .center)
+                    .accentColor(Color(AppColors.purple))
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0, y: 0)
+                    )
+            }
         }
     }
     
@@ -109,10 +124,31 @@ struct LoginView: View {
                 errorMessage = "Please enter a valid email address"
             }
         } else {
+            
+            // start loading indicator
+            
+            withAnimation {
+                // start progress view loading indicator
+                self.isLoading = true
+            }
+            
             withAnimation {
                 errorMessage = ""
+                
+                withAnimation {
+                    AuthenticationService.instance.signInUser(email: self.email, password: self.password) { error in
+                        if let error = error {
+                            self.errorMessage = error.localizedDescription
+                        } else {
+                            // user is successfully signed in
+                            self.isLoading = false
+                        }
+                    }
+                }
+          
             }
         }
+        self.isLoading = false
     }
 }
 
