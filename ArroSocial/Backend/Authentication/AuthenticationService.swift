@@ -41,6 +41,9 @@ class AuthenticationService {
                 return
             } else {
                 // everything went successfully
+            
+                
+                
                 handler(nil, cleanedEmail)
                 return
             }
@@ -118,6 +121,16 @@ class AuthenticationService {
                             return
                         } else {
                             // successfully written user data to db
+                            // sign them in and set user defaults so app brings them to home view
+                            
+                            self.setCurrentUserDefaultsWhenSignedIn { isSuccessful in
+                                if isSuccessful {
+                                    print("succesfully set all user data in user defaults")
+                                } else {
+                                    handler(true, currentUserID)
+                                    return
+                                }
+                            }
                             handler(false, currentUserID)
                             return
                         }
@@ -261,15 +274,17 @@ class AuthenticationService {
                            return
                     }
                     // no error set user defaults
-                    
-                    UserDefaults.standard.set(userID, forKey: CurrentUserDefaults.userID)
-                    UserDefaults.standard.set(username, forKey: CurrentUserDefaults.username)
-                    UserDefaults.standard.set(firstName, forKey: CurrentUserDefaults.fName)
-                    UserDefaults.standard.set(lastName, forKey: CurrentUserDefaults.lName)
-                    UserDefaults.standard.set(profilePictureBackgroundColor, forKey: CurrentUserDefaults.profilePicColor)
-                    if let profilePicture = profilePicture {
-                        UserDefaults.standard.set(profilePicture, forKey: CurrentUserDefaults.profilePicture)
+                    withAnimation {
+                        UserDefaults.standard.set(userID, forKey: CurrentUserDefaults.userID)
+                        UserDefaults.standard.set(username, forKey: CurrentUserDefaults.username)
+                        UserDefaults.standard.set(firstName, forKey: CurrentUserDefaults.fName)
+                        UserDefaults.standard.set(lastName, forKey: CurrentUserDefaults.lName)
+                        UserDefaults.standard.set(profilePictureBackgroundColor, forKey: CurrentUserDefaults.profilePicColor)
+                        if let profilePicture = profilePicture {
+                            UserDefaults.standard.set(profilePicture, forKey: CurrentUserDefaults.profilePicture)
+                        }
                     }
+                   
                     
                 }
             }

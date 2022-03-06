@@ -21,7 +21,6 @@ struct ContentView: View {
 
             AppWrapperView()
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
-                .animation(.easeInOut)
         }
   
     }
