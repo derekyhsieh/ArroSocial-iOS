@@ -191,12 +191,15 @@ struct SettingsView: View {
     
     private func signOut() {
         // sign out logic
-        AuthenticationService.instance.signOutCurrentUser { error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                print("successfully signed out user")
+        withAnimation {
+            AuthenticationService.instance.signOutCurrentUser { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("successfully signed out user")
+                }
             }
+
         }
     }
 }

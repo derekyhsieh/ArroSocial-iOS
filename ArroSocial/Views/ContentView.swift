@@ -16,7 +16,7 @@ struct ContentView: View {
 
             WelcomeView(isShowingWelcome: $isShowingWelcome)
                 .environment(\.colorScheme, .light)
-                .transition(.scale)
+                .transition(.move(edge: .leading))
         } else {
 
             AppWrapperView()
