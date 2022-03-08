@@ -21,6 +21,7 @@
 		4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533F027CDDFFC0059C7C7 /* ProfilePictureSubmission.swift */; };
 		4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */; };
 		4B1DB73627CF33FA0075ED5D /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73527CF33FA0075ED5D /* PostView.swift */; };
+		4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B475C27D7E75900804B99 /* UploadView.swift */; };
 		4B3EB73927D09D20004C002C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B3EB73827D09D20004C002C /* GoogleService-Info.plist */; };
 		4B3EB73C27D09FDD004C002C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73B27D09FDD004C002C /* FirebaseAnalytics */; };
 		4B3EB73E27D09FDD004C002C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73D27D09FDD004C002C /* FirebaseAuth */; };
@@ -61,6 +62,7 @@
 		4B1533F027CDDFFC0059C7C7 /* ProfilePictureSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSubmission.swift; sourceTree = "<group>"; };
 		4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
 		4B1DB73527CF33FA0075ED5D /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		4B2B475C27D7E75900804B99 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B42724927D1E0C600984206 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -138,6 +140,14 @@
 			path = NewUserFlow;
 			sourceTree = "<group>";
 		};
+		4B2B475B27D7E73200804B99 /* Upload Post */ = {
+			isa = PBXGroup;
+			children = (
+				4B2B475C27D7E75900804B99 /* UploadView.swift */,
+			);
+			path = "Upload Post";
+			sourceTree = "<group>";
+		};
 		4B42724727D1E03A00984206 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +211,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4B2B475B27D7E73200804B99 /* Upload Post */,
 				4BEE709C27D0802E00F42F8C /* Settings */,
 				4B1533E527CDCA590059C7C7 /* NewUserFlow */,
 				4B1533DC27CC7FA00059C7C7 /* LoginFlow */,
@@ -352,6 +363,7 @@
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
+				4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */,
 				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
 				4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */,
 			);
@@ -492,6 +504,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -503,7 +516,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -523,6 +536,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -534,7 +548,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
