@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct UploadView: View {
+ 
+    
     @State private var caption = ""
     @AppStorage(CurrentUserDefaults.username) var username: String?
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColor: String = ""
+    @State private var postImage: UIImage = UIImage(named: "placeholder")!
+    @State private var isShowingPhotoPicker: Bool = false
+    @State private var isShowingTextEditorPlaceholder: Bool = true
     
     
     var body: some View {
         VStack {
-            Text("Upload Photo")
+            Text("Upload Post")
                 .font(.custom("Poppins-Medium", size: 30))
             
             
@@ -50,7 +55,7 @@ struct UploadView: View {
                                 .truncationMode(.tail)
                                 .padding(-5)
                         }
-               
+                        
                     }
                     .padding()
                     
@@ -61,28 +66,73 @@ struct UploadView: View {
                 
             }
             .frame(width: UIScreen.main.bounds.width - 20, height: 400)
-            .background(Color.secondary.opacity(0.5))
+            .background(
+                Image(uiImage: postImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            )
             .overlay(
                 
-                Button(action: {
-                    
-                }) {
-                    Image(systemName: "arrow.up.doc.fill")
-    //                    .resizable()
-    //                    .aspectRatio(contentMode: .fill)
-                        .font(.system(size: 40, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                }
-       
+                
+                Image(systemName: "arrow.up.doc.fill")
+                //                    .resizable()
+                //                    .aspectRatio(contentMode: .fill)
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                    .foregroundColor(Color.white.opacity(0.8))
+                
             )
             .cornerRadius(30)
+            .onTapGesture {
+                self.isShowingPhotoPicker = true
+            }
             
             
-            TextEditor(text: $caption)
+//            TextEditor(text: $caption)
+//                .padding()
+//                .font(.body)
+//                .foregroundColor(.white) // Text color
+//                .background(Color.blue) // TextEditor's Background Color
+//                .cornerRadius(30)
+//                .padding()
+
+            ZStack(alignment: .topLeading) {
+                if (caption.isEmpty || self.isShowingTextEditorPlaceholder){
+                    Text("Caption")
+                        .font(.custom("Poppins-Regular", size: 24))
+                        .padding(.all)
+                        .foregroundColor(.gray)
+                }
+                
+                TextEditor(text: $caption)
+                    .opacity(caption.isEmpty ? 0.25 : 1)
+                    .font(.custom("Poppins-Regular", size: 24))
+                    .padding(.all)
+                    .onTapGesture {
+                        self.isShowingTextEditorPlaceholder = false
+                    }
+                    .offset(y: -10)
+                 
+            }
+            
             
             
             Spacer(minLength: 0)
+            Button(action: {}) {
+                Text("Post")
+                    .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(AppColors.purple))
+                    .cornerRadius(50)
+                    .padding(.horizontal)
+                    .opacity(self.postImage == UIImage(named: "placeholder")! ? 0.4 : 1)
+                    .disabled(self.postImage == UIImage(named: "placeholder")! ? true : false)
+            }
             
+        }
+        .sheet(isPresented: $isShowingPhotoPicker) {
+            PhotoPicker(image: $postImage)
         }
     }
 }

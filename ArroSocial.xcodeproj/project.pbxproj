@@ -27,6 +27,7 @@
 		4B3EB73E27D09FDD004C002C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73D27D09FDD004C002C /* FirebaseAuth */; };
 		4B3EB74027D09FDD004C002C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73F27D09FDD004C002C /* FirebaseFirestore */; };
 		4B3EB74227D09FDD004C002C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB74127D09FDD004C002C /* FirebaseStorage */; };
+		4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */; };
 		4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42724927D1E0C600984206 /* AuthenticationService.swift */; };
 		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
@@ -64,6 +65,7 @@
 		4B1DB73527CF33FA0075ED5D /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		4B2B475C27D7E75900804B99 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		4B42724927D1E0C600984206 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				4B2B475C27D7E75900804B99 /* UploadView.swift */,
+				4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */,
 			);
 			path = "Upload Post";
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
 				4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */,
+				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,

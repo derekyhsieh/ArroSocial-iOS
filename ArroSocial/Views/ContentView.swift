@@ -12,19 +12,19 @@ struct ContentView: View {
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     var body: some View {
         
-//        UploadView()
+        UploadView()
         
-        if currentUserID == nil {
+//        if currentUserID == nil {
+//
+//            WelcomeView(isShowingWelcome: $isShowingWelcome)
+//                .environment(\.colorScheme, .light)
+//                .transition(.move(edge: .leading))
+//        } else {
+//
+//            AppWrapperView()
+//                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+//        }
 
-            WelcomeView(isShowingWelcome: $isShowingWelcome)
-                .environment(\.colorScheme, .light)
-                .transition(.move(edge: .leading))
-        } else {
-
-            AppWrapperView()
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
-        }
-  
     }
     
 }
