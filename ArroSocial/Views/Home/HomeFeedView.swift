@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import BottomSheet
+import PermissionsSwiftUI
 
 
 struct HomeFeedView: View {
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @Binding var isShowingUploadView: Bool
+    @Binding var showPermissionsModal: Bool
+    
     
     var body: some View {
         ZStack {
@@ -34,7 +39,13 @@ struct HomeFeedView: View {
                     
                     Spacer()
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        // check if app storage has gotten
+//                        if !self.gottenPermissions {
+                            self.showPermissionsModal = true
+                            self.isShowingUploadView = true
+//                        }
+                    }) {
                         Image(systemName: "plus")
                             .font(.title.bold())
                             .frame(width: 30, height: 30)
@@ -100,11 +111,12 @@ struct HomeFeedView: View {
                 .padding(.vertical)
             }
         }
+     
     }
 }
 
-struct HomeFeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeFeedView()
-    }
-}
+//struct HomeFeedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeFeedView()
+//    }
+//}

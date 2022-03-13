@@ -11,7 +11,8 @@ var tabs = [AppPages.home, AppPages.messages, AppPages.search, AppPages.settings
 
 struct AppWrapperView: View {
     @State var selectedTab = "house"
-    
+    @State private var showPermissionsModal: Bool = false
+    @State private var isShowingUploadView: Bool = false
     @State var tabBarCenter: CGFloat = 0
     @Namespace var animation
     
@@ -25,7 +26,7 @@ struct AppWrapperView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                HomeFeedView()
+                HomeFeedView(isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal)
                     .tag(tabs[0])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue
@@ -90,6 +91,18 @@ struct AppWrapperView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
         }
         .ignoresSafeArea(.all, edges: .bottom)
+        .bottomSheet(
+            isPresented: $isShowingUploadView,
+            height: UIScreen.main.bounds.height - 100,
+            topBarHeight: 16,
+            topBarCornerRadius: 16,
+            contentBackgroundColor: Color.white,
+            topBarBackgroundColor: Color(.white),
+            showTopIndicator: false
+        ) {
+            UploadView()
+        }
+        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true)
     }
     
     

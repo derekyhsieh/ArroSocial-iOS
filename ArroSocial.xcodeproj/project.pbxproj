@@ -29,6 +29,7 @@
 		4B3EB74227D09FDD004C002C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB74127D09FDD004C002C /* FirebaseStorage */; };
 		4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */; };
 		4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42724927D1E0C600984206 /* AuthenticationService.swift */; };
+		4B5A732B27DAA38C0033363E /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B5A732A27DAA38C0033363E /* PermissionsSwiftUI */; };
 		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
@@ -40,6 +41,7 @@
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
+		4BA2175A27DEAF6A00A8F72F /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 4BA2175927DEAF6A00A8F72F /* BottomSheet */; };
 		4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5188227D56AF400548EEC /* CustomErrors.swift */; };
 		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
 		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
@@ -93,6 +95,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B3EB73C27D09FDD004C002C /* FirebaseAnalytics in Frameworks */,
+				4B5A732B27DAA38C0033363E /* PermissionsSwiftUI in Frameworks */,
+				4BA2175A27DEAF6A00A8F72F /* BottomSheet in Frameworks */,
 				4B3EB74227D09FDD004C002C /* FirebaseStorage in Frameworks */,
 				4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */,
 				4B3EB73E27D09FDD004C002C /* FirebaseAuth in Frameworks */,
@@ -279,6 +283,8 @@
 				4B3EB73F27D09FDD004C002C /* FirebaseFirestore */,
 				4B3EB74127D09FDD004C002C /* FirebaseStorage */,
 				4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */,
+				4B5A732A27DAA38C0033363E /* PermissionsSwiftUI */,
+				4BA2175927DEAF6A00A8F72F /* BottomSheet */,
 			);
 			productName = ArroSocial;
 			productReference = 4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */;
@@ -311,6 +317,8 @@
 			packageReferences = (
 				4B3EB73A27D09FDD004C002C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4BED1BAB27D2DFEA00DB6830 /* XCRemoteSwiftPackageReference "SSToastMessage" */,
+				4B5A732927DAA38C0033363E /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
+				4BA2175827DEAF6A00A8F72F /* XCRemoteSwiftPackageReference "bottom-sheet" */,
 			);
 			productRefGroup = 4B6AF00C27C6F9660070B7E8 /* Products */;
 			projectDirPath = "";
@@ -588,6 +596,22 @@
 				kind = branch;
 			};
 		};
+		4B5A732927DAA38C0033363E /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		4BA2175827DEAF6A00A8F72F /* XCRemoteSwiftPackageReference "bottom-sheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weitieda/bottom-sheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4BED1BAB27D2DFEA00DB6830 /* XCRemoteSwiftPackageReference "SSToastMessage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimformSolutionsPvtLtd/SSToastMessage.git";
@@ -618,6 +642,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B3EB73A27D09FDD004C002C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		4B5A732A27DAA38C0033363E /* PermissionsSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B5A732927DAA38C0033363E /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUI;
+		};
+		4BA2175927DEAF6A00A8F72F /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BA2175827DEAF6A00A8F72F /* XCRemoteSwiftPackageReference "bottom-sheet" */;
+			productName = BottomSheet;
 		};
 		4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */ = {
 			isa = XCSwiftPackageProductDependency;
