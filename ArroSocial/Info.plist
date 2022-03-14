@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App needs access to photo library to post images</string>
-	<key>NSCameraUsageDescription</key>
-	<string>App needs access to camera in order to take photos for posts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Regular.ttf</string>
@@ -13,5 +9,12 @@
 		<string>Poppins-SemiBold.ttf</string>
 		<string>Poppins-Medium.ttf</string>
 	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>purple</string>
+		<key>UIImageName</key>
+		<string>logo</string>
+	</dict>
 </dict>
 </plist>

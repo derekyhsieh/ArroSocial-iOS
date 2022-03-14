@@ -42,6 +42,8 @@
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
 		4BA2175A27DEAF6A00A8F72F /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 4BA2175927DEAF6A00A8F72F /* BottomSheet */; };
+		4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2177827DF0A1500A8F72F /* SplashScreen.swift */; };
+		4BA2177C27DF0DE700A8F72F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */; };
 		4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5188227D56AF400548EEC /* CustomErrors.swift */; };
 		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
 		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
@@ -82,6 +84,8 @@
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
+		4BA2177827DF0A1500A8F72F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4BE5188227D56AF400548EEC /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				4BFD91F827C80F17007A95F7 /* Home */,
 				4B6AF01027C6F9660070B7E8 /* ContentView.swift */,
 				4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */,
+				4BA2177827DF0A1500A8F72F /* SplashScreen.swift */,
+				4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 			files = (
 				4B6AF02327C724790070B7E8 /* Poppins-SemiBold.ttf in Resources */,
 				4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */,
+				4BA2177C27DF0DE700A8F72F /* Launch Screen.storyboard in Resources */,
 				4B6AF01627C6F9670070B7E8 /* Preview Assets.xcassets in Resources */,
 				4B6AF01327C6F9670070B7E8 /* Assets.xcassets in Resources */,
 				4B6AF02427C724790070B7E8 /* Poppins-Regular.ttf in Resources */,
@@ -367,6 +374,7 @@
 				4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */,
 				4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */,
 				4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */,
+				4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
@@ -513,9 +521,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArroSocial/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "App needs access to camera in order to take photos for posts";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App needs access to photo library to post images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -545,9 +555,11 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArroSocial/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "App needs access to camera in order to take photos for posts";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App needs access to photo library to post images";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
