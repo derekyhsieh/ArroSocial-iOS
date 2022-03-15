@@ -65,6 +65,13 @@ struct AppWrapperView: View {
                                 .matchedGeometryEffect(id: image, in: animation)
                                 .clipShape(Circle())
                                 .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -42 : 0)
+                                .overlay(
+                                    // make clickable area bigger so it's easier to tap on tab bar buttons
+                                    Circle()
+                                        .fill(Color.clear)
+                                        .frame(width: 75, height: 75)
+                                        .offset(y: 10)
+                                )
                             
                         }
                         .onAppear() {
