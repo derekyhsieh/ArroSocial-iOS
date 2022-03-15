@@ -14,6 +14,8 @@ struct AppWrapperView: View {
     @State private var showPermissionsModal: Bool = false
     @State private var isShowingUploadView: Bool = false
     @State var tabBarCenter: CGFloat = 0
+    
+    @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     @Namespace var animation
     
     
@@ -98,10 +100,18 @@ struct AppWrapperView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
         }
         .ignoresSafeArea(.all, edges: .bottom)
+       
+        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, onAppear: {
+            print("permissions alert appeared")
+        }, onDisappear: {
+            gottenUserPermissions = true
+        })
+//        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true, onDisappear(perform: {
+//            <#code#>
+//        }))
         .sheet(isPresented: $isShowingUploadView) {
             UploadView()
               }
-        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true)
     }
     
     

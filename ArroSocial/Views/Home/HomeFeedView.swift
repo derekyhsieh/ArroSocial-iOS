@@ -12,6 +12,7 @@ import PermissionsSwiftUI
 struct HomeFeedView: View {
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     @Binding var isShowingUploadView: Bool
     @Binding var showPermissionsModal: Bool
     
@@ -40,10 +41,18 @@ struct HomeFeedView: View {
                     
                     Button(action: {
                         // check if app storage has gotten
-//                        if !self.gottenPermissions {
-                            self.showPermissionsModal = true
+                        //                        if !self.gottenPermissions {
+                        self.showPermissionsModal = true
+                        
+                        if(self.gottenUserPermissions) {
+                            
                             self.isShowingUploadView = true
-//                        }
+                        }
+                        
+                        
+                        
+                        
+                        //                        }
                     }) {
                         Image(systemName: "plus")
                             .font(.title.bold())
@@ -110,7 +119,7 @@ struct HomeFeedView: View {
                 .padding(.vertical)
             }
         }
-     
+        
     }
 }
 
