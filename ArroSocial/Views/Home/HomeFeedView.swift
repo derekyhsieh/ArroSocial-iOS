@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import BottomSheet
 import PermissionsSwiftUI
 
 
@@ -24,12 +23,12 @@ struct HomeFeedView: View {
                 HStack {
                     
                     HStack {
-                        Image(systemName: "arrow.uturn.up")
-                        
-                            .font(.title.bold())
-                            .frame(width: 30, height: 30)
+                        Image("logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 42, height: 42)
                             .foregroundColor(.white)
-                            .padding(10)
+                            .padding(2)
                             .background(Color(AppColors.purple) .clipShape(Circle()))
                             .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0.0, y: 16)
                         

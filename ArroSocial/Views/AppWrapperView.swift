@@ -91,17 +91,9 @@ struct AppWrapperView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
         }
         .ignoresSafeArea(.all, edges: .bottom)
-        .bottomSheet(
-            isPresented: $isShowingUploadView,
-            height: UIScreen.main.bounds.height - 100,
-            topBarHeight: 16,
-            topBarCornerRadius: 16,
-            contentBackgroundColor: Color.white,
-            topBarBackgroundColor: Color(.white),
-            showTopIndicator: false
-        ) {
+        .sheet(isPresented: $isShowingUploadView) {
             UploadView()
-        }
+              }
         .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true)
     }
     

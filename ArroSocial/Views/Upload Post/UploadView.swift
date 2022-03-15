@@ -10,6 +10,7 @@ import SwiftUI
 struct UploadView: View {
  
     
+    
     @State private var caption = ""
     @AppStorage(CurrentUserDefaults.username) var username: String?
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColor: String = ""
@@ -18,10 +19,32 @@ struct UploadView: View {
     @State private var isShowingTextEditorPlaceholder: Bool = true
     
     
+    // for dismissing sheet
+    @Environment(\.presentationMode) var presentationMode
+    
+    
     var body: some View {
         VStack {
-            Text("Upload Post")
-                .font(.custom("Poppins-Medium", size: 30))
+            HStack {
+                Text("Upload Post")
+                    .font(.custom("Poppins-Medium", size: 30))
+                Spacer()
+                
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(Color.gray)
+                        .padding(10)
+                        .background(
+                            Circle()
+                                .fill(Color.black)
+                        )
+                }
+            }
+            .padding()
             
             
             ZStack(alignment: .trailing) {
