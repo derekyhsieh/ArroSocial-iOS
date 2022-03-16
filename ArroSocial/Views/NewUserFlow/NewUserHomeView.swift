@@ -12,7 +12,11 @@ struct NewUserHomeView: View {
     @Binding var isShowingNewUserWalkthrough: Bool
     @Binding var isShowingWelcome: Bool
     @State var clickedAttempts: Int = 0
+    @State private var profilePic: UIImage = UIImage(named: "placeholder")!
+    @State private var isShowingPermissionView: Bool = false
+    @State private var isShowingImagePicker: Bool = false
     var screenSize: CGSize
+    @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     
     
     // MARK: VARS FOR ONBOARDING THAT GET WRITTEN
@@ -73,9 +77,10 @@ struct NewUserHomeView: View {
                         .frame(width: screenSize.width)
                         
                         VStack {
-                            ProfilePictureSubmission(generatedProfileColor: $backgroundColor, username: $username, color: pages[2].color)
-                                .padding(.top, 50 )
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                            ProfilePictureSubmission(generatedProfileColor: $backgroundColor, username: $username, isShowingImagePicker: $isShowingImagePicker, showPermissionsModal: $isShowingPermissionView, postImage: $profilePic, color: pages[2].color
+                            )
+                            .padding(.top, 50 )
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding()
                         .frame(width: screenSize.width)
@@ -128,34 +133,67 @@ struct NewUserHomeView: View {
                                 withAnimation {
                                     self.isLoading = true
                                     
-                                    AuthenticationService.instance.updateUserInfo(profilePicture: nil, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
-                                        
-                                        // make sure user id isn't nil
-                                        if let userID = userID {
+                                    if profilePic != UIImage(named: "placeholder") {
+                                        AuthenticationService.instance.updateUserInfo(profilePicture: profilePic, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
                                             
-                                            if isError {
-                                                print("error writing user data to firestore: userID: " + userID)
-                                                return
+                                            // make sure user id isn't nil
+                                            if let userID = userID {
+                                                
+                                                if isError {
+                                                    print("error writing user data to firestore: userID: " + userID)
+                                                    return
+                                                } else {
+                                                    print("successfully written user data to firestore: \(userID)")
+                                                    self.isLoading = false
+                                                    self.isShowingWelcome = false
+                                                }
+                                                
+                                                
+                                                
+                                                
+                                                
                                             } else {
-                                                print("successfully written user data to firestore: \(userID)")
-                                                self.isLoading = false
-                                                self.isShowingWelcome = false
+                                                // user id is not nil - should be impossible but just in case
+                                                print("error getting user id from current user")
+                                                return
                                             }
                                             
+                                            // no errors
                                             
                                             
-                                            
-                                            
-                                        } else {
-                                            // user id is not nil - should be impossible but just in case
-                                            print("error getting user id from current user")
-                                            return
                                         }
-                                        
-                                        // no errors
-                                        
-                                        
+                                    } else {
+                                        AuthenticationService.instance.updateUserInfo(profilePicture: nil, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
+                                            
+                                            // make sure user id isn't nil
+                                            if let userID = userID {
+                                                
+                                                if isError {
+                                                    print("error writing user data to firestore: userID: " + userID)
+                                                    return
+                                                } else {
+                                                    print("successfully written user data to firestore: \(userID)")
+                                                    self.isLoading = false
+                                                    self.isShowingWelcome = false
+                                                }
+                                                
+                                                
+                                                
+                                                
+                                                
+                                            } else {
+                                                // user id is not nil - should be impossible but just in case
+                                                print("error getting user id from current user")
+                                                return
+                                            }
+                                            
+                                            // no errors
+                                            
+                                            
+                                        }
                                     }
+                                    
+                                  
                                 }
                             } else {
                                 // MARK: popup that user did not complete fields
@@ -230,6 +268,13 @@ struct NewUserHomeView: View {
         .present(isPresented: $isShowingErrorFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.0, closeOnTap: true, closeOnTapOutside: true) {
             self.createErrorFloater()
         }
+        .JMAlert(showModal: $isShowingPermissionView, for: [.camera, .photo], autoDismiss: true, onAppear: {
+            print("permissions alert appeared")
+        }, onDisappear: {
+            gottenUserPermissions = true
+            self.isShowingImagePicker = true
+        })
+        
     }
     
     // custom offset for indicators (bottom left)

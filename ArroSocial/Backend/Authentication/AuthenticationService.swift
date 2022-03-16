@@ -88,7 +88,7 @@ class AuthenticationService {
     ///   - lastName: user's last name
     ///   - handler: returns optional error and userID
     ///   - profilePictureBackgroundColor: if user uses generated profile picture, saves background color of user selected color
-    func updateUserInfo(profilePicture: Image?, username: String?, firstName: String?, lastName: String?, profilePictureBackgroundColor: String?, handler: @escaping(_ isError: Bool,  _ userID: String?) -> ()) {
+    func updateUserInfo(profilePicture: UIImage?, username: String?, firstName: String?, lastName: String?, profilePictureBackgroundColor: String?, handler: @escaping(_ isError: Bool,  _ userID: String?) -> ()) {
         
         
         self.getCurrentUserID { errorMessage, userID in if(errorMessage != nil) { // error here getting user id print(errorMessage!)
@@ -103,13 +103,16 @@ class AuthenticationService {
                 // MARK: CASE 1: new user who needs to append username, first name, last name (onboarding new user case)
                 if([profilePicture].allNil() == true) {
                     
-                    // include color
-                    let data: [String: Any] = [
+                    var data: [String: Any] = [
                         FSUserData.username: username as Any,
                         FSUserData.fName:  firstName as Any,
                         FSUserData.lName: lastName as Any,
-                        FSUserData.generatedProfilePictureBackgroundColorInHex: profilePictureBackgroundColor as Any
+                        FSUserData.generatedProfilePictureBackgroundColorInHex: profilePictureBackgroundColor as Any,
                     ]
+                    
+                    // include color
+        
+                  
                     
                     
                     // can unwrap current user id with a bang since we checked before if user id was present
@@ -134,6 +137,52 @@ class AuthenticationService {
                             handler(false, currentUserID)
                             return
                         }
+                    }
+                } else {
+                    
+                    var data: [String: Any] = [
+                        FSUserData.username: username as Any,
+                        FSUserData.fName:  firstName as Any,
+                        FSUserData.lName: lastName as Any,
+                        FSUserData.generatedProfilePictureBackgroundColorInHex: profilePictureBackgroundColor as Any,
+                    ]
+                    
+                    // include color
+        
+                  
+                    
+                    
+                    // can unwrap current user id with a bang since we checked before if user id was present
+                    DB_BASE.collection(FSCollections.users).document(currentUserID!).setData(data) { error in
+                        if let error = error {
+                            // error returning
+                            print(error)
+                            handler(true, currentUserID)
+                            return
+                        } else {
+                            // successfully written user data to db
+                            // sign them in and set user defaults so app brings them to home view
+                            
+                            self.setCurrentUserDefaultsWhenSignedIn { isSuccessful in
+                                if isSuccessful {
+                                    print("succesfully set all user data in user defaults")
+                                } else {
+                                    handler(true, currentUserID)
+                                    return
+                                }
+                            }
+                            handler(false, currentUserID)
+                            return
+                        }
+                    }
+                    
+                    
+                    // TODO:  LATER UPLOAD PATH LATER
+                    if let profilePicture = profilePicture {
+                        print("image manager")
+                        ImageManager.instance.uploadProfileImage(userID: currentUserID!, image: profilePicture)
+//                        // profilepic exists
+//                        data[FSUserData.profilePicture] = profilepic
                     }
                 }
                 
@@ -301,7 +350,10 @@ class AuthenticationService {
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
-            defaults.removeObject(forKey: key)
+            if key != "gottenUserPermissions" {
+                
+                defaults.removeObject(forKey: key)
+            }
         }
     }
     

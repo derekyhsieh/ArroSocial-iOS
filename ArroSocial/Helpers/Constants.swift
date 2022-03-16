@@ -42,6 +42,7 @@ struct FSUserData {
     static let lName = "last_name"
     static let profilePicture = "profile_picture"
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
+
 }
 
 // User Defaults constants

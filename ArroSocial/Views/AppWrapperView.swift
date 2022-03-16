@@ -105,9 +105,9 @@ struct AppWrapperView: View {
             print("permissions alert appeared")
         }, onDisappear: {
             gottenUserPermissions = true
+            self.isShowingUploadView = true
         })
 //        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true, onDisappear(perform: {
-//            <#code#>
 //        }))
         .sheet(isPresented: $isShowingUploadView) {
             UploadView()

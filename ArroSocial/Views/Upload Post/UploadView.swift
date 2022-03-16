@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UploadView: View {
- 
+    
     
     
     @State private var caption = ""
@@ -96,12 +96,12 @@ struct UploadView: View {
             )
             .overlay(
                 
-                
-                Image(systemName: "arrow.up.doc.fill")
-                //                    .resizable()
-                //                    .aspectRatio(contentMode: .fill)
-                    .font(.system(size: 40, weight: .bold, design: .rounded))
-                    .foregroundColor(Color.white.opacity(0.8))
+                    Image(systemName: "arrow.up.doc.fill")
+                    //                    .resizable()
+                    //                    .aspectRatio(contentMode: .fill)
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
+                        .foregroundColor(postImage == UIImage(named: "placeholder") ? Color.white.opacity(0.8) : Color.clear)
+                    
                 
             )
             .cornerRadius(30)
@@ -110,14 +110,14 @@ struct UploadView: View {
             }
             
             
-//            TextEditor(text: $caption)
-//                .padding()
-//                .font(.body)
-//                .foregroundColor(.white) // Text color
-//                .background(Color.blue) // TextEditor's Background Color
-//                .cornerRadius(30)
-//                .padding()
-
+            //            TextEditor(text: $caption)
+            //                .padding()
+            //                .font(.body)
+            //                .foregroundColor(.white) // Text color
+            //                .background(Color.blue) // TextEditor's Background Color
+            //                .cornerRadius(30)
+            //                .padding()
+            
             ZStack(alignment: .topLeading) {
                 if (caption.isEmpty || self.isShowingTextEditorPlaceholder){
                     Text("Caption")
@@ -134,7 +134,7 @@ struct UploadView: View {
                         self.isShowingTextEditorPlaceholder = false
                     }
                     .offset(y: -10)
-                 
+                
             }
             
             
