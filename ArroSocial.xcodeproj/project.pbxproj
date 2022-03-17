@@ -19,7 +19,7 @@
 		4B1533ED27CDDD0E0059C7C7 /* UsernameSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533EC27CDDD0E0059C7C7 /* UsernameSubmissionView.swift */; };
 		4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533EE27CDDEC10059C7C7 /* FirstLastNameSubmission.swift */; };
 		4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533F027CDDFFC0059C7C7 /* ProfilePictureSubmission.swift */; };
-		4B1D9E0927E1A0B600FF151F /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1D9E0827E1A0B600FF151F /* ImageManager.swift */; };
+		4B1D9E0927E1A0B600FF151F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1D9E0827E1A0B600FF151F /* ImageService.swift */; };
 		4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */; };
 		4B1DB73627CF33FA0075ED5D /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73527CF33FA0075ED5D /* PostView.swift */; };
 		4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B475C27D7E75900804B99 /* UploadView.swift */; };
@@ -44,6 +44,7 @@
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
 		4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2177827DF0A1500A8F72F /* SplashScreen.swift */; };
 		4BA2177C27DF0DE700A8F72F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */; };
+		4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */; };
 		4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5188227D56AF400548EEC /* CustomErrors.swift */; };
 		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
 		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
@@ -65,7 +66,7 @@
 		4B1533EC27CDDD0E0059C7C7 /* UsernameSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameSubmissionView.swift; sourceTree = "<group>"; };
 		4B1533EE27CDDEC10059C7C7 /* FirstLastNameSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLastNameSubmission.swift; sourceTree = "<group>"; };
 		4B1533F027CDDFFC0059C7C7 /* ProfilePictureSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureSubmission.swift; sourceTree = "<group>"; };
-		4B1D9E0827E1A0B600FF151F /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		4B1D9E0827E1A0B600FF151F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
 		4B1DB73527CF33FA0075ED5D /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		4B2B475C27D7E75900804B99 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
 		4BA2177827DF0A1500A8F72F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingIndicator.swift; sourceTree = "<group>"; };
 		4BE5188227D56AF400548EEC /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				4B1533D927CC7F640059C7C7 /* PrimaryButton.swift */,
+				4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -153,7 +156,7 @@
 		4B1D9E0727E1A07400FF151F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				4B1D9E0827E1A0B600FF151F /* ImageManager.swift */,
+				4B1D9E0827E1A0B600FF151F /* ImageService.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -372,7 +375,7 @@
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
-				4B1D9E0927E1A0B600FF151F /* ImageManager.swift in Sources */,
+				4B1D9E0927E1A0B600FF151F /* ImageService.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B1DB73627CF33FA0075ED5D /* PostView.swift in Sources */,
 				4B1533DE27CC7FBA0059C7C7 /* SignUpView.swift in Sources */,
@@ -392,6 +395,7 @@
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 				4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */,
+				4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */,
 				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
 				4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */,
 			);

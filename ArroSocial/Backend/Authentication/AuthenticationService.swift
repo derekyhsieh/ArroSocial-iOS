@@ -180,7 +180,7 @@ class AuthenticationService {
                     // TODO:  LATER UPLOAD PATH LATER
                     if let profilePicture = profilePicture {
                         print("image manager")
-                        ImageManager.instance.uploadProfileImage(userID: currentUserID!, image: profilePicture)
+                        ImageService.instance.uploadProfileImage(userID: currentUserID!, image: profilePicture)
 //                        // profilepic exists
 //                        data[FSUserData.profilePicture] = profilepic
                     }

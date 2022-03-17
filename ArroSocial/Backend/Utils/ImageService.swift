@@ -9,10 +9,10 @@ import Foundation
 import FirebaseStorage // holds images and videos of app
 import UIKit
 
-class ImageManager {
+class ImageService {
     // MARK: PROPERTIES
     
-    static let instance = ImageManager()
+    static let instance = ImageService()
         
     private var REF_STORAGE = Storage.storage()
     
@@ -31,6 +31,22 @@ class ImageManager {
         
     }
     
+    func uploadPostImage(userID: String, postID: String, image: UIImage, postCount: Int, handler: @escaping(_ isSuccessful: Bool) -> ()) {
+        
+        let path = getPostImagePath(postID: postID, postCount: postCount)
+        
+        uploadImage(path: path, image: image) { success in
+            if success {
+                handler(true)
+                return
+            } else {
+               handler(false)
+                return
+            }
+        }
+        
+    }
+    
     
     // MARK: PRIVATE FUNCTIONS
     
@@ -44,6 +60,16 @@ class ImageManager {
         
         return storagePath
     }
+    
+    private func getPostImagePath(postID: String, postCount: Int) -> StorageReference {
+        let postPath = "posts/\(postID)/\(postCount + 1)"
+        
+        let storagePath = REF_STORAGE.reference(withPath: postPath)
+        
+        return storagePath
+    }
+    
+    
     
     private func uploadImage(path: StorageReference, image: UIImage, handler: @escaping(_ success: Bool) -> ()) {
         
