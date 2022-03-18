@@ -103,6 +103,13 @@ class AuthenticationService {
                 // MARK: CASE 1: new user who needs to append username, first name, last name (onboarding new user case)
                 if([profilePicture].allNil() == true) {
                     
+                    // set username on profile (not firestore auth)
+                    
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = username
+
+                    
+                    
                     var data: [String: Any] = [
                         FSUserData.username: username as Any,
                         FSUserData.fName:  firstName as Any,

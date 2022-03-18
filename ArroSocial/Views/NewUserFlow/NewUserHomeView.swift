@@ -292,7 +292,7 @@ struct NewUserHomeView: View {
         VStack {
             Text(self.errorMessage)
                 .foregroundColor(.white)
-                .modifier(Poppins(fontWeight: AppFont.medium, .caption2))
+                .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
             //
