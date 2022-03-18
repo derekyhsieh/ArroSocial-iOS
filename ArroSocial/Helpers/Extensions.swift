@@ -61,11 +61,11 @@ extension Collection where Element == Optional<Any> {
     }
 
     func atleastOneNotNil() -> Bool {
-        return self.flatMap { $0 }.count > 0
+        return self.compactMap { $0 }.count > 0
     }
 
     func allNil() -> Bool {
-        return self.flatMap { $0 }.count == 0
+        return self.compactMap { $0 }.count == 0
     }
 }
 
