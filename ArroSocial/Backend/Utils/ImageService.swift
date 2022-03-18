@@ -31,9 +31,9 @@ class ImageService {
         
     }
     
-    func uploadPostImage(userID: String, postID: String, image: UIImage, postCount: Int, handler: @escaping(_ isSuccessful: Bool) -> ()) {
+    func uploadPostImage(postID: String, image: UIImage, imageCount: Int, handler: @escaping(_ isSuccessful: Bool) -> ()) {
         
-        let path = getPostImagePath(postID: postID, postCount: postCount)
+        let path = getPostImagePath(postID: postID, imageCount: imageCount)
         
         uploadImage(path: path, image: image) { success in
             if success {
@@ -61,8 +61,9 @@ class ImageService {
         return storagePath
     }
     
-    private func getPostImagePath(postID: String, postCount: Int) -> StorageReference {
-        let postPath = "posts/\(postID)/\(postCount + 1)"
+    private func getPostImagePath(postID: String, imageCount: Int) -> StorageReference {
+        // image count is for possible post with multiple pictures
+        let postPath = "posts/\(postID)/\(imageCount)"
         
         let storagePath = REF_STORAGE.reference(withPath: postPath)
         

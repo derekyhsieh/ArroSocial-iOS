@@ -180,15 +180,20 @@ struct UploadView: View {
             self.isLoading = true
         }
         
-        ImageService.instance.uploadPostImage(userID: userID!, postID: "ajskdfl", image: self.postImage, postCount: 0) { isSuccessful in
-                    self.presentationMode.wrappedValue.dismiss()
+        // check if user put in a caption
+        if caption.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+            DataService.instance.uploadPost(image: self.postImage, caption: self.caption, userName: self.username!, userID: self.userID!) { success, postID in
                     self.isLoading = false
+                
+                    self.presentationMode.wrappedValue.dismiss()
+                if(!success) {
+                    // print error
+                }
+            }
         }
         
-        if caption != "" {
-            // there is a caption
-            
-        }
+        
+        
     }
     
 }

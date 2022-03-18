@@ -33,6 +33,7 @@ struct AppColors {
 // Firestore Collection constants
 struct FSCollections {
     static let users = "users"
+    static let posts = "posts"
 }
 
 // Firestore user data constants
@@ -44,6 +45,16 @@ struct FSUserData {
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
 
 }
+
+// Firestore post fields
+struct FSPostFields {
+    static let postID = "post_id"
+    static let userID = "user_id"
+    static let userName = "user_name"
+    static let caption = "caption"
+    static let dateCreated = "date_created"
+}
+
 
 // User Defaults constants
 struct CurrentUserDefaults {
