@@ -46,6 +46,8 @@
 		4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2177827DF0A1500A8F72F /* SplashScreen.swift */; };
 		4BA2177C27DF0DE700A8F72F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */; };
 		4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */; };
+		4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB26CA127E4F928003FBF72 /* ChangeEmailView.swift */; };
+		4BB26CA427E504BB003FBF72 /* Floats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB26CA327E504BB003FBF72 /* Floats.swift */; };
 		4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5188227D56AF400548EEC /* CustomErrors.swift */; };
 		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
 		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
@@ -91,6 +93,8 @@
 		4BA2177827DF0A1500A8F72F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingIndicator.swift; sourceTree = "<group>"; };
+		4BB26CA127E4F928003FBF72 /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
+		4BB26CA327E504BB003FBF72 /* Floats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floats.swift; sourceTree = "<group>"; };
 		4BE5188227D56AF400548EEC /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				4B1533E127CC83940059C7C7 /* Extensions.swift */,
 				4BED1BB127D314FA00DB6830 /* Animations.swift */,
 				4BE5188227D56AF400548EEC /* CustomErrors.swift */,
+				4BB26CA327E504BB003FBF72 /* Floats.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEE709D27D080F400F42F8C /* SettingsView.swift */,
+				4BB26CA127E4F928003FBF72 /* ChangeEmailView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -378,6 +384,7 @@
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
+				4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */,
 				4B1D9E0B27E4450200FF151F /* DataService.swift in Sources */,
 				4B1D9E0927E1A0B600FF151F /* ImageService.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
@@ -397,6 +404,7 @@
 				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
+				4BB26CA427E504BB003FBF72 /* Floats.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 				4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */,
 				4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */,

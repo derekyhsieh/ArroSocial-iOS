@@ -304,6 +304,32 @@ class AuthenticationService {
         handler(nil)
     }
     
+    
+    func updateUserEmail(newEmail: String, handler: @escaping(_ success: Bool, _ errorMessage: String?) -> ()) {
+        // check if email is valid
+        if newEmail.isValidEmail() {
+            // email is valid
+            
+            Auth.auth().currentUser?.updateEmail(to: newEmail, completion: { error in
+                if let error = error {
+                    handler(false, error.localizedDescription)
+                    return
+                } else {
+                    handler(true, nil)
+                    return
+                }
+            })
+            
+
+            
+        } else {
+            // not valid email
+           handler(false, "Not a valid email")
+        }
+       
+    }
+    
+    
     ///  persists user data for basic user data (username, first name, last name, and profile picture background color if they did not upload their own) when user signs in to app
     /// - Parameter handler: completition handler that returns a boolean whether the operation was succesfull
     private func setCurrentUserDefaultsWhenSignedIn(handler: @escaping(_ isSuccessful: Bool) -> ()) {

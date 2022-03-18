@@ -12,6 +12,8 @@ struct SettingsView: View {
     @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
     @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @State private var floatMessage: String = ""
+    @State private var showingFloat: Bool = false
     
     var body: some View {
         NavigationView {
@@ -58,6 +60,7 @@ struct SettingsView: View {
                         
                         NavigationLink {
                             Text("transactions")
+                                .navigationBarHidden(true)
                         } label: {
                             
                             HStack {
@@ -85,7 +88,8 @@ struct SettingsView: View {
                         
                         
                         NavigationLink {
-                            Text("edit email")
+                            ChangeEmailView(floatMessage: $floatMessage, isShowingFloat: $showingFloat)
+                                .navigationBarHidden(true)
                         } label: {
                             HStack {
                                 Image(systemName: "envelope.badge.fill")
@@ -114,7 +118,8 @@ struct SettingsView: View {
                         
                         
                         NavigationLink {
-                            Text("change password")
+                            Text("change pass")
+                                .navigationBarHidden(true)
                         } label: {
                             
                             HStack {
@@ -136,7 +141,6 @@ struct SettingsView: View {
                             }
                             .foregroundColor(.black)
                         }
-                        
                         
                         
                         
@@ -187,6 +191,9 @@ struct SettingsView: View {
             .padding()
         }
 //        .padding(.bottom, UIScreen.main.bounds.height / 8)
+        .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.5, closeOnTap: true, closeOnTapOutside: true) {
+            Floats.instance.createSuccessFloat(message: self.floatMessage, color: Color.green)
+        }
     }
     
     private func signOut() {

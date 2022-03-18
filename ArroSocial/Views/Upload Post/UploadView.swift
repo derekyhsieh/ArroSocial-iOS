@@ -18,6 +18,7 @@ struct UploadView: View {
     @State private var isShowingPhotoPicker: Bool = false
     @State private var isShowingTextEditorPlaceholder: Bool = true
     @State private var isLoading: Bool = false
+    @State var attempts: Int = 0
     
     
     // for dismissing sheet
@@ -98,12 +99,12 @@ struct UploadView: View {
                 )
                 .overlay(
                     
-                        Image(systemName: "arrow.up.doc.fill")
-                        //                    .resizable()
-                        //                    .aspectRatio(contentMode: .fill)
-                            .font(.system(size: 40, weight: .bold, design: .rounded))
-                            .foregroundColor(postImage == UIImage(named: "placeholder") ? Color.white.opacity(0.8) : Color.clear)
-                        
+                    Image(systemName: "arrow.up.doc.fill")
+                    //                    .resizable()
+                    //                    .aspectRatio(contentMode: .fill)
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
+                        .foregroundColor(postImage == UIImage(named: "placeholder") ? Color.white.opacity(0.8) : Color.clear)
+                    
                     
                 )
                 .cornerRadius(30)
@@ -148,7 +149,13 @@ struct UploadView: View {
                 
                 Spacer(minLength: 0)
                 Button(action: {
-                    uploadImage()
+                    if self.postImage == UIImage(named: "placeholder") || self.caption.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                        withAnimation(.default) {
+                            self.attempts += 1
+                        }
+                    } else {
+                        uploadImage()
+                    }
                 }) {
                     Text("Post")
                         .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
@@ -158,8 +165,9 @@ struct UploadView: View {
                         .background(Color(AppColors.purple))
                         .cornerRadius(50)
                         .padding(.horizontal)
-                        .opacity(self.postImage == UIImage(named: "placeholder")! ? 0.4 : 1)
+                        .opacity((self.postImage == UIImage(named: "placeholder")! || self.caption.trimmingCharacters(in: .whitespacesAndNewlines) == "") ? 0.4 : 1)
                         .disabled(self.postImage == UIImage(named: "placeholder")! ? true : false)
+                        .modifier(Shake(animatableData: CGFloat(attempts)))
                 }
                 
             }
@@ -169,6 +177,7 @@ struct UploadView: View {
             }
             
             CustomLoadingIndicator(isShowing: $isLoading)
+            
         }
         
     }
@@ -179,13 +188,13 @@ struct UploadView: View {
         withAnimation {
             self.isLoading = true
         }
-        
+       
         // check if user put in a caption
         if caption.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             DataService.instance.uploadPost(image: self.postImage, caption: self.caption, userName: self.username!, userID: self.userID!) { success, postID in
-                    self.isLoading = false
+                self.isLoading = false
                 
-                    self.presentationMode.wrappedValue.dismiss()
+                self.presentationMode.wrappedValue.dismiss()
                 if(!success) {
                     // print error
                 }

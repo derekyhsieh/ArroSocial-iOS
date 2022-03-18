@@ -14,6 +14,7 @@ class DataService {
     
     
     private var REF_POSTS = DB_BASE.collection(FSCollections.posts)
+    private var REF_USERS = DB_BASE.collection(FSCollections.users)
     
     // MARK: CREATE FUNCTION
     
@@ -26,6 +27,9 @@ class DataService {
             if isSuccessful {
                 // successfully uploaded image data to storage
                 // post data to db
+                
+                self.uploadPostIDToFirestoreUser(postID: postID, userID: userID) { success in
+                }
                 
                 var postData: [String: Any] = [
                     FSPostFields.postID: postID,
@@ -54,6 +58,28 @@ class DataService {
             } else {
                 print("Errior uploading post image to firebase (DataService.uploadPost())")
                 handler(false, postID)
+                return
+            }
+        }
+    }
+    
+    
+    private func uploadPostIDToFirestoreUser(postID: String, userID: String, handler: @escaping(_ success: Bool) -> ()) {
+        
+        let userRef = REF_USERS.document(userID)
+        
+        // update user posts array
+        
+        // remove array with "arrayRemove"
+        userRef.updateData([
+            FSUserData.userPosts: FirebaseFirestore.FieldValue.arrayUnion([postID])
+        ]) { error in
+            if let error = error {
+                print("error uploading post id to firestore db users: \(error) (DataService.uploadPostIDToFirestoreUser())")
+                handler(false)
+                return
+            } else {
+                handler(true)
                 return
             }
         }

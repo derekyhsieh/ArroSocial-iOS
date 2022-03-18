@@ -42,6 +42,7 @@ struct FSUserData {
     static let fName = "first_name"
     static let lName = "last_name"
     static let profilePicture = "profile_picture"
+    static let userPosts = "user_posts"
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
 
 }
