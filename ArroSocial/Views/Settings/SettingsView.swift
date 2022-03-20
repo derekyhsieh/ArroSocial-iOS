@@ -12,8 +12,7 @@ struct SettingsView: View {
     @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
     @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
-    @Binding var profileImage: UIImage
-    @Binding var isFinishedLoadingData: Bool
+    @StateObject var profilePictureVM: ProfilePictureViewModel
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     
@@ -30,9 +29,9 @@ struct SettingsView: View {
                         
                         
                         
-                        if isFinishedLoadingData {
-                            if profileImage != UIImage(named: "arro") {
-                                Image(uiImage: profileImage)
+                        if profilePictureVM.isFinishedFetchingProfilePicture {
+                            if profilePictureVM.profilePicture != nil {
+                                Image(uiImage: profilePictureVM.profilePicture!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 125, height: 125)
@@ -228,6 +227,9 @@ struct SettingsView: View {
                     print(error.localizedDescription)
                 } else {
                     print("successfully signed out user")
+                    
+                    profilePictureVM.wipeData()
+                    
                 }
             }
             

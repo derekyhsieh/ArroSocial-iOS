@@ -16,22 +16,19 @@ struct AppWrapperView: View {
     @State var tabBarCenter: CGFloat = 0
     @State private var profileImage: UIImage = UIImage(named: "arro")!
     @State private var isFinishedLoadingData: Bool = false
+    @StateObject var profilePicVM: ProfilePictureViewModel
     
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     @Namespace var animation
     
     
-    init() {
-        // hidden since tab bar will be custom
-        UITabBar.appearance().isHidden = true
-        
-    }
+
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                HomeFeedView(isFinishedLoadingData: $isFinishedLoadingData, profileImage: $profileImage, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal)
+                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal)
                     .tag(tabs[0])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue
@@ -42,7 +39,7 @@ struct AppWrapperView: View {
                     .overlay(Text(tabs[2]))
                     .tag(tabs[2])
                     .ignoresSafeArea(.all, edges: .all)
-                SettingsView(profileImage: $profileImage, isFinishedLoadingData: $isFinishedLoadingData)
+                SettingsView(profilePictureVM: self.profilePicVM)
                     .tag(tabs[3])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing])
             }
@@ -118,37 +115,17 @@ struct AppWrapperView: View {
         
         .onAppear {
             print("appeared")
-            getProfileImage { finished in
-                self.isFinishedLoadingData = true
-            }
+            profilePicVM.fetchData()
         }
     }
-    func getProfileImage(handler: @escaping(_ finished: Bool) -> ()) {
-        ImageService.instance.downloadProfileImage(userID: self.userID) { returnedImage in
-            if let returnedImage = returnedImage {
-                withAnimation {
-                    self.profileImage = returnedImage
-                    handler(true)
-                    return
-                }
-            } else {
-                handler(true)
-                return
-            }
-        }
-    
-       
-    }
-    
-    
 }
 
 
-struct AppWrapperView_Preview: PreviewProvider {
-    static var previews: some View {
-        AppWrapperView()
-    }
-}
+//struct AppWrapperView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        AppWrapperView()
+//    }
+//}
 
 
 // tab view curve

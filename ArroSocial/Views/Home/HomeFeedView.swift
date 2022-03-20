@@ -15,8 +15,7 @@ struct HomeFeedView: View {
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
-    @Binding var isFinishedLoadingData: Bool
-    @Binding var profileImage: UIImage
+    @StateObject var profilePictureVM: ProfilePictureViewModel
     @Binding var isShowingUploadView: Bool
     @Binding var showPermissionsModal: Bool
     
@@ -77,9 +76,9 @@ struct HomeFeedView: View {
                     
                     HStack {
                         
-                        if isFinishedLoadingData {
-                            if profileImage != UIImage(named: "arro") {
-                                                        Image(uiImage: profileImage)
+                        if profilePictureVM.isFinishedFetchingProfilePicture {
+                            if profilePictureVM.profilePicture != nil {
+                                Image(uiImage: profilePictureVM.profilePicture!)
                                                             .resizable()
                                                             .aspectRatio(contentMode: .fill)
                                                             .frame(width: 40, height: 40)
