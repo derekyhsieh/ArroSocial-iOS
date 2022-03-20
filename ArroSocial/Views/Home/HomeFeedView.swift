@@ -7,14 +7,19 @@
 
 import SwiftUI
 import PermissionsSwiftUI
+import Photos
 
 
 struct HomeFeedView: View {
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
+    @Binding var isFinishedLoadingData: Bool
+    @Binding var profileImage: UIImage
     @Binding var isShowingUploadView: Bool
     @Binding var showPermissionsModal: Bool
+    
     
     
     var body: some View {
@@ -72,29 +77,38 @@ struct HomeFeedView: View {
                     
                     HStack {
                         
-                        Circle()
-                            .fill(Color(hexString: self.profilePicColorBackground) ?? Color(AppColors.purple))
-                            .frame(width: 40, height: 40)
-                        // first 2 letters of username
-                            .overlay(
-                                Text(username.prefix(2))
-                                    .font(.custom("Poppins-SemiBold", size: 20))
-                                    .foregroundColor(.white)
-                            )
+                        if isFinishedLoadingData {
+                            if profileImage != UIImage(named: "arro") {
+                                                        Image(uiImage: profileImage)
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .frame(width: 40, height: 40)
+                                                            .clipShape(Circle())
+                                                            .font(.custom("Poppins-SemiBold", size: 20))
+                                                            .foregroundColor(.white)
+                            } else {
+                                Circle()
+                                    .fill(Color(hexString: self.profilePicColorBackground) ?? Color(AppColors.purple))
+                                    .frame(width: 40, height: 40)
+                                // first 2 letters of username
+                                    .overlay(
+                                        Text(username.prefix(2))
+                                            .font(.custom("Poppins-SemiBold", size: 20))
+                                            .foregroundColor(.white)
+                                    )
+                            }
+                        } else {
+                            Circle()
+                                .fill(Color.gray)
+                                .frame(width: 40, height: 40)
+                        }
                         
-                        
-                        //                        Image("person")
-                        //                            .resizable()
-                        //                            .aspectRatio(contentMode: .fill)
-                        //                            .frame(width: 40, height: 40)
-                        //                            .clipShape(Circle())
-                        //                            .font(.custom("Poppins-SemiBold", size: 20))
-                        //                            .foregroundColor(.white)
-                        //                            .padding(.trailing, 5)
                         
                         Text("@\(self.username)")
                             .foregroundColor(.black)
                             .modifier(Poppins(fontWeight: AppFont.regular, .caption))
+                        
+                   
                     }
                     .padding(7)
                     .background(
@@ -119,8 +133,11 @@ struct HomeFeedView: View {
                 .padding(.vertical)
             }
         }
+   
         
     }
+    
+
 }
 
 //struct HomeFeedView_Previews: PreviewProvider {

@@ -9,11 +9,14 @@ import Foundation
 import FirebaseStorage // holds images and videos of app
 import UIKit
 
+// cache user profile image
+let imageCache = NSCache<AnyObject, UIImage>()
+
 class ImageService {
     // MARK: PROPERTIES
     
     static let instance = ImageService()
-        
+    
     private var REF_STORAGE = Storage.storage()
     
     // MARK: PUBLIC FUNCTIONS
@@ -40,9 +43,22 @@ class ImageService {
                 handler(true)
                 return
             } else {
-               handler(false)
+                handler(false)
                 return
             }
+        }
+        
+    }
+    
+    func downloadProfileImage(userID: String, handler: @escaping(_ image: UIImage?) -> ()) {
+        // get path where image is saved
+        
+        let path = getProfileImagePath(userID: userID)
+        
+        // download image from storage using path
+        
+        downloadImage(path: path) { returnedImage in
+            handler(returnedImage)
         }
         
     }
@@ -114,6 +130,33 @@ class ImageService {
                 return
             }
         }
+    }
+    
+    private func downloadImage(path: StorageReference, handler: @escaping(_ image: UIImage?) -> ()) {
+        // check if image is already cached
+        if let cachedImage = imageCache.object(forKey: path) {
+            print("image found in cache")
+            handler(cachedImage)
+            return
+        } else {
+            path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
+                if let data = returnedImageData, let image = UIImage(data: data) {
+                    // success getting image data
+                    imageCache.setObject(image, forKey: path)
+                    handler(image)
+                    return
+                } else {
+                    
+                    print("error getting data from path for image")
+                    print(error?.localizedDescription)
+                    handler(nil)
+                    return
+                }
+            }
+            
+        }
+        
+        
     }
     
 }

@@ -12,6 +12,8 @@ struct SettingsView: View {
     @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
     @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @Binding var profileImage: UIImage
+    @Binding var isFinishedLoadingData: Bool
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     
@@ -21,17 +23,39 @@ struct SettingsView: View {
                 Text("Settings")
                     .background(Color.white.opacity(0.3))
                     .modifier(Poppins(fontWeight: AppFont.semiBold, .subheadline))
-                    
+                
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     ZStack(alignment: .bottomTrailing) {
-                        Circle()
-                            .fill(Color(hexString: profilePicColorBackground) ?? Color(AppColors.purple))
-                            .frame(width: 125, height: 125)
-                            .overlay(Text(username.prefix(2)))
-                            .font(.custom("Poppins-SemiBold", size: 40))
-                            .foregroundColor(.white)
-                            .padding(.trailing, 5)
+                        
+                        
+                        
+                        if isFinishedLoadingData {
+                            if profileImage != UIImage(named: "arro") {
+                                Image(uiImage: profileImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 125, height: 125)
+                                    .clipShape(Circle())
+                                    .font(.custom("Poppins-SemiBold", size: 20))
+                                    .foregroundColor(.white)
+                                    .padding(.trailing, 5)
+                            } else {
+                                Circle()
+                                    .fill(Color(hexString: profilePicColorBackground) ?? Color(AppColors.purple))
+                                    .frame(width: 125, height: 125)
+                                    .overlay(Text(username.prefix(2)))
+                                    .font(.custom("Poppins-SemiBold", size: 40))
+                                    .foregroundColor(.white)
+                                    .padding(.trailing, 5)
+                                
+                            }
+                        }
+                        
+                        
+                        
+                        
+                        
                         
                         Button(action: {}) {
                             Image(systemName: "pencil")
@@ -68,7 +92,7 @@ struct SettingsView: View {
                                     .foregroundColor(.white)
                                     .font(.title.bold())
                                     .padding()
-    //                                .padding(5)
+                                //                                .padding(5)
                                     .background(
                                         Circle()
                                             .fill(Color.green)
@@ -96,7 +120,7 @@ struct SettingsView: View {
                                     .foregroundColor(.white)
                                     .padding()
                                     .font(.title.bold())
-    //                                .padding(5)
+                                //                                .padding(5)
                                     .background(
                                         Circle()
                                             .fill(Color.yellow)
@@ -182,15 +206,15 @@ struct SettingsView: View {
                     //            .padding(.vertical)
                     .padding()
                 }
-         
                 
-           
+                
+                
                 
                 Spacer(minLength: 0)
             }
             .padding()
         }
-//        .padding(.bottom, UIScreen.main.bounds.height / 8)
+        //        .padding(.bottom, UIScreen.main.bounds.height / 8)
         .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.5, closeOnTap: true, closeOnTapOutside: true) {
             Floats.instance.createSuccessFloat(message: self.floatMessage, color: Color.green)
         }
@@ -206,13 +230,13 @@ struct SettingsView: View {
                     print("successfully signed out user")
                 }
             }
-
+            
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-            SettingsView()
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//            SettingsView()
+//    }
+//}
