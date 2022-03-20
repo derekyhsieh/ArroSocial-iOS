@@ -10,7 +10,7 @@ import SwiftUI
 var tabs = [AppPages.home, AppPages.messages, AppPages.search, AppPages.settings]
 
 struct AppWrapperView: View {
-    @State var selectedTab = "house"
+    @State var selectedTab = tabs[0]
     @State private var showPermissionsModal: Bool = false
     @State private var isShowingUploadView: Bool = false
     @State var tabBarCenter: CGFloat = 0
@@ -39,7 +39,7 @@ struct AppWrapperView: View {
                     .overlay(Text(tabs[2]))
                     .tag(tabs[2])
                     .ignoresSafeArea(.all, edges: .all)
-                SettingsView(profilePictureVM: self.profilePicVM)
+                SettingsView(profilePictureVM: self.profilePicVM, selectedTab: $selectedTab)
                     .tag(tabs[3])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing])
             }
@@ -110,7 +110,7 @@ struct AppWrapperView: View {
 //        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true, onDisappear(perform: {
 //        }))
         .sheet(isPresented: $isShowingUploadView) {
-            UploadView()
+            UploadView(profilePicVM: self.profilePicVM)
               }
         
         .onAppear {

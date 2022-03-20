@@ -196,3 +196,9 @@ extension String {
         return allSatisfy({ $0.isWhitespace })
     }
 }
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}

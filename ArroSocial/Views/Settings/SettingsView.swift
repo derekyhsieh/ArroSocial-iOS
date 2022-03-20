@@ -16,6 +16,8 @@ struct SettingsView: View {
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     
+    @Binding var selectedTab: String
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -227,7 +229,7 @@ struct SettingsView: View {
                     print(error.localizedDescription)
                 } else {
                     print("successfully signed out user")
-                    
+                    self.selectedTab = tabs[0]
                     profilePictureVM.wipeData()
                     
                 }
