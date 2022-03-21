@@ -166,7 +166,9 @@ struct UploadView: View {
                             }
                             .offset(y: -10)
                             .onChange(of: caption, perform: { value in
-                                caption = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                                if value.count < 1 {
+                                    caption = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                                }
                             })
                             .focused($focusedField, equals: .caption)
                         
