@@ -129,6 +129,7 @@ struct LoginView: View {
             
             withAnimation {
                 // start progress view loading indicator
+                print("loading")
                 self.isLoading = true
             }
             
@@ -148,7 +149,6 @@ struct LoginView: View {
           
             }
         }
-        self.isLoading = false
     }
 }
 

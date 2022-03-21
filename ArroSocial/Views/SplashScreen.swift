@@ -14,7 +14,7 @@ struct SplashScreen: View {
     var body: some View {
         ZStack {
             if animate {
-                Color.white
+                Color(AppColors.bg)
             } else {
                 Color("purple")
             }

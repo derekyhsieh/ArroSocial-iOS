@@ -25,12 +25,13 @@ struct WelcomeView: View {
                         Spacer()
                         
                         Text("The Platform Made for the People")
-                            .modifier(Poppins(fontWeight: AppFont.semiBold, .title2))
+                            .modifier(Poppins(fontWeight: AppFont.semiBold, .title3))
                             .multilineTextAlignment(.center)
 
-                            Image("arro-logo")
-                            .background(Color(AppColors.purple))
-                            .cornerRadius(50)
+                            Image("logo-with-purplebg")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 250, height: 250)
                             .padding()
                         Spacer()
                         
