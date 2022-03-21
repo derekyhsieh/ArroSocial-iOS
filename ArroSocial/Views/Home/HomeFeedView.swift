@@ -196,6 +196,7 @@ struct HomeFeedView: View {
                     
                 }
                 .padding(.vertical)
+                .padding(.top, 5)
             }
         }
         
@@ -209,13 +210,14 @@ struct HomeFeedView: View {
             withAnimation(Animation.linear) {
                 if refresh.startOffset == refresh.offset {
                     posts.fetchPosts { finished in
+                        print("finished")
                         refresh.released = false
                         
                         refresh.started = false
                     }
                     
                 } else {
-                    refresh.invalidScroll = true
+//                    refresh.invalidScroll = true
                 }
             }
         }
