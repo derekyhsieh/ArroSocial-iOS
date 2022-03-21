@@ -66,7 +66,7 @@ class DataService {
                 }
                 
             } else {
-                print("Errior uploading post image to firebase (DataService.uploadPost())")
+                print("Error uploading post image to firebase (DataService.uploadPost())")
                 handler(false, postID)
                 return
             }
