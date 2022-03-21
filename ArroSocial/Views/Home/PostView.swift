@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import Photos
 
 struct PostView: View {
     @State var post: PostModel
     @State private var showsMenu: Bool = true
+    @State private var finishedFetchingProfileImage: Bool = false
+    
+    // data
+    @State private var profileImage: UIImage = UIImage(named: "placeholder")!
+    @State private var postImage: UIImage = UIImage(named: "placeholder")!
+    @State private var profilePictureColor: String = ""
+    
+    
     var body: some View {
         ZStack {
-            post.image
+            Image(uiImage: postImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
             
@@ -41,11 +50,39 @@ struct PostView: View {
                     Spacer()
                     VStack(alignment: .leading) {
                         HStack {
-                            post.userPicture
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
+                            if finishedFetchingProfileImage {
+                                
+                                if profileImage.isEqual(UIImage(named: "placeholder")!) {
+                                   // no profile picture
+                                    Circle()
+                                        .fill(Color(hexString: self.profilePictureColor) ?? Color(AppColors.purple))
+                                        .frame(width: 50, height: 50)
+                                    // first 2 letters of username
+                                        .overlay(
+                                            Text((post.username ?? "  ").prefix(2))
+                                                .font(.custom("Poppins-SemiBold", size: 20))
+                                                .foregroundColor(.white)
+                                        )
+                                    
+                                    
+                                } else {
+                                    Image(uiImage: profileImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 50, height: 50)
+                                        .clipShape(Circle())
+                                    
+                                }
+                                
+                                
+                            } else {
+                                Image(uiImage: UIImage(named: "placeholder")!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                            }
+                            
                             Text("@" + post.username)
                                 .foregroundColor(.white)
                                 .modifier(Poppins(fontWeight: AppFont.semiBold, .subheadline))
@@ -54,17 +91,13 @@ struct PostView: View {
                         }
                         
                         
-                        // caption can be nil
-                        if post.caption != nil {
-                            // can safely unwrap with bang since we checked already
-                            Text(post.caption!)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(Color.white)
-                                .modifier(Poppins(fontWeight: AppFont.medium, .caption))
-                                .frame(height: 50)
-                                .truncationMode(.tail)
-                                .padding(-5)
-                        }
+                        Text(post.caption ?? "" )
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Color.white)
+                            .modifier(Poppins(fontWeight: AppFont.medium, .caption))
+                            .frame(height: 50)
+                            .truncationMode(.tail)
+                            .padding(-5)
                     }
                     .padding()
                     
@@ -102,7 +135,7 @@ struct PostView: View {
                             
                         }
                         .padding(.vertical)
-                   
+                        
                         Button {
                             
                         } label: {
@@ -126,26 +159,49 @@ struct PostView: View {
                         
                     )
                     .cornerRadius(20)
-//                    .offset(x: 10)
+                    //                    .offset(x: 10)
                     .frame(width: (UIScreen.main.bounds.width - 20) / 3.5, height: UIScreen.main.bounds.height / 2)
                     .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
                 }
                 
-              
+                
                 
             }
         }
         .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)
         .clipped()
         .cornerRadius(25)
+        .onAppear {
+            getImages()
+        }
+    }
+    
+    func getImages() {
+        // get profile image
+        
+        ImageService.instance.downloadProfileImage(userID: post.userID) { image in
+            // error checking image for nil
+            if let image = image {
+                self.profileImage = image
+            } else {
+                self.finishedFetchingProfileImage = true
+            }
+        }
+        
+        ImageService.instance.downloadPostImage(postID: post.postID) { image in
+            if let image = image {
+                self.postImage = image
+            }
+            
+        }
     }
 }
 
-let data = PostModel(id: UUID(), postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d1"), dateCreated: Date(), likeCount: 123, likedByUser: true)
+//let data = PostModel(id: UUID(), postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d1"), dateCreated: Date(), likeCount: 123, likedByUser: true)
 
 
-struct PostView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView(post: data)
-    }
-}
+//struct PostView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostView(post: data)
+//    }
+//}

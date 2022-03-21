@@ -34,6 +34,17 @@ class ImageService {
         
     }
     
+    func downloadPostImage(postID: String, handler: @escaping(_ image: UIImage?) -> ()) {
+        // get path wehere image is saved
+        let path = getPostImagePath(postID: postID, imageCount: 0)
+        
+        // donwload image from path
+        downloadImage(path: path) { returnedImage in
+            handler(returnedImage)
+        }
+        
+    }
+    
     func uploadPostImage(postID: String, image: UIImage, imageCount: Int, handler: @escaping(_ isSuccessful: Bool) -> ()) {
         
         let path = getPostImagePath(postID: postID, imageCount: imageCount)
@@ -148,7 +159,7 @@ class ImageService {
                 } else {
                     
                     print("error getting data from path for image")
-                    print(error?.localizedDescription)
+                    print(error!.localizedDescription)
                     handler(nil)
                     return
                 }

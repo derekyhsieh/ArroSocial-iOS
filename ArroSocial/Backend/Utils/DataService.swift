@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseFirestore
+import SwiftUI
 
 class DataService {
     static let instance = DataService()
@@ -15,6 +16,8 @@ class DataService {
     
     private var REF_POSTS = DB_BASE.collection(FSCollections.posts)
     private var REF_USERS = DB_BASE.collection(FSCollections.users)
+    
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     
     // MARK: CREATE FUNCTION
     
@@ -63,6 +66,46 @@ class DataService {
         }
     }
     
+    func downloadPostsForFeed(handler: @escaping(_ posts: [PostModel]) ->()) {
+        // download 25 posts
+        REF_POSTS.order(by: FSPostFields.dateCreated, descending: true).limit(to: 25).getDocuments { querySnapshot, error in
+            handler(self.getPostsFromQuerySnapsho(querySnapshot: querySnapshot))
+        }
+    }
+    
+    // MARK: PRIVATE FUNCTIONS
+    
+    private func getPostsFromQuerySnapsho(querySnapshot: QuerySnapshot?) -> [PostModel] {
+        var postArray = [PostModel]()
+        
+        if let querySnapshot = querySnapshot, querySnapshot.documents.count > 0 {
+            for document in querySnapshot.documents {
+                if
+                    let userID = document.get(FSPostFields.userID) as? String,
+                    let timestamp = document.get(FSPostFields.dateCreated) as? Timestamp,
+                    let username = document.get(FSPostFields.userName) as? String {
+                    
+                    let caption = document.get(FSPostFields.caption) as? String
+                    let date = timestamp.dateValue()
+                    let likeCount = document.get(FSPostFields.likeCount) as? Int ?? 0
+                    let postID = document.documentID
+                    
+                    var likedByUser: Bool = false
+                    if let userIDArray = document.get(FSPostFields.likedBy) as? [String], let userID = self.currentUserID {
+                        // if current user id is in array user liked it
+                        likedByUser = userIDArray.contains(userID)
+                    }
+                    
+                    let newPost = PostModel(postID: postID, userID: userID, username: username, caption: caption, dateCreated: date, likeCount: likeCount, likedByUser: likedByUser)
+                    postArray.append(newPost)
+                }
+            }
+            return postArray
+        } else {
+            print("no documents in snapshot found")
+            return postArray
+        }
+    }
     
     private func uploadPostIDToFirestoreUser(postID: String, userID: String, handler: @escaping(_ success: Bool) -> ()) {
         

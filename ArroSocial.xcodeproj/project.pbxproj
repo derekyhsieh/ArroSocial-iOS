@@ -32,7 +32,6 @@
 		4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */; };
 		4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42724927D1E0C600984206 /* AuthenticationService.swift */; };
 		4B5A732B27DAA38C0033363E /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B5A732A27DAA38C0033363E /* PermissionsSwiftUI */; };
-		4B69182327C9677E000CCD1D /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69182227C9677E000CCD1D /* PostCell.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
 		4B6AF01327C6F9670070B7E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF01227C6F9670070B7E8 /* Assets.xcassets */; };
@@ -44,6 +43,7 @@
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
 		4B99E38427E7E0BB00AFC20F /* ProfilePictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */; };
+		4B99E38627E7EE4D00AFC20F /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */; };
 		4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2177827DF0A1500A8F72F /* SplashScreen.swift */; };
 		4BA2177C27DF0DE700A8F72F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */; };
 		4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */; };
@@ -53,7 +53,6 @@
 		4BED1BAD27D2DFEA00DB6830 /* SSToastMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 4BED1BAC27D2DFEA00DB6830 /* SSToastMessage */; };
 		4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BED1BB127D314FA00DB6830 /* Animations.swift */; };
 		4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE709D27D080F400F42F8C /* SettingsView.swift */; };
-		4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD91F927C80F23007A95F7 /* HomeView.swift */; };
 		4BFD91FC27C81AC3007A95F7 /* Lobster-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +77,6 @@
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		4B42724927D1E0C600984206 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		4B69182227C9677E000CCD1D /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroSocialApp.swift; sourceTree = "<group>"; };
 		4B6AF01027C6F9660070B7E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +90,7 @@
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
 		4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewModel.swift; sourceTree = "<group>"; };
+		4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
 		4BA2177827DF0A1500A8F72F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		4BA2177B27DF0DE700A8F72F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingIndicator.swift; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 		4BE5188227D56AF400548EEC /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		4BFD91F927C80F23007A95F7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,9 +218,9 @@
 				4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */,
 				4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */,
 				4B6AF02027C724790070B7E8 /* Poppins-SemiBold.ttf */,
-				4B99E38127E7DF2F00AFC20F /* ViewModels */,
 				4B42724727D1E03A00984206 /* Backend */,
 				4B6AF01D27C7244F0070B7E8 /* Helpers */,
+				4B99E38127E7DF2F00AFC20F /* ViewModels */,
 				4B1533CD27CC3EDB0059C7C7 /* Models */,
 				4B6AF01C27C724430070B7E8 /* Views */,
 				4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */,
@@ -275,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */,
+				4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -291,8 +290,6 @@
 		4BFD91F827C80F17007A95F7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4BFD91F927C80F23007A95F7 /* HomeView.swift */,
-				4B69182227C9677E000CCD1D /* PostCell.swift */,
 				4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */,
 				4B1DB73527CF33FA0075ED5D /* PostView.swift */,
 			);
@@ -388,12 +385,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B69182327C9677E000CCD1D /* PostCell.swift in Sources */,
 				4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */,
 				4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */,
 				4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */,
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B99E38427E7E0BB00AFC20F /* ProfilePictureViewModel.swift in Sources */,
+				4B99E38627E7EE4D00AFC20F /* PostsViewModel.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
 				4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */,
@@ -411,7 +408,6 @@
 				4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
-				4BFD91FA27C80F23007A95F7 /* HomeView.swift in Sources */,
 				4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */,
 				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,

@@ -54,6 +54,8 @@ struct FSPostFields {
     static let userName = "user_name"
     static let caption = "caption"
     static let dateCreated = "date_created"
+    static let likeCount = "like_count"
+    static let likedBy = "liked_by"
 }
 
 

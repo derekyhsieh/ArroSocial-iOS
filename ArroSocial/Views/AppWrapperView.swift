@@ -28,7 +28,7 @@ struct AppWrapperView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal)
+                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, posts: PostsViewModel())
                     .tag(tabs[0])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue

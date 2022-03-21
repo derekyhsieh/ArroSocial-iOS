@@ -19,6 +19,7 @@ struct HomeFeedView: View {
     @Binding var isShowingUploadView: Bool
     @Binding var showPermissionsModal: Bool
     
+    @StateObject var posts: PostsViewModel
     
     
     var body: some View {
@@ -120,12 +121,16 @@ struct HomeFeedView: View {
                 .padding(.horizontal)
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 15) {
-                        PostView(post: data)
-                        PostView(post: PostModel(postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "test caption", image: Image("d2"), dateCreated: Date(), likeCount: 201, likedByUser: true))
-                        PostView(post: PostModel(postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "asdfjasdkfljasdkfjasl kjfasdjfla ksjfklasjdflkasjd lkjasdlfkj asdklfjaskldj", image: Image("d1"), dateCreated: Date(), likeCount: 201, likedByUser: true))
                         
-                        PostView(post: data)
-                            .opacity(0)
+                        ForEach(posts.dataArray, id: \.self) { post in
+                           PostView(post: post)
+                        }
+//                        PostView(post: data)
+//                        PostView(post: PostModel(postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "test caption", image: Image("d2"), dateCreated: Date(), likeCount: 201, likedByUser: true))
+//                        PostView(post: PostModel(postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "asdfjasdkfljasdkfjasl kjfasdjfla ksjfklasjdflkasjd lkjasdlfkj asdklfjaskldj", image: Image("d1"), dateCreated: Date(), likeCount: 201, likedByUser: true))
+//                        
+//                        PostView(post: data)
+//                            .opacity(0)
                     }
                     
                 }
