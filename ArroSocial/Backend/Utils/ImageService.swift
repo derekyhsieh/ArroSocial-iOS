@@ -34,6 +34,10 @@ class ImageService {
         
     }
     
+    /// Downloads image of a specific post from its post ID from Firebase storage
+    /// - Parameters:
+    ///   - postID: post specific ID
+    ///   - handler: returns an optional downloaded UIImage that is may be nil if not found
     func downloadPostImage(postID: String, handler: @escaping(_ image: UIImage?) -> ()) {
         // get path wehere image is saved
         let path = getPostImagePath(postID: postID, imageCount: 0)
@@ -45,6 +49,12 @@ class ImageService {
         
     }
     
+    /// Uploads image of a post to Firebase storage
+    /// - Parameters:
+    ///   - postID: post specific ID
+    ///   - image: image that will be uploaded assigned to the post
+    ///   - imageCount: which image number it is, in case of mulitple images per post
+    ///   - handler: returns a boolean for isSuccessful or not.
     func uploadPostImage(postID: String, image: UIImage, imageCount: Int, handler: @escaping(_ isSuccessful: Bool) -> ()) {
         
         let path = getPostImagePath(postID: postID, imageCount: imageCount)
@@ -61,6 +71,10 @@ class ImageService {
         
     }
     
+    /// Downloads profile image from specific UserID
+    /// - Parameters:
+    ///   - userID: userID for where the image will be downloaded for
+    ///   - handler: returns an optinal user profile image (uiImage) and an optinal hexcolor code for the profile picture backgropund if user did not upload their own user profile image and uses the generated one
     func downloadProfileImage(userID: String, handler: @escaping(_ image: UIImage?, _ hexColor: String?) -> ()) {
         // get path where image is saved
         
@@ -110,6 +124,11 @@ class ImageService {
     
     
     
+    /// Uploading an image to the storage path
+    /// - Parameters:
+    ///   - path: This is the path where the image will be uploaded to
+    ///   - image: the image that is uploaded to the path
+    ///   - handler: returns a success boolean that tells whether uploading to storage was successful
     private func uploadImage(path: StorageReference, image: UIImage, handler: @escaping(_ success: Bool) -> ()) {
         
         var compression: CGFloat = 1.0 // loops down by 0.05
@@ -154,6 +173,10 @@ class ImageService {
         }
     }
     
+    /// Download's image from a specific Firebase storage path
+    /// - Parameters:
+    ///   - path: path of the desired image to be downloaded
+    ///   - handler: returns an optional image 
     private func downloadImage(path: StorageReference, handler: @escaping(_ image: UIImage?) -> ()) {
         // check if image is already cached
         if let cachedImage = imageCache.object(forKey: path) {
