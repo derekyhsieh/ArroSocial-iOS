@@ -76,7 +76,7 @@ class DataService {
     func getUserProfileBackgroundColor(userID: String, handler: @escaping(_ hexColor: String?) -> ()) {
         let userDocRef = REF_USERS.document(userID)
         
-        userDocRef.getDocument(source: .cache) { doc, error in
+        userDocRef.getDocument( ) { doc, error in
             if let document = doc {
                 let hexColorField = document.get(FSUserData.generatedProfilePictureBackgroundColorInHex) as? String
                 handler(hexColorField)
