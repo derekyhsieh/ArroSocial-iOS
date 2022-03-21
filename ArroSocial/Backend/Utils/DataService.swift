@@ -21,6 +21,13 @@ class DataService {
     
     // MARK: CREATE FUNCTION
     
+    /// Uploads post data to Firestore database "posts" collection and image data to Firebase storage
+    /// - Parameters:
+    ///   - image: image of post that will be uploaded to firebase storage
+    ///   - caption: caption of post that will be uploaded to firestore databse
+    ///   - userName: username of user who posted the post
+    ///   - userID: userID of user who posted the post
+    ///   - handler: returns a success boolean and optional postID of uploaded post if successful
     func uploadPost(image: UIImage, caption: String?, userName: String, userID: String, handler: @escaping(_ success: Bool,_ postID: String?) -> ()) {
         // create doc
         let document = REF_POSTS.document()
@@ -66,13 +73,19 @@ class DataService {
         }
     }
     
+    /// initially used to download a limited number of posts displayed in the feed
+    /// - Parameter handler: returns an array of PostModel of returned posts
     func downloadPostsForFeed(handler: @escaping(_ posts: [PostModel]) ->()) {
         // download 25 posts
-        REF_POSTS.order(by: FSPostFields.dateCreated, descending: true).limit(to: 25).getDocuments { querySnapshot, error in
-            handler(self.getPostsFromQuerySnapsho(querySnapshot: querySnapshot))
+        REF_POSTS.order(by: FSPostFields.dateCreated, descending: true).limit(to: 20).getDocuments { querySnapshot, error in
+            handler(self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot))
         }
     }
     
+    /// Fetches user profile background color in hex code when user hasn't uploaded profile picture
+    /// - Parameters:
+    ///   - userID: userID of desired user data
+    ///   - handler: returns an optional hex color string of the background color
     func getUserProfileBackgroundColor(userID: String, handler: @escaping(_ hexColor: String?) -> ()) {
         let userDocRef = REF_USERS.document(userID)
         
@@ -92,7 +105,10 @@ class DataService {
     
     // MARK: PRIVATE FUNCTIONS
     
-    private func getPostsFromQuerySnapsho(querySnapshot: QuerySnapshot?) -> [PostModel] {
+    /// Decodes posts from query snapshot into a PostModel array
+    /// - Parameter querySnapshot: Firebase QuerySnapshot of post data
+    /// - Returns: array of type PostModel
+    private func getPostsFromQuerySnapshot(querySnapshot: QuerySnapshot?) -> [PostModel] {
         var postArray = [PostModel]()
         
         if let querySnapshot = querySnapshot, querySnapshot.documents.count > 0 {
@@ -124,6 +140,11 @@ class DataService {
         }
     }
     
+    /// Uploads the post ID of new post to user data array (may be deprecated in the future and instead use firestore queries for post filtering)
+    /// - Parameters:
+    ///   - postID: postID of specific post
+    ///   - userID: userID of user who posted
+    ///   - handler: returns a success boolean 
     private func uploadPostIDToFirestoreUser(postID: String, userID: String, handler: @escaping(_ success: Bool) -> ()) {
         
         let userRef = REF_USERS.document(userID)
