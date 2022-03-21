@@ -73,6 +73,23 @@ class DataService {
         }
     }
     
+    func getUserProfileBackgroundColor(userID: String, handler: @escaping(_ hexColor: String?) -> ()) {
+        let userDocRef = REF_USERS.document(userID)
+        
+        userDocRef.getDocument(source: .cache) { doc, error in
+            if let document = doc {
+                let hexColorField = document.get(FSUserData.generatedProfilePictureBackgroundColorInHex) as? String
+                handler(hexColorField)
+                return
+            } else {
+                print(error!.localizedDescription)
+                print("document doesnt exist (DataService.getUserProfileBackgroudnColor())")
+                handler(nil)
+                return
+            }
+        }
+    }
+    
     // MARK: PRIVATE FUNCTIONS
     
     private func getPostsFromQuerySnapsho(querySnapshot: QuerySnapshot?) -> [PostModel] {

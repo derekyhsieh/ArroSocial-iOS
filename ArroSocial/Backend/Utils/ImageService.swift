@@ -61,7 +61,7 @@ class ImageService {
         
     }
     
-    func downloadProfileImage(userID: String, handler: @escaping(_ image: UIImage?) -> ()) {
+    func downloadProfileImage(userID: String, handler: @escaping(_ image: UIImage?, _ hexColor: String?) -> ()) {
         // get path where image is saved
         
         let path = getProfileImagePath(userID: userID)
@@ -69,7 +69,18 @@ class ImageService {
         // download image from storage using path
         
         downloadImage(path: path) { returnedImage in
-            handler(returnedImage)
+            if returnedImage == nil {
+               // user has no profile pic and we need to get profile pic background color from user store
+                DataService.instance.getUserProfileBackgroundColor(userID: userID) { hexColor in
+                    if let hexColor = hexColor {
+                        handler(nil, hexColor)
+                    } else {
+                        // didnt get hex color
+                        handler(nil, nil)
+                    }
+                }
+            }
+            handler(returnedImage, nil)
         }
         
     }

@@ -16,7 +16,7 @@ class ProfilePictureViewModel: ObservableObject {
     @AppStorage(CurrentUserDefaults.userID) var userID = ""
     
     func fetchData() {
-        ImageService.instance.downloadProfileImage(userID: userID) { image in
+        ImageService.instance.downloadProfileImage(userID: userID) { image, hexColor in
             if let profileImage = image {
                 self.profilePicture = profileImage
                 self.isFinishedFetchingProfilePicture = true

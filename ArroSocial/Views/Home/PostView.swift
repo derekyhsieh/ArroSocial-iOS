@@ -179,13 +179,17 @@ struct PostView: View {
     func getImages() {
         // get profile image
         
-        ImageService.instance.downloadProfileImage(userID: post.userID) { image in
+        ImageService.instance.downloadProfileImage(userID: post.userID) { image, hexColor  in
             // error checking image for nil
             if let image = image {
                 self.profileImage = image
             } else {
-                self.finishedFetchingProfileImage = true
+                if let hexColor = hexColor {
+                    self.profilePictureColor = hexColor
+                }
             }
+            self.finishedFetchingProfileImage = true
+            
         }
         
         ImageService.instance.downloadPostImage(postID: post.postID) { image in
