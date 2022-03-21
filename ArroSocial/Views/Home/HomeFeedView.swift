@@ -196,7 +196,6 @@ struct HomeFeedView: View {
                     
                 }
                 .padding(.vertical)
-                .padding(.top, 5)
             }
         }
         

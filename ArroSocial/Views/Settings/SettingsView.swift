@@ -12,7 +12,9 @@ struct SettingsView: View {
     @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
     @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @State private var isShowingPhotoPicker: Bool = false
     @StateObject var profilePictureVM: ProfilePictureViewModel
+    @State private var profilePic: UIImage = UIImage(named: "placeholder")!
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     
@@ -58,7 +60,11 @@ struct SettingsView: View {
                         
                         
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            
+                            self.isShowingPhotoPicker = true
+                            
+                        }) {
                             Image(systemName: "pencil")
                                 .frame(width: 30, height: 30)
                                 .font(.title3)
@@ -219,6 +225,14 @@ struct SettingsView: View {
         .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.5, closeOnTap: true, closeOnTapOutside: true) {
             Floats.instance.createSuccessFloat(message: self.floatMessage, color: Color.green)
         }
+        .sheet(isPresented: $isShowingPhotoPicker) {
+            PhotoPicker(image: $profilePic)
+                .onDisappear {
+                    self.profilePictureVM.profilePicture = self.profilePic
+                    self.profilePictureVM.updateUserProfilePicture(profilePic: self.profilePic)
+                }
+            
+        }
     }
     
     private func signOut() {
@@ -231,7 +245,6 @@ struct SettingsView: View {
                     print("successfully signed out user")
                     self.selectedTab = tabs[0]
                     profilePictureVM.wipeData()
-                    
                 }
             }
             

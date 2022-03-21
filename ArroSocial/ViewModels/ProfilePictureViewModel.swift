@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class ProfilePictureViewModel: ObservableObject {
+    
     @Published var isFinishedFetchingProfilePicture: Bool = false
     @Published var profilePicture: UIImage?
     
@@ -31,5 +32,11 @@ class ProfilePictureViewModel: ObservableObject {
     func wipeData() {
         self.profilePicture = nil
         self.isFinishedFetchingProfilePicture = false
+    }
+    
+    
+    // used when user uploads new profile picture
+    func updateUserProfilePicture(profilePic: UIImage) {
+        ImageService.instance.uploadProfileImage(userID: userID, image: profilePic)
     }
 }
