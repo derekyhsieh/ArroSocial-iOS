@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ProfileView: View {
     
@@ -13,6 +14,8 @@ struct ProfileView: View {
     
     @StateObject var profilePosts: PostsViewModel
     @StateObject var profilePictureVM: ProfilePictureViewModel
+    @State private var isEditing: Bool = false
+    
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     
@@ -30,7 +33,7 @@ struct ProfileView: View {
                         Image(uiImage: profilePictureVM.profilePicture!)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 125, height: 125)
+                            .frame(width: 100, height: 100)
                             .clipShape(Circle())
                             .font(.custom("Poppins-SemiBold", size: 20))
                             .foregroundColor(.white)
@@ -128,11 +131,25 @@ struct ProfileView: View {
             
             Divider()
             
+            HStack {
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        isEditing.toggle()
+                    }
+                    
+                }) {
+                    Text(isEditing ? "done" : "edit")
+                        .foregroundColor(isEditing ? Color.red : Color.blue)
+                        .font(.custom("Poppins-regular", size: 15))
+                }
+            }
+            
             
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: columns) {
                     ForEach(self.profilePosts.dataArray) { post in
-                        PostImageView(post: post)
+                        PostImageView(postVM: profilePosts, isEditing: $isEditing, post: post)
                     }
                     
                 }
@@ -147,24 +164,50 @@ struct ProfileView_Previews: PreviewProvider {
     @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     
     static var previews: some View {
-        ProfileView(isUsersOwnProfile: false, profilePosts: PostsViewModel(userID: "62lnkEVO6WZpXnlm1zAOybFOHfW2"), profilePictureVM: ProfilePictureViewModel())
+        ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: "62lnkEVO6WZpXnlm1zAOybFOHfW2"), profilePictureVM: ProfilePictureViewModel())
     }
 }
 
 
 struct PostImageView: View {
+    @StateObject var postVM: PostsViewModel
+    @Binding var isEditing: Bool
     @State var post: PostModel
     @State private var postImage: UIImage = UIImage(named: "placeholder")!
     var body: some View {
         
         VStack {
-            Image(uiImage: postImage)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .cornerRadius(10)
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                Image(uiImage: postImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                    .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
+                
+                if isEditing {
+                    Button {
+                        deletePost()
+                    } label: {
+                        ZStack {
+                            Image(systemName: "minus.circle.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(Color.red)
+                            
+                            Image(systemName: "minus.circle")
+                                .font(.system(size: 25))
+                                .foregroundColor(Color.white)
+                        }
+                    }
+
+                  
+                    
+                }
+            }
+            
             
         }
+        //        .frame(width: 300, height: 150)
         .onAppear {
             ImageService.instance.downloadPostImage(postID: post.postID) { image in
                 if let image = image {
@@ -173,5 +216,13 @@ struct PostImageView: View {
             }
         }
         
+    }
+    
+    func deletePost() {
+        
+        postVM.deletePost(postID: post.postID) { finished in
+            
+        }
+     
     }
 }

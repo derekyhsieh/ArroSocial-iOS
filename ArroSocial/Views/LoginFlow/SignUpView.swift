@@ -62,6 +62,7 @@ struct SignUpView: View {
                                     self.emailIsOk = isValidEmail(emailValue)
                                 }
                             }
+                            .disableAutocorrection(true)
                         if(emailIsOk) {
                             Text(Image(systemName: "checkmark"))
                                 .fontWeight(.bold)

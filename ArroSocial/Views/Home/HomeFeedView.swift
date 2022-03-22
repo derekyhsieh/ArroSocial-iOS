@@ -57,7 +57,11 @@ struct HomeFeedView: View {
                     Button(action: {
                         // check if app storage has gotten
                         //                        if !self.gottenPermissions {
-                        self.showPermissionsModal = true
+                        print("showing uploadview")
+                        if !self.gottenUserPermissions {
+                            
+                            self.showPermissionsModal = true
+                        }
                         
                         if(self.gottenUserPermissions) {
                             
@@ -193,6 +197,10 @@ struct HomeFeedView: View {
                             ForEach(posts.dataArray, id: \.self) { post in
                                 PostView(post: post)
                             }
+                        Rectangle()
+                            .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)
+                            .opacity(0)
+                   
                             
                         }
                     }

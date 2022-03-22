@@ -73,13 +73,39 @@ class DataService {
         }
     }
     
-    /// initially used to download a limited number of posts displayed in the feed
-    /// - Parameter handler: returns an array of PostModel of returned posts
-    func downloadPostsForFeed(handler: @escaping(_ posts: [PostModel]) ->()) {
-        // download 25 posts
-        REF_POSTS.order(by: FSPostFields.dateCreated, descending: true).limit(to: 20).getDocuments { querySnapshot, error in
-            handler(self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot))
+    func getDocumentReference(collection: String, documentID: String) -> DocumentReference {
+        return DB_BASE.collection(collection).document(documentID)
+    }
+    
+    func deleteDocument(docReference: DocumentReference, handler: @escaping(_ success: Bool) -> ()) {
+        docReference.delete { err in
+            if let err = err {
+                print("error revmoing document: \(err)")
+                handler(false)
+                return
+            } else {
+                handler(true)
+                return
+            }
         }
+
+    }
+    
+    
+    /// downlaods limited number of posts to populate feed view
+    /// - Parameters:
+    ///   - userID: userID to filter out posts that are the user's
+    ///   - handler: returns a PostModel array of posts
+    func downloadPostsForFeed(userID: String, handler: @escaping(_ posts: [PostModel]) ->()) {
+        // download 20 posts
+            // can't use order by timestamp since firebase doesn't support multiple query fields at this moment
+            REF_POSTS.whereField(FSPostFields.userID, isNotEqualTo: userID).limit(to: 20).getDocuments { querySnapshot, error in
+                let posts = self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot)
+                // sort posts
+                
+                handler(self.sortPostsByDate(posts: posts))
+        }
+        
     }
     
     
@@ -176,5 +202,20 @@ class DataService {
                 return
             }
         }
+    }
+    
+    
+    private func sortPostsByDate(posts: [PostModel]) -> [PostModel] {
+        
+        // sort by time stamp
+        print(posts)
+        
+        let sortedPosts = posts.sorted {
+            $0.dateCreated > $1.dateCreated
+            
+        }
+        
+        return sortedPosts
+        
     }
 }

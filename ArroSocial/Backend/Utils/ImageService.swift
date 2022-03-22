@@ -99,6 +99,20 @@ class ImageService {
         
     }
     
+    func deletePostImage(postID: String, handler: @escaping(_ success: Bool)->()) {
+        let path = getPostImagePath(postID: postID, imageCount: 0)
+        path.delete { error in
+            if let error = error {
+               print("error deleting image from storage path: \(error)")
+                handler(false)
+                return
+            } else {
+                handler(true)
+                return
+            }
+        }
+    }
+    
     
     // MARK: PRIVATE FUNCTIONS
     
