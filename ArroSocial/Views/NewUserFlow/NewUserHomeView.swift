@@ -279,6 +279,8 @@ struct NewUserHomeView: View {
         .onAppear {
             // sets user is in middle of walkthrough as true so even if user leaves we keep them back in walkthrough
             self.userIsInMiddleOfWalkthrough = true
+            AuthenticationService.instance.signInUserFromUserDefault { error in
+            }
         }
         
     }

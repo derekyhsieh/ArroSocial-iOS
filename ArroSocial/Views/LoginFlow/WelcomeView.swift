@@ -13,7 +13,7 @@ struct WelcomeView: View {
     @AppStorage("userIsInTheMiddleOfWalkthrough") var userIsInMiddleOfWalkthrough: Bool = false
     
     var body: some View {
-        if showNewUserWalkthrough || userIsInMiddleOfWalkthrough {
+        if showNewUserWalkthrough && userIsInMiddleOfWalkthrough {
             GeometryReader { proxy in
                 NewUserHomeView(isShowingNewUserWalkthrough: $showNewUserWalkthrough, isShowingWelcome: $isShowingWelcome, screenSize: proxy.size)
 

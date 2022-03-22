@@ -16,7 +16,6 @@ let DB_BASE = Firestore.firestore()
 class AuthenticationService {
     
     // MARK: PROPERTIES
-    
     static let instance = AuthenticationService()
     private var REF_USERS = DB_BASE.collection("users")
     
@@ -77,19 +76,29 @@ class AuthenticationService {
                 print("no user found")
                 self.signInUserFromUserDefault { error in
                     if let error = error {
+                    
                         handler(error)
                         return
                     } else {
-                        self.deleteUser(hasUserCompletedOnboarding: false, userHasData: false) { error in
+                        print("deleting user")
+                        Auth.auth().currentUser!.delete(completion: { error in
+                            // check for errors
                             if let error = error {
-                            handler(error)
+                                // error occured
+                                handler(error)
                                 return
                             } else {
+                                // success
+                                
+                                UserDefaults.standard.removeObject(forKey: CurrentUserDefaults.email)
+                                UserDefaults.standard.removeObject(forKey: CurrentUserDefaults.password)
+                                UserDefaults.standard.removeObject(forKey: CurrentUserDefaults.userIsInTheMiddleOfWalkthrough)
+                                
                                 handler(nil)
+                                
                                 return
                             }
-                        }
-                        
+                        })
                     }
                 }
             }
@@ -361,7 +370,7 @@ class AuthenticationService {
     
     
     /// ONLY USE WHEN USER IS IN WALKTHROUGH AND FORCE QUITS APP AND NEEDS TO SIGN IN TO DELETE ACCOUNT
-    private func signInUserFromUserDefault(handler: @escaping(_ error: Error?)->()) {
+     func signInUserFromUserDefault(handler: @escaping(_ error: Error?)->()) {
         if let password = UserDefaults.standard.string(forKey: CurrentUserDefaults.password), let email = UserDefaults.standard.string(forKey: CurrentUserDefaults.email) {
             self.signInUser(email: email, password: password) { error in
                 if let error = error {
