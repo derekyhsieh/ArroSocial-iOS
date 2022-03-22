@@ -21,6 +21,7 @@ struct AppWrapperView: View {
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     @Namespace var animation
+    @State private var isShowingProfileView: Bool = false
     
     
 
@@ -28,7 +29,7 @@ struct AppWrapperView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $selectedTab) {
-                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, posts: PostsViewModel())
+                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, posts: PostsViewModel())
                     .tag(tabs[0])
                     .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                 Color.blue
@@ -112,6 +113,9 @@ struct AppWrapperView: View {
         .sheet(isPresented: $isShowingUploadView) {
             UploadView(profilePicVM: self.profilePicVM)
               }
+        .sheet(isPresented: $isShowingProfileView, content: {
+            ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: userID), profilePictureVM: self.profilePicVM)
+        })
         
         .onAppear {
             print("appeared")

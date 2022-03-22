@@ -82,6 +82,18 @@ class DataService {
         }
     }
     
+    
+    /// Downloads posts from database that were posted by the user
+    /// - Parameters:
+    ///   - userID: userID of the user to get posts from
+    ///   - handler: returns an array of PostModel of the user's posts
+    func downloadPostsForProfile(userID: String, handler: @escaping(_ posts: [PostModel]) -> ()) {
+        REF_POSTS.whereField(FSPostFields.userID, isEqualTo: userID).getDocuments { querySnapshot, error in
+            handler(self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot))
+        }
+    }
+    
+    
     /// Fetches user profile background color in hex code when user hasn't uploaded profile picture
     /// - Parameters:
     ///   - userID: userID of desired user data

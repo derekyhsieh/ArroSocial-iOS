@@ -34,7 +34,7 @@ struct SettingsView: View {
                         
                         
                         if profilePictureVM.isFinishedFetchingProfilePicture {
-                            if profilePictureVM.profilePicture != nil && !profilePic.isEqual(UIImage(named: "placeholder")) {
+                            if profilePictureVM.profilePicture != nil {
                                 Image(uiImage: profilePictureVM.profilePicture!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)

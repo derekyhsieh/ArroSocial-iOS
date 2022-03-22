@@ -23,6 +23,7 @@
 		4B1D9E0B27E4450200FF151F /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1D9E0A27E4450200FF151F /* DataService.swift */; };
 		4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */; };
 		4B1DB73627CF33FA0075ED5D /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DB73527CF33FA0075ED5D /* PostView.swift */; };
+		4B23415D27E967350079F1C1 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B23415C27E967350079F1C1 /* ProfileView.swift */; };
 		4B2B475D27D7E75900804B99 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B475C27D7E75900804B99 /* UploadView.swift */; };
 		4B3EB73927D09D20004C002C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B3EB73827D09D20004C002C /* GoogleService-Info.plist */; };
 		4B3EB73C27D09FDD004C002C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4B3EB73B27D09FDD004C002C /* FirebaseAnalytics */; };
@@ -73,6 +74,7 @@
 		4B1D9E0A27E4450200FF151F /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
 		4B1DB73527CF33FA0075ED5D /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		4B23415C27E967350079F1C1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4B2B475C27D7E75900804B99 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		4B23415B27E967260079F1C1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4B23415C27E967350079F1C1 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		4B2B475B27D7E73200804B99 /* Upload Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +252,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4B23415B27E967260079F1C1 /* Profile */,
 				4B2B475B27D7E73200804B99 /* Upload Post */,
 				4BEE709C27D0802E00F42F8C /* Settings */,
 				4B1533E527CDCA590059C7C7 /* NewUserFlow */,
@@ -411,6 +422,7 @@
 				4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */,
 				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
+				4B23415D27E967350079F1C1 /* ProfileView.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4BB26CA427E504BB003FBF72 /* Floats.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,

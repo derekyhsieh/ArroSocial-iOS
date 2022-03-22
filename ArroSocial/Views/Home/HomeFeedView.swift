@@ -27,6 +27,7 @@ struct HomeFeedView: View {
     @Binding var isShowingUploadView: Bool
     @Binding var showPermissionsModal: Bool
     @State var refresh = Refresh(started: false, released: false)
+    @Binding var isShowingProfileView: Bool
     
     @StateObject var posts: PostsViewModel
     
@@ -125,6 +126,9 @@ struct HomeFeedView: View {
                             .fill(Color.gray.opacity(0.15))
                             .shadow(color: Color.black.opacity(0.2), radius: 60, x: 0.0, y: 16)
                     )
+                    .onTapGesture {
+                        self.isShowingProfileView = true
+                    }
                     
                 }
                 .padding(.horizontal)
@@ -140,7 +144,7 @@ struct HomeFeedView: View {
                             
                             refresh.offset = reader.frame(in: .global).minY
                             
-                            if refresh.offset - refresh.startOffset > 60 && !refresh.started {
+                            if refresh.offset - refresh.startOffset > 100 && !refresh.started {
                                 refresh.started = true
                             }
                             

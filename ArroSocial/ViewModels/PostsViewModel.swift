@@ -13,6 +13,13 @@ class PostsViewModel: ObservableObject {
     @Published var likeCountString = "0"
     
     
+    // INIT USED FOR USER PROFILE POSTS
+    init(userID: String) {
+        DataService.instance.downloadPostsForProfile(userID: userID) { posts in
+            self.dataArray = posts
+        }
+    }
+    
     // INIT USED FOR FEED
     init() {
         
