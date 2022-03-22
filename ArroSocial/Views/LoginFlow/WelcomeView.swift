@@ -10,8 +10,10 @@ import SwiftUI
 struct WelcomeView: View {
     @State var showNewUserWalkthrough: Bool = false
     @Binding var isShowingWelcome: Bool
+    @AppStorage("userIsInTheMiddleOfWalkthrough") var userIsInMiddleOfWalkthrough: Bool = false
+    
     var body: some View {
-        if showNewUserWalkthrough {
+        if showNewUserWalkthrough || userIsInMiddleOfWalkthrough {
             GeometryReader { proxy in
                 NewUserHomeView(isShowingNewUserWalkthrough: $showNewUserWalkthrough, isShowingWelcome: $isShowingWelcome, screenSize: proxy.size)
 

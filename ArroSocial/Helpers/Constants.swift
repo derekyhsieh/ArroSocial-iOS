@@ -44,7 +44,6 @@ struct FSUserData {
     static let profilePicture = "profile_picture"
     static let userPosts = "user_posts"
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
-
 }
 
 // Firestore post fields
@@ -67,4 +66,9 @@ struct CurrentUserDefaults {
     static let fName = "firstName"
     static let lName = "lastName"
     static let profilePicture = "importedProfilePicture"
+    static let userIsInTheMiddleOfWalkthrough = "userIsInTheMiddleOfWalkthrough"
+    
+    // only used in specific case when user leaves app during walkthrough and needs to re-sign in 
+    static let email = "email"
+    static let password = "password"
 }

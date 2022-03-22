@@ -17,6 +17,7 @@ struct NewUserHomeView: View {
     @State private var isShowingImagePicker: Bool = false
     var screenSize: CGSize
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
+    @AppStorage("userIsInTheMiddleOfWalkthrough") var userIsInMiddleOfWalkthrough: Bool = false
     
     
     // MARK: VARS FOR ONBOARDING THAT GET WRITTEN
@@ -175,6 +176,7 @@ struct NewUserHomeView: View {
                                                     print("successfully written user data to firestore: \(userID)")
                                                     self.isLoading = false
                                                     self.isShowingWelcome = false
+                                                    self.userIsInMiddleOfWalkthrough = false
                                                 }
                                                 
                                                 
@@ -274,6 +276,10 @@ struct NewUserHomeView: View {
             gottenUserPermissions = true
             self.isShowingImagePicker = true
         })
+        .onAppear {
+            // sets user is in middle of walkthrough as true so even if user leaves we keep them back in walkthrough
+            self.userIsInMiddleOfWalkthrough = true
+        }
         
     }
     
@@ -319,12 +325,14 @@ struct NewUserHomeView: View {
     }
     
     func deleteUser() {
+        print("deleting")
         AuthenticationService.instance.deleteUser(hasUserCompletedOnboarding: false, userHasData: false) { error in
             if let error = error {
                 // error present
-                print(error)
+                print(error.localizedDescription)
             } else {
                 // success
+                print("delete user")
                 withAnimation {
                     self.isDeletingUser = false
                     self.isShowingNewUserWalkthrough = false

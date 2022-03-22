@@ -19,6 +19,10 @@ struct SignUpView: View {
     @State private var errorMessage: String = ""
     @State private var isLoading: Bool = false
     
+    // only used if user force quits app during walkthrough flow
+    @AppStorage(CurrentUserDefaults.email) var emailDefault: String = ""
+    @AppStorage(CurrentUserDefaults.password) var passwordDefault: String = ""
+    
     var body: some View {
         ZStack {
             Color("BgColor").edgesIgnoringSafeArea(.all)
@@ -225,7 +229,9 @@ struct SignUpView: View {
                     self.isLoading = false
                     
                     withAnimation {
-                        print(email)
+                           emailDefault = email
+                        passwordDefault = password
+                        
                         self.showNewUserWalkthrough = true
                     }
                 }

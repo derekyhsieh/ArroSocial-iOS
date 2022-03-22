@@ -60,20 +60,41 @@ class AuthenticationService {
         // only use this if deleting user before they create an account in onboarding
         if(!hasUserCompletedOnboarding) {
             
-            let currentUser = Auth.auth().currentUser
-            
-            currentUser?.delete(completion: { error in
-                // check for errors
-                if let error = error {
-                    // error occured
-                    handler(error)
-                    return
-                } else {
-                    // success
-                    handler(nil)
-                    return
+            if let currentUser = Auth.auth().currentUser {
+                currentUser.delete(completion: { error in
+                    // check for errors
+                    if let error = error {
+                        // error occured
+                        handler(error)
+                        return
+                    } else {
+                        // success
+                        handler(nil)
+                        return
+                    }
+                })
+            } else {
+                print("no user found")
+                self.signInUserFromUserDefault { error in
+                    if let error = error {
+                        handler(error)
+                        return
+                    } else {
+                        self.deleteUser(hasUserCompletedOnboarding: false, userHasData: false) { error in
+                            if let error = error {
+                            handler(error)
+                                return
+                            } else {
+                                handler(nil)
+                                return
+                            }
+                        }
+                        
+                    }
                 }
-            })
+            }
+            
+          
             
             // TODO: still need to implement deleting user when they have existing data
         }
@@ -334,6 +355,25 @@ class AuthenticationService {
            handler(false, "Not a valid email")
         }
        
+    }
+    
+    
+    
+    
+    /// ONLY USE WHEN USER IS IN WALKTHROUGH AND FORCE QUITS APP AND NEEDS TO SIGN IN TO DELETE ACCOUNT
+    private func signInUserFromUserDefault(handler: @escaping(_ error: Error?)->()) {
+        if let password = UserDefaults.standard.string(forKey: CurrentUserDefaults.password), let email = UserDefaults.standard.string(forKey: CurrentUserDefaults.email) {
+            self.signInUser(email: email, password: password) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    handler(error)
+                    return
+                } else {
+                    handler(nil)
+                    return
+                }
+            }
+        }
     }
     
     
