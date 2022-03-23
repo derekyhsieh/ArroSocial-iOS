@@ -177,6 +177,7 @@ struct NewUserHomeView: View {
                                                     self.isLoading = false
                                                     self.isShowingWelcome = false
                                                     self.userIsInMiddleOfWalkthrough = false
+                                                    self.userIsInMiddleOfWalkthrough = false
                                                 }
                                                 
                                                 

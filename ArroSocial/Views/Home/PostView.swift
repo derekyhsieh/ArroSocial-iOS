@@ -18,13 +18,25 @@ struct PostView: View {
     @State private var postImage: UIImage = UIImage(named: "placeholder")!
     @State private var profilePictureColor: String = ""
     
+    @Binding var show: Bool
+    @Binding var selectedPost: FullScreenPostModel?
+    let namespace: Namespace.ID
     
     var body: some View {
         ZStack {
             Image(uiImage: postImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-            
+//                .matchedGeometryEffect(id: selectedPost?.postID, in: namespace)
+
+                .onTapGesture {
+                    print("tapped")
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                        
+                        show.toggle()
+                        self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: self.profileImage, profilePictureColor: self.profilePictureColor)
+                    }
+                }
             
             
             ZStack(alignment: .trailing) {
@@ -174,6 +186,9 @@ struct PostView: View {
         .onAppear {
             getImages()
         }
+            .matchedGeometryEffect(id: post.postID, in: namespace)
+//                .matchedGeometryEffect(id: "container\(post.postID)", in: namespace)
+        
     }
     
     func getImages() {

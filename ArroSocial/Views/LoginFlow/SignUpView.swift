@@ -22,6 +22,7 @@ struct SignUpView: View {
     // only used if user force quits app during walkthrough flow
     @AppStorage(CurrentUserDefaults.email) var emailDefault: String = ""
     @AppStorage(CurrentUserDefaults.password) var passwordDefault: String = ""
+    @AppStorage("userIsInTheMiddleOfWalkthrough") var userIsInMiddleOfWalkthrough: Bool = false
     
     var body: some View {
         ZStack {
@@ -233,6 +234,7 @@ struct SignUpView: View {
                         passwordDefault = password
                         
                         self.showNewUserWalkthrough = true
+                        self.userIsInMiddleOfWalkthrough = true
                     }
                 }
             }

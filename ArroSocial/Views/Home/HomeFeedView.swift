@@ -29,6 +29,11 @@ struct HomeFeedView: View {
     @State var refresh = Refresh(started: false, released: false)
     @Binding var isShowingProfileView: Bool
     
+    @Binding var selectedPost: FullScreenPostModel?
+    @Binding var show: Bool
+    let namespace: Namespace.ID
+    
+    
     @StateObject var posts: PostsViewModel
     
     
@@ -195,7 +200,7 @@ struct HomeFeedView: View {
                         VStack(spacing: 15) {
                             
                             ForEach(posts.dataArray, id: \.self) { post in
-                                PostView(post: post)
+                                PostView(post: post, show: $show, selectedPost: $selectedPost, namespace: namespace)
                             }
                         Rectangle()
                             .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)

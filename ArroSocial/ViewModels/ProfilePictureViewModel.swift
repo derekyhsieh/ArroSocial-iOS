@@ -22,6 +22,7 @@ class ProfilePictureViewModel: ObservableObject {
                 self.profilePicture = profileImage
                 self.isFinishedFetchingProfilePicture = true
             } else {
+//                self.profilePicture = UIImage(named: "placeholder")
                 self.isFinishedFetchingProfilePicture = true
             }
         }

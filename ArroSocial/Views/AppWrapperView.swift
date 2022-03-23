@@ -18,19 +18,27 @@ struct AppWrapperView: View {
     @State private var isFinishedLoadingData: Bool = false
     @StateObject var profilePicVM: ProfilePictureViewModel
     
+    
+    @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColor: String = ""
     @AppStorage("gottenUserPermissions") var gottenUserPermissions: Bool = false
     @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
     @Namespace var animation
     @State private var isShowingProfileView: Bool = false
     
     
-
+    
+    // full screen posts view
+    
+    @State var show = false
+    @State var selectedPost: FullScreenPostModel? = nil
+    @Namespace var namespace
     
     var body: some View {
         ZStack {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                 TabView(selection: $selectedTab) {
-                    HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, posts: PostsViewModel(currentUserID: self.userID))
+                    
+                    HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, selectedPost: $selectedPost, show: $show, namespace: namespace, posts: PostsViewModel(currentUserID: self.userID))
                         .tag(tabs[0])
                         .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
                     Color.blue
@@ -124,10 +132,32 @@ struct AppWrapperView: View {
             }
             
             // full screen
+        
             
+            if selectedPost != nil  && profilePicVM.isFinishedFetchingProfilePicture {
+                VStack {
+                    FullScreenPostView(post: self.$selectedPost, show: $show, namespace: namespace, currentUserProfileImage: (profilePicVM.profilePicture ?? UIImage(named: "placeholder"))!, currentUserProfileBackground: self.profilePicColor)
+                .matchedGeometryEffect(id: "(selectedPost!.postID)", in: namespace)
+
+                            
+                    
+                
+                }
+                .matchedGeometryEffect(id: "container\(selectedPost!.postID)", in: namespace)
+                .edgesIgnoringSafeArea(.vertical)
+//                .transition(
+//                    .asymmetric(insertion:
+//                                    AnyTransition.opacity.animation(Animation.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0).delay(0.3))
+//                                , removal: AnyTransition.opacity.animation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)))
+//                )
+//                
+                .zIndex(2)
+            }
             
             
         }
+        
+        
     }
 }
 
