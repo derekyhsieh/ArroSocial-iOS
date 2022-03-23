@@ -118,7 +118,7 @@ struct FullScreenPostView: View {
                             .fill(Color(hexString: self.currentUserProfileBackground )!)
                             .frame(width: 45, height: 45)
                             .overlay(
-                                Text((currentUsername ?? "  ").prefix(2))
+                                Text(currentUsername.prefix(2))
                                     .font(.custom("Poppins-SemiBold", size: 15))
                                     .foregroundColor(.white)
                             )
