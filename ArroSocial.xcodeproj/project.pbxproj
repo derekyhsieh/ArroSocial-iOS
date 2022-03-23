@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B070C3527EB6A9400E89E4A /* FullScreenPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B070C3427EB6A9400E89E4A /* FullScreenPostView.swift */; };
+		4B070C3927EB74D400E89E4A /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B070C3827EB74D400E89E4A /* CommentView.swift */; };
 		4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533CE27CC3F930059C7C7 /* PostModel.swift */; };
 		4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533D427CC7F030059C7C7 /* WelcomeView.swift */; };
 		4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1533D927CC7F640059C7C7 /* PrimaryButton.swift */; };
@@ -58,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B070C3427EB6A9400E89E4A /* FullScreenPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenPostView.swift; sourceTree = "<group>"; };
+		4B070C3827EB74D400E89E4A /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		4B1533CE27CC3F930059C7C7 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		4B1533D427CC7F030059C7C7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		4B1533D927CC7F640059C7C7 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 			children = (
 				4B1DB73327CF2D400075ED5D /* HomeFeedView.swift */,
 				4B1DB73527CF33FA0075ED5D /* PostView.swift */,
+				4B070C3427EB6A9400E89E4A /* FullScreenPostView.swift */,
+				4B070C3827EB74D400E89E4A /* CommentView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -414,12 +420,14 @@
 				4B1533ED27CDDD0E0059C7C7 /* UsernameSubmissionView.swift in Sources */,
 				4B1533EB27CDCD600059C7C7 /* OffsetPageTabView.swift in Sources */,
 				4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */,
+				4B070C3927EB74D400E89E4A /* CommentView.swift in Sources */,
 				4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */,
 				4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */,
 				4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */,
+				4B070C3527EB6A9400E89E4A /* FullScreenPostView.swift in Sources */,
 				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B23415D27E967350079F1C1 /* ProfileView.swift in Sources */,

@@ -59,7 +59,7 @@ struct PostView: View {
                                         .frame(width: 50, height: 50)
                                     // first 2 letters of username
                                         .overlay(
-                                            Text((post.username ?? "  ").prefix(2))
+                                            Text((post.username ).prefix(2))
                                                 .font(.custom("Poppins-SemiBold", size: 20))
                                                 .foregroundColor(.white)
                                         )

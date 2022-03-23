@@ -27,99 +27,106 @@ struct AppWrapperView: View {
 
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-            TabView(selection: $selectedTab) {
-                HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, posts: PostsViewModel(currentUserID: self.userID))
-                    .tag(tabs[0])
-                    .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
-                Color.blue
-                    .overlay(Text(tabs[1]))
-                    .tag(tabs[1])
-                    .ignoresSafeArea(.all, edges: .all)
-                Color.yellow
-                    .overlay(Text(tabs[2]))
-                    .tag(tabs[2])
-                    .ignoresSafeArea(.all, edges: .all)
-                SettingsView(profilePictureVM: self.profilePicVM, selectedTab: $selectedTab)
-                    .tag(tabs[3])
-                    .ignoresSafeArea(.all, edges: [.leading, .trailing])
-            }
-            
-            HStack(spacing: 0) {
-                ForEach(tabs, id: \.self) { image in
-                    
-                    GeometryReader { reader in
-                        Button(action: {
-                            withAnimation(.spring()) {
-                                self.selectedTab = image
-                                tabBarCenter = reader.frame(in: .global).minX
+        ZStack {
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                TabView(selection: $selectedTab) {
+                    HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, posts: PostsViewModel(currentUserID: self.userID))
+                        .tag(tabs[0])
+                        .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
+                    Color.blue
+                        .overlay(Text(tabs[1]))
+                        .tag(tabs[1])
+                        .ignoresSafeArea(.all, edges: .all)
+                    Color.yellow
+                        .overlay(Text(tabs[2]))
+                        .tag(tabs[2])
+                        .ignoresSafeArea(.all, edges: .all)
+                    SettingsView(profilePictureVM: self.profilePicVM, selectedTab: $selectedTab)
+                        .tag(tabs[3])
+                        .ignoresSafeArea(.all, edges: [.leading, .trailing])
+                }
+                
+                HStack(spacing: 0) {
+                    ForEach(tabs, id: \.self) { image in
+                        
+                        GeometryReader { reader in
+                            Button(action: {
+                                withAnimation(.spring()) {
+                                    self.selectedTab = image
+                                    tabBarCenter = reader.frame(in: .global).minX
+                                }
+                            }) {
+                                Image(systemName: image)
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 25, height: 25)
+                                    .modifier(Poppins(fontWeight: selectedTab == image ? AppFont.semiBold : AppFont.medium))
+                                    .foregroundColor(selectedTab == image ? Color(AppColors.purple) : Color.gray)
+    //                                .fontWeight(selectedTab == image ? .bold : .none)
+                                    .padding(selectedTab == image ? 15 : 0)
+                                    .background(Color(.white).opacity(selectedTab == image ? 1 : 0))
+                                    .matchedGeometryEffect(id: image, in: animation)
+                                    .clipShape(Circle())
+                                    .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -42 : 0)
+                                    .overlay(
+                                        // make clickable area bigger so it's easier to tap on tab bar buttons
+                                        Circle()
+                                            .fill(Color.clear)
+                                            .frame(width: 75, height: 75)
+                                            .offset(y: 10)
+                                    )
+                                
                             }
-                        }) {
-                            Image(systemName: image)
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 25, height: 25)
-                                .modifier(Poppins(fontWeight: selectedTab == image ? AppFont.semiBold : AppFont.medium))
-                                .foregroundColor(selectedTab == image ? Color(AppColors.purple) : Color.gray)
-//                                .fontWeight(selectedTab == image ? .bold : .none)
-                                .padding(selectedTab == image ? 15 : 0)
-                                .background(Color(.white).opacity(selectedTab == image ? 1 : 0))
-                                .matchedGeometryEffect(id: image, in: animation)
-                                .clipShape(Circle())
-                                .offset(x: reader.frame(in: .global).minX - reader.frame(in: .global).midX ,y: selectedTab == image ? -42 : 0)
-                                .overlay(
-                                    // make clickable area bigger so it's easier to tap on tab bar buttons
-                                    Circle()
-                                        .fill(Color.clear)
-                                        .frame(width: 75, height: 75)
-                                        .offset(y: 10)
-                                )
-                            
-                        }
-                        .onAppear() {
-                            if image == tabs.first {
-                                tabBarCenter = reader.frame(in: .global).minX
+                            .onAppear() {
+                                if image == tabs.first {
+                                    tabBarCenter = reader.frame(in: .global).minX
+                                }
                             }
                         }
-                    }
-                    
-                    .frame(width: 25, height: 25)
-                    
-                    if image != tabs.last{
-                        // dynamically render spacing
-                        Spacer(minLength: 0)
+                        
+                        .frame(width: 25, height: 25)
+                        
+                        if image != tabs.last{
+                            // dynamically render spacing
+                            Spacer(minLength: 0)
+                        }
                     }
                 }
+                .padding(.horizontal , 30)
+                .padding(.vertical)
+                .background(Color(.white).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
+                .padding(.horizontal)
+                .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
+                .shadow(color: Color.black.opacity(0.1), radius: 70, x: -10, y: 0)
+                .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
             }
-            .padding(.horizontal , 30)
-            .padding(.vertical)
-            .background(Color(.white).clipShape(CurveShape(center: tabBarCenter)).cornerRadius(12))
-            .padding(.horizontal)
-            .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom)
-            .shadow(color: Color.black.opacity(0.1), radius: 70, x: -10, y: 0)
-            .shadow(color: Color.black.opacity(0.1), radius: 60, x: 0, y: 10)
-        }
-        .ignoresSafeArea(.all, edges: .bottom)
-       
-        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, onAppear: {
-            print("permissions alert appeared")
-        }, onDisappear: {
-            gottenUserPermissions = true
-            self.isShowingUploadView = true
-        })
-//        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true, onDisappear(perform: {
-//        }))
-        .sheet(isPresented: $isShowingUploadView) {
-            UploadView(profilePicVM: self.profilePicVM)
-              }
-        .sheet(isPresented: $isShowingProfileView, content: {
-            ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: userID), profilePictureVM: self.profilePicVM)
-        })
-        
-        .onAppear {
-            print("appeared")
-            profilePicVM.fetchData()
+            .ignoresSafeArea(.all, edges: .bottom)
+           
+            .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, onAppear: {
+                print("permissions alert appeared")
+            }, onDisappear: {
+                gottenUserPermissions = true
+                self.isShowingUploadView = true
+            })
+    //        .JMAlert(showModal: $showPermissionsModal, for: [.camera, .photo], autoDismiss: true, autoCheckAuthorization: true, onDisappear(perform: {
+    //        }))
+            .sheet(isPresented: $isShowingUploadView) {
+                UploadView(profilePicVM: self.profilePicVM)
+                  }
+            .sheet(isPresented: $isShowingProfileView, content: {
+                ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: userID), profilePictureVM: self.profilePicVM)
+            })
+            
+            .onAppear {
+                print("appeared")
+                profilePicVM.fetchData()
+            }
+            
+            // full screen
+            
+            
+            
         }
     }
 }
