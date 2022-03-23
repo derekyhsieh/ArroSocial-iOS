@@ -42,7 +42,6 @@ class DataService {
                 }
                 
                 var postData: [String: Any] = [
-                    FSPostFields.postID: postID,
                     FSPostFields.userID: userID,
                     FSPostFields.userName: userName,
                     FSPostFields.dateCreated: FieldValue.serverTimestamp()
