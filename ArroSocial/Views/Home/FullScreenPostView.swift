@@ -16,6 +16,7 @@ struct FullScreenPostView: View {
     var currentUserProfileBackground: String
     @AppStorage(CurrentUserDefaults.username) var currentUsername = ""
     @AppStorage(CurrentUserDefaults.userID) var currentUserID = ""
+    @State var showActionSheet: Bool = false
     
     
     var body: some View {
@@ -87,7 +88,7 @@ struct FullScreenPostView: View {
                         }
                         
                         Button {
-                            print("report")
+                            self.showActionSheet = true
                         } label: {
                             Image(systemName: "exclamationmark.triangle")
                                 .foregroundColor(Color.gray)
@@ -182,6 +183,15 @@ struct FullScreenPostView: View {
                     .padding(.trailing)
                     .padding(.top, 50)
             }
+        }
+        .confirmationDialog(Text("Why are you reporting this post?"), isPresented: $showActionSheet) {
+            
+            Button("Spam", role: .destructive) { print("Spam")}
+            Button("Inappropriate content", role: .destructive) { print("inappropriate content")}
+            Button("Hate speech", role: .destructive) { print("hate speech")}
+            
+            
+
         }
     }
     
