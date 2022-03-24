@@ -217,4 +217,36 @@ class DataService {
         return sortedPosts
         
     }
+    
+    // MARK: UPDATE FUNCTIONS
+    
+    
+    func likePost(postID: String, currentUserID: String) {
+        // update post count
+        // update the arra of users who liked the post
+        
+        let increment: Int64 = 1
+        
+        let data: [String: Any] = [
+            FSPostFields.likeCount: FieldValue.increment(increment),
+            FSPostFields.likedBy: FieldValue.arrayUnion([currentUserID])
+        ]
+        
+        REF_POSTS.document(postID).updateData(data)
+    }
+    
+    func unlikePost(postID: String, currentUserID: String) {
+        // update post count
+        // update the arra of users who liked the post
+        
+        let increment: Int64 = -1
+        
+        let data: [String: Any] = [
+            FSPostFields.likeCount: FieldValue.increment(increment),
+            FSPostFields.likedBy: FieldValue.arrayRemove([currentUserID])
+        ]
+        
+        REF_POSTS.document(postID).updateData(data)
+    }
+    
 }

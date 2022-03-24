@@ -12,6 +12,7 @@ struct PostView: View {
     @State var post: PostModel
     @State private var showsMenu: Bool = true
     @State private var finishedFetchingProfileImage: Bool = false
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     
     // data
     @State private var profileImage: UIImage = UIImage(named: "placeholder")!
@@ -127,7 +128,18 @@ struct PostView: View {
                 if showsMenu {
                     VStack {
                         Button {
-                            post.likedByUser.toggle()
+                            
+                            
+                            if(post.likedByUser) {
+                                // is already liked
+                                unlikePost()
+                            } else {
+                                // is not liked
+                                likePost()
+                            }
+                            
+                            
+                            
                         } label: {
                             VStack(spacing: 4) {
                                 Image(systemName: "heart.fill")
@@ -226,6 +238,40 @@ struct PostView: View {
             
         }
     }
+    
+    func likePost() {
+        
+        
+        guard let userID = currentUserID  else {
+            print("cannot find userid while liking post")
+            
+            return
+        }
+        // local
+        post.likedByUser = true
+        post.likeCount += 1
+        
+        
+        // on database
+        DataService.instance.likePost(postID: post.postID, currentUserID: userID)
+    }
+    
+    func unlikePost() {
+        
+        
+        guard let userID = currentUserID  else {
+            print("cannot find userid while liking post")
+            return
+        }
+        // local
+        post.likedByUser = false
+        post.likeCount -= 1
+        
+        
+        // on database
+        DataService.instance.unlikePost(postID: post.postID, currentUserID: userID)
+    }
+    
 }
 
 //let data = PostModel(id: UUID(), postID: "123", userID: "123", userPicture: Image("person"), username: "johndoe", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et", image: Image("d1"), dateCreated: Date(), likeCount: 123, likedByUser: true)

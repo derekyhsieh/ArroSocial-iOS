@@ -15,6 +15,7 @@ struct FullScreenPostView: View {
     @State var currentUserProfileImage: UIImage
     var currentUserProfileBackground: String
     @AppStorage(CurrentUserDefaults.username) var currentUsername = ""
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID = ""
     
     
     var body: some View {
@@ -72,7 +73,13 @@ struct FullScreenPostView: View {
                         Spacer()
                         
                         Button {
-                            post!.likedByUser.toggle()
+                            if(post!.likedByUser) {
+                                // is already liked
+                                unlikePost()
+                            } else {
+                                // isn't liked yet
+                                likePost()
+                            }
                         } label: {
                             Image(systemName: post?.likedByUser ?? false ? "heart.fill" : "heart")
                                 .foregroundColor(Color.red)
@@ -80,9 +87,9 @@ struct FullScreenPostView: View {
                         }
                         
                         Button {
-                            print("send")
+                            print("report")
                         } label: {
-                            Image(systemName: "message")
+                            Image(systemName: "exclamationmark.triangle")
                                 .foregroundColor(Color.gray)
                                 .font(.system(.title))
                         }
@@ -176,6 +183,24 @@ struct FullScreenPostView: View {
                     .padding(.top, 50)
             }
         }
+    }
+    
+    func likePost() {
+        
+        post?.likeCount += 1
+        post?.likedByUser = true
+        
+        guard let post = post else {return}
+        DataService.instance.likePost(postID: post.postID, currentUserID: currentUserID)
+        
+    }
+    
+    func unlikePost() {
+        post?.likeCount -= 1
+        post?.likedByUser = false
+        guard let post = post else {return}
+        DataService.instance.unlikePost(postID: post.postID, currentUserID: currentUserID)
+        
     }
 }
 
