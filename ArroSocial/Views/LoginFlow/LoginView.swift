@@ -115,6 +115,8 @@ struct LoginView: View {
     
     func checkUserInputFieldsForProblem() {
         
+        hideKeyboard()
+        
         
         if email.isEmpty || password.isEmpty {
             withAnimation
@@ -143,6 +145,7 @@ struct LoginView: View {
                     AuthenticationService.instance.signInUser(email: self.email, password: self.password) { error in
                         if let error = error {
                             self.errorMessage = error.localizedDescription
+                            isLoading = false
                         } else {
                             // user is successfully signed in
                             self.isLoading = false
