@@ -94,30 +94,7 @@ struct ChangeEmailView: View {
                     Spacer()
                     
                     Button(action: {
-                        self.errorMessage = ""
-                        
-                        if emailIsOk {
-                            AuthenticationService.instance.updateUserEmail(newEmail: self.email) { success, errorMessage in
-                                if let errorMessage = errorMessage {
-                                    self.errorMessage = errorMessage
-                                } else {
-                                    print("succesfully changed email")
-                                    
-                                    self.floatMessage = "Succesfully changed email"
-                                    self.isShowingFloat = true
-                                    
-                                    presentationMode.wrappedValue.dismiss()
-                                    
-                                    
-                                    
-                                }
-                            }
-                        } else {
-                            withAnimation(.default) {
-                                self.errorMessage = "Not valid email"
-                                self.attempts += 1
-                            }
-                        }
+                      changeEmail()
                         
                     }) {
                         PrimaryButton(title: "Edit Email")
@@ -136,6 +113,34 @@ struct ChangeEmailView: View {
             
         }
      
+    }
+    
+    func changeEmail() {
+        self.errorMessage = ""
+        
+        if emailIsOk {
+            AuthenticationService.instance.updateUserEmail(newEmail: self.email) { success, errorMessage in
+                
+                if let errorMessage = errorMessage {
+                    self.errorMessage = errorMessage
+                } else {
+                    print("succesfully changed email")
+                    
+                    self.floatMessage = "Succesfully changed email"
+                    self.isShowingFloat = true
+                    
+                    presentationMode.wrappedValue.dismiss()
+                    
+                    
+                    
+                }
+            }
+        } else {
+            withAnimation(.default) {
+                self.errorMessage = "Not valid email"
+                self.attempts += 1
+            }
+        }
     }
     
     

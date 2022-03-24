@@ -11,6 +11,7 @@ import SwiftUI
 class ProfilePictureViewModel: ObservableObject {
     
     @Published var isFinishedFetchingProfilePicture: Bool = false
+    @Published var isLoading: Bool = true
     @Published var profilePicture: UIImage?
     
     // user defaults
@@ -19,12 +20,19 @@ class ProfilePictureViewModel: ObservableObject {
     func fetchData() {
         ImageService.instance.downloadProfileImage(userID: userID) { image, hexColor in
             if let profileImage = image {
-                self.profilePicture = profileImage
-                self.isFinishedFetchingProfilePicture = true
+                withAnimation {
+                    self.profilePicture = profileImage
+                    self.isFinishedFetchingProfilePicture = true
+                    self.isLoading = false
+                }
             } else {
 //                self.profilePicture = UIImage(named: "placeholder")
-                self.isFinishedFetchingProfilePicture = true
+                withAnimation {
+                    self.isFinishedFetchingProfilePicture = true
+                    self.isLoading = false
+                }
             }
+            
         }
         
     }

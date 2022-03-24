@@ -30,14 +30,10 @@ struct PostView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .redacted(when: isLoading, redactionType: .customPlaceholder)
-//                .matchedGeometryEffect(id: selectedPost?.postID, in: namespace)
-
+            //                .matchedGeometryEffect(id: selectedPost?.postID, in: namespace)
+            
                 .onTapGesture {
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-                        
-                        show.toggle()
-                        self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: self.profileImage, profilePictureColor: self.profilePictureColor)
-                    }
+                    showFullScreen()
                 }
             
             
@@ -67,7 +63,7 @@ struct PostView: View {
                             if finishedFetchingProfileImage {
                                 
                                 if profileImage.isEqual(UIImage(named: "placeholder")!) {
-                                   // no profile picture
+                                    // no profile picture
                                     Circle()
                                         .fill(Color(hexString: self.profilePictureColor)!)
                                         .frame(width: 50, height: 50)
@@ -78,7 +74,7 @@ struct PostView: View {
                                                 .foregroundColor(.white)
                                         )
                                     
-                                    .redacted(when: isLoading, redactionType: .customPlaceholder)
+                                        .redacted(when: isLoading, redactionType: .customPlaceholder)
                                     
                                     
                                 } else {
@@ -88,7 +84,7 @@ struct PostView: View {
                                         .frame(width: 50, height: 50)
                                         .clipShape(Circle())
                                     
-                                    .redacted(when: isLoading, redactionType: .customPlaceholder)
+                                        .redacted(when: isLoading, redactionType: .customPlaceholder)
                                     
                                 }
                                 
@@ -153,6 +149,9 @@ struct PostView: View {
                         }
                         Button {
                             
+                            showFullScreen()
+                            
+                            
                         } label: {
                             VStack(spacing: 4) {
                                 Image(systemName: "message.fill")
@@ -204,8 +203,8 @@ struct PostView: View {
         .onAppear {
             getImages()
         }
-            .matchedGeometryEffect(id: post.postID, in: namespace)
-//                .matchedGeometryEffect(id: "container\(post.postID)", in: namespace)
+        .matchedGeometryEffect(id: post.postID, in: namespace)
+        //                .matchedGeometryEffect(id: "container\(post.postID)", in: namespace)
         
     }
     
@@ -223,7 +222,7 @@ struct PostView: View {
                     self.finishedFetchingProfileImage = true
                 }
             }
-           
+            
             
             
         }
@@ -270,6 +269,14 @@ struct PostView: View {
         
         // on database
         DataService.instance.unlikePost(postID: post.postID, currentUserID: userID)
+    }
+    
+    func showFullScreen() {
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+            
+            show.toggle()
+            self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: self.profileImage, profilePictureColor: self.profilePictureColor)
+        }
     }
     
 }

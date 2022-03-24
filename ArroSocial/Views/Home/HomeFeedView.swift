@@ -8,6 +8,7 @@
 import SwiftUI
 import PermissionsSwiftUI
 import Photos
+import CoreHaptics
 
 // model for pull down to refresh
 struct Refresh {
@@ -16,6 +17,7 @@ struct Refresh {
     var started: Bool
     var released: Bool
     var invalidScroll: Bool = false
+    var showProgressView: Bool = false
 }
 
 struct HomeFeedView: View {
@@ -32,6 +34,8 @@ struct HomeFeedView: View {
     @Binding var selectedPost: FullScreenPostModel?
     @Binding var show: Bool
     let namespace: Namespace.ID
+    
+    @State private var engine: CHHapticEngine?
     
     
     @StateObject var posts: PostsViewModel
@@ -120,6 +124,7 @@ struct HomeFeedView: View {
                             Circle()
                                 .fill(Color.gray)
                                 .frame(width: 40, height: 40)
+                                .redacted(when: profilePictureVM.isLoading, redactionType: .customPlaceholder)
                         }
                         
                         
@@ -154,7 +159,12 @@ struct HomeFeedView: View {
                             refresh.offset = reader.frame(in: .global).minY
                             
                             if refresh.offset - refresh.startOffset > 100 && !refresh.started {
+                                complexSuccess()
                                 refresh.started = true
+                            }
+                            
+                            if refresh.offset - refresh.startOffset > 110 && !refresh.started {
+                                refresh.showProgressView = true
                             }
                             
                             // check if refresh ui started and drag is released
@@ -184,28 +194,30 @@ struct HomeFeedView: View {
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         
                         // arrow + indicator
-                        
-                        if refresh.started && refresh.released {
-                            ProgressView()
-                                .offset(y: -35)
-                        } else {
-                            Image(systemName: "arrow.down")
-                                .font(.system(size: 16, weight: .heavy))
-                                .foregroundColor(Color.gray)
-                                .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
-                                .offset(y: -25)
-                                .animation(Animation.linear)
+                        VStack {
+                            if refresh.started && refresh.released {
+                                ProgressView()
+                                    .offset(y: -35)
+                            } else {
+                                Image(systemName: "arrow.down")
+                                    .font(.system(size: 16, weight: .heavy))
+                                    .foregroundColor(Color.gray)
+                                    .rotationEffect(.init(degrees: refresh.started ? 180 : 0))
+                                    .offset(y: -25)
+                                    .animation(Animation.linear)
+                            }
                         }
+                        
                         
                         VStack(spacing: 15) {
                             
                             ForEach(posts.dataArray, id: \.self) { post in
                                 PostView(post: post, show: $show, selectedPost: $selectedPost, namespace: namespace)
                             }
-                        Rectangle()
-                            .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)
-                            .opacity(0)
-                   
+                            Rectangle()
+                                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)
+                                .opacity(0)
+                            
                             
                         }
                     }
@@ -213,6 +225,7 @@ struct HomeFeedView: View {
                     
                 }
                 .padding(.vertical)
+                .onAppear(perform: prepareHaptics)
             }
         }
         
@@ -222,20 +235,53 @@ struct HomeFeedView: View {
     func updateData() {
         print("updating data")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            withAnimation(Animation.linear) {
-                if refresh.startOffset == refresh.offset {
-                    posts.fetchPosts { finished in
-                        print("finished")
-                        refresh.released = false
-                        
-                        refresh.started = false
-                    }
+        
+        withAnimation(Animation.linear) {
+            if refresh.startOffset == refresh.offset {
+                posts.fetchPosts { finished in
+                    print("finished")
+                    refresh.released = false
                     
-                } else {
-//                    refresh.invalidScroll = true
+                    refresh.started = false
+                    refresh.showProgressView = false
+                    
                 }
+                
+            } else {
             }
+        }
+        
+    }
+    
+    func prepareHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
+        }
+    }
+    
+    func complexSuccess() {
+        // make sure that the device supports haptics
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        var events = [CHHapticEvent]()
+        
+        // create one intense, sharp tap
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1)
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1)
+        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+        events.append(event)
+        
+        // convert those events into a pattern and play it immediately
+        do {
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try engine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription).")
         }
     }
     

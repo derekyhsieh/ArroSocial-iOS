@@ -34,9 +34,9 @@ struct Placeholder: ViewModifier {
         content
             .accessibility(label: Text("Placeholder"))
             .redacted(reason: .placeholder)
-            .opacity(condition ? 0.0 : 1.0)
+            .opacity(condition ? 0.3 : 1.0)
             .animation(Animation
-                        .easeInOut(duration: 1)
+                        .easeInOut(duration: 0.7)
                         .repeatForever(autoreverses: true))
             .onAppear { condition = true }
     }

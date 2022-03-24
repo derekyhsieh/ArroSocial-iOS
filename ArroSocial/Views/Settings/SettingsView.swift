@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SettingsView: View {
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     @AppStorage(CurrentUserDefaults.fName) var firstName: String = ""
     @AppStorage(CurrentUserDefaults.lName) var lastName: String = ""
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
+    @AppStorage(CurrentUserDefaults.email) var email: String?
+    
     @State private var isShowingPhotoPicker: Bool = false
     @StateObject var profilePictureVM: ProfilePictureViewModel
     @State private var profilePic: UIImage = UIImage(named: "placeholder")!
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
+    @State private var floatColor: Color = Color.green
+    
+    
     
     @Binding var selectedTab: String
     
@@ -53,6 +59,13 @@ struct SettingsView: View {
                                     .padding(.trailing, 5)
                                 
                             }
+                        } else {
+                            Circle()
+                                .fill(Color.gray)
+                                .frame(width: 125, height: 125)
+                                .redacted(reason: profilePictureVM.isLoading ? .placeholder : [])
+                            
+                            
                         }
                         
                         
@@ -117,7 +130,6 @@ struct SettingsView: View {
                         }
                         .navigationBarHidden(true)
                         
-                        
                         NavigationLink {
                             ChangeEmailView(floatMessage: $floatMessage, isShowingFloat: $showingFloat)
                                 .navigationBarHidden(true)
@@ -146,13 +158,26 @@ struct SettingsView: View {
                         
                         
                         
-                        
-                        
-                        NavigationLink {
-                            Text("change pass")
-                                .navigationBarHidden(true)
-                        } label: {
+                        Button(action: {
                             
+                            //
+                            self.sendPasswordResetEmail { isSuccessful in
+                                if isSuccessful {
+                                    // success float
+                                    self.floatMessage = "Successfully sent password reset to your email"
+                                    self.floatColor = Color.green
+                                    self.showingFloat = true
+                                    
+                                } else {
+                                    // unsuccessful float
+                                    self.floatMessage = "Error sending password reset to your email"
+                                    self.floatColor = Color.red
+                                    self.showingFloat = true
+                                    
+                                }
+                            }
+                            
+                        }) {
                             HStack {
                                 Image(systemName: "lock.fill")
                                     .foregroundColor(.white)
@@ -162,7 +187,7 @@ struct SettingsView: View {
                                         Circle()
                                             .fill(Color.gray)
                                     )
-                                Text("Change Password")
+                                Text("Edit Password")
                                     .modifier(Poppins(fontWeight: AppFont.regular, .subheadline))
                                 Spacer()
                                 
@@ -171,8 +196,8 @@ struct SettingsView: View {
                                 
                             }
                             .foregroundColor(.black)
+                            
                         }
-                        
                         
                         
                         
@@ -222,14 +247,18 @@ struct SettingsView: View {
             .padding()
         }
         //        .padding(.bottom, UIScreen.main.bounds.height / 8)
-        .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.5, closeOnTap: true, closeOnTapOutside: true) {
-            Floats.instance.createSuccessFloat(message: self.floatMessage, color: Color.green)
+        .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 1.5, closeOnTap: true, closeOnTapOutside: true) {
+            Floats.instance.createSuccessFloat(message: self.floatMessage, color: floatColor)
         }
         .sheet(isPresented: $isShowingPhotoPicker) {
             PhotoPicker(image: $profilePic)
                 .onDisappear {
-                    self.profilePictureVM.profilePicture = self.profilePic
-                    self.profilePictureVM.updateUserProfilePicture(profilePic: self.profilePic)
+                    // makes sure user uploaded a picture (isn't the placeholder)
+                    if !profilePic.isEqual(UIImage(named: "placeholder")) {
+                        self.profilePictureVM.profilePicture = self.profilePic
+                        self.profilePictureVM.updateUserProfilePicture(profilePic: self.profilePic)
+                        
+                    }
                 }
             
         }
@@ -249,6 +278,27 @@ struct SettingsView: View {
             }
             
         }
+    }
+    
+    private func sendPasswordResetEmail(handler: @escaping(_ isSuccessful: Bool) -> ()) {
+        
+        let user = Auth.auth().currentUser
+        if let user = user {
+            Auth.auth().sendPasswordReset(withEmail: user.email ?? "") { error in
+                if let error = error {
+                    // error sending pass reset
+                    print(error.localizedDescription)
+                    handler(false)
+                    return
+                } else {
+                    // success
+                    handler(true)
+                    return
+                }
+            }
+        }
+        
+        
     }
 }
 

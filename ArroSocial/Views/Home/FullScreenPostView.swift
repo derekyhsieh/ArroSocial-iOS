@@ -19,6 +19,7 @@ struct FullScreenPostView: View {
     @State var showActionSheet: Bool = false
     
     
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 0) {
@@ -73,19 +74,19 @@ struct FullScreenPostView: View {
                             .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
                         Spacer()
                         
-                        Button {
-                            if(post!.likedByUser) {
-                                // is already liked
-                                unlikePost()
-                            } else {
-                                // isn't liked yet
-                                likePost()
-                            }
-                        } label: {
-                            Image(systemName: post?.likedByUser ?? false ? "heart.fill" : "heart")
-                                .foregroundColor(Color.red)
-                                .font(.system(.title))
-                        }
+//                        Button {
+//                            if(post!.likedByUser) {
+//                                // is already liked
+//                                unlikePost()
+//                            } else {
+//                                // isn't liked yet
+//                                likePost()
+//                            }
+//                        } label: {
+//                            Image(systemName: post?.likedByUser ?? false ? "heart.fill" : "heart")
+//                                .foregroundColor(Color.red)
+//                                .font(.system(.title))
+//                        }
                         
                         Button {
                             self.showActionSheet = true
@@ -195,23 +196,23 @@ struct FullScreenPostView: View {
         }
     }
     
-    func likePost() {
-        
-        post?.likeCount += 1
-        post?.likedByUser = true
-        
-        guard let post = post else {return}
-        DataService.instance.likePost(postID: post.postID, currentUserID: currentUserID)
-        
-    }
-    
-    func unlikePost() {
-        post?.likeCount -= 1
-        post?.likedByUser = false
-        guard let post = post else {return}
-        DataService.instance.unlikePost(postID: post.postID, currentUserID: currentUserID)
-        
-    }
+//    func likePost() {
+//
+////        post?.likeCount += 1
+////        post?.likedByUser = true
+//
+//        guard let post = post else {return}
+//        DataService.instance.likePost(postID: post.postID, currentUserID: currentUserID)
+//
+//    }
+//
+//    func unlikePost() {
+////        post?.likeCount -= 1
+////        post?.likedByUser = false
+//        guard let post = post else {return}
+//        DataService.instance.unlikePost(postID: post.postID, currentUserID: currentUserID)
+//
+//    }
 }
 
 //struct FullScreenPostView_Previews: PreviewProvider {

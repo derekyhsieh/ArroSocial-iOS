@@ -140,7 +140,7 @@ class AuthenticationService {
 
                     
                     
-                    var data: [String: Any] = [
+                    let data: [String: Any] = [
                         FSUserData.username: username as Any,
                         FSUserData.fName:  firstName as Any,
                         FSUserData.lName: lastName as Any,
@@ -177,7 +177,7 @@ class AuthenticationService {
                     }
                 } else {
                     
-                    var data: [String: Any] = [
+                    let data: [String: Any] = [
                         FSUserData.username: username as Any,
                         FSUserData.fName:  firstName as Any,
                         FSUserData.lName: lastName as Any,

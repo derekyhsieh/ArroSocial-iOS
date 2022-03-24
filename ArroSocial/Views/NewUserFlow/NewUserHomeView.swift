@@ -268,7 +268,7 @@ struct NewUserHomeView: View {
             
             
         }
-        .present(isPresented: $isShowingErrorFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 2.0, closeOnTap: true, closeOnTapOutside: true) {
+        .present(isPresented: $isShowingErrorFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 1.5, closeOnTap: true, closeOnTapOutside: true) {
             self.createErrorFloater()
         }
         .JMAlert(showModal: $isShowingPermissionView, for: [.camera, .photo], autoDismiss: true, onAppear: {

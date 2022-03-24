@@ -16,6 +16,7 @@ struct ProfileView: View {
     @StateObject var profilePictureVM: ProfilePictureViewModel
     @State private var isEditing: Bool = false
     
+    @Binding var selectedPost: FullScreenPostModel?
     
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
@@ -150,7 +151,8 @@ struct ProfileView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: columns) {
                     ForEach(self.profilePosts.dataArray) { post in
-                        PostImageView(postVM: profilePosts, isEditing: $isEditing, post: post)
+                        PostImageView(postVM: profilePosts, isEditing: $isEditing, selectedPost: $selectedPost, post: post, profilePicVM: profilePictureVM)
+                            
             
                     }
                     
@@ -162,21 +164,26 @@ struct ProfileView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
-    
-    static var previews: some View {
-        ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: "62lnkEVO6WZpXnlm1zAOybFOHfW2"), profilePictureVM: ProfilePictureViewModel())
-    }
-}
+//struct ProfileView_Previews: PreviewProvider {
+//    @AppStorage(CurrentUserDefaults.userID) var userID: String = ""
+//
+//    static var previews: some View {
+//        ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: "62lnkEVO6WZpXnlm1zAOybFOHfW2"), profilePictureVM: ProfilePictureViewModel())
+//    }
+//}
 
 
 struct PostImageView: View {
     @State var isLoading: Bool = true
     @StateObject var postVM: PostsViewModel
     @Binding var isEditing: Bool
+    @Binding var selectedPost: FullScreenPostModel?
     @State var post: PostModel
+    @Environment(\.presentationMode) var presentationMode
     @State private var postImage: UIImage = UIImage(named: "placeholder")!
+    @StateObject var profilePicVM: ProfilePictureViewModel
+    @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
+    
     var body: some View {
         
         VStack {
@@ -189,6 +196,12 @@ struct PostImageView: View {
                         .cornerRadius(10)
                         .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
                         .redacted(when: isLoading, redactionType: .customPlaceholder)
+                        .onTapGesture {
+                            // show full screen
+                            presentationMode.wrappedValue.dismiss()
+                            
+                            self.showFullScreenPost()
+                        }
                     
                     if isEditing {
                         Button {
@@ -236,5 +249,12 @@ struct PostImageView: View {
             
         }
      
+    }
+    
+    func showFullScreenPost() {
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+            
+            self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: profilePicVM.profilePicture!, profilePictureColor: profilePicColorBackground)
+        }
     }
 }
