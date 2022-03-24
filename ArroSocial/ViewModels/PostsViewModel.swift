@@ -12,6 +12,7 @@ class PostsViewModel: ObservableObject {
     @Published var dataArray = [PostModel]()
     @Published var postCountString = "0"
     @Published var likeCountString = "0"
+    @Published var totalLikes: Int = 0
     var currentUserID: String?
     
     
@@ -19,8 +20,9 @@ class PostsViewModel: ObservableObject {
     /// Used for populating profile view posts
     /// - Parameter userID: target user id
     init(userID: String) {
-        DataService.instance.downloadPostsForProfile(userID: userID) { posts in
+        DataService.instance.downloadPostsForProfile(userID: userID, shouldGetTotalLikeCount: true) { posts, totalLikes in
             self.dataArray = posts
+            self.totalLikes = totalLikes ?? 0
         }
     }
     

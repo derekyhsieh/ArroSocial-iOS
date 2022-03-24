@@ -154,7 +154,7 @@ struct ProfileView: View {
             HStack {
                 VStack {
                     
-                    Text("100")
+                    Text("\(profilePosts.totalLikes)")
                         .modifier(Poppins(fontWeight: AppFont.medium, .callout))
                     Text("Likes")
                         .modifier(Poppins(fontWeight: AppFont.regular, .caption))
@@ -191,7 +191,6 @@ struct ProfileView: View {
                     
                     Text("\(followerCount)")
                         .modifier(Poppins(fontWeight: AppFont.medium, .callout))
-                        .redacted(when: fetchingFollowerData, redactionType: .customPlaceholder)
                     Text("Followers")
                         .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                         .foregroundColor(Color.black.opacity(0.7))
@@ -238,6 +237,9 @@ struct ProfileView: View {
         .padding()
         .padding(.top)
         .onAppear {
+            
+            
+            
             if !isUsersOwnProfile {
                 DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: currentUserID, targetUserID: postUserID!) { isFollowing, followerCount in
                     self.isFollowing = isFollowing

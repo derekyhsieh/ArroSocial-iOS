@@ -114,9 +114,24 @@ class DataService {
     /// - Parameters:
     ///   - userID: userID of the user to get posts from
     ///   - handler: returns an array of PostModel of the user's posts
-    func downloadPostsForProfile(userID: String, handler: @escaping(_ posts: [PostModel]) -> ()) {
+    func downloadPostsForProfile(userID: String, shouldGetTotalLikeCount: Bool?, handler: @escaping(_ posts: [PostModel], _ totalLikes: Int?) -> ()) {
         REF_POSTS.whereField(FSPostFields.userID, isEqualTo: userID).getDocuments { querySnapshot, error in
-            handler(self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot))
+            
+            let posts = self.getPostsFromQuerySnapshot(querySnapshot: querySnapshot)
+            
+   
+            
+            if(shouldGetTotalLikeCount ?? false) {
+                var totalLikes: Int = 0
+                for post in posts {
+                    totalLikes += post.likeCount
+                }
+                handler(posts, totalLikes)
+            } else {
+                handler(posts, nil)
+                return
+            }
+            
         }
     }
     
