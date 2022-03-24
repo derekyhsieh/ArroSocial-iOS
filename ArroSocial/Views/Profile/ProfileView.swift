@@ -219,8 +219,9 @@ struct PostImageView: View {
                 ImageService.instance.downloadPostImage(postID: post.postID) { image in
                     if let image = image {
                         self.postImage = image
-                        isLoading = false
-                        print(isLoading)
+                        withAnimation {
+                            isLoading = false
+                        }
                     }
                 }
             }

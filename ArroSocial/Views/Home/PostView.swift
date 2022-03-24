@@ -32,7 +32,6 @@ struct PostView: View {
 //                .matchedGeometryEffect(id: selectedPost?.postID, in: namespace)
 
                 .onTapGesture {
-                    print("tapped")
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
                         
                         show.toggle()
@@ -78,6 +77,8 @@ struct PostView: View {
                                                 .foregroundColor(.white)
                                         )
                                     
+                                    .redacted(when: isLoading, redactionType: .customPlaceholder)
+                                    
                                     
                                 } else {
                                     Image(uiImage: profileImage)
@@ -85,6 +86,8 @@ struct PostView: View {
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 50, height: 50)
                                         .clipShape(Circle())
+                                    
+                                    .redacted(when: isLoading, redactionType: .customPlaceholder)
                                     
                                 }
                                 
@@ -204,7 +207,9 @@ struct PostView: View {
                 self.finishedFetchingProfileImage = true
             } else if let image = image {
                 self.profileImage = image
-                self.finishedFetchingProfileImage = true
+                withAnimation {
+                    self.finishedFetchingProfileImage = true
+                }
             }
            
             
