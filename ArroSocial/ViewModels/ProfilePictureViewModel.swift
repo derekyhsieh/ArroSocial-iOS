@@ -25,7 +25,7 @@ class ProfilePictureViewModel: ObservableObject {
     
     init() {
         
-            self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID)!
+            self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID) ?? ""
     }
     
     
