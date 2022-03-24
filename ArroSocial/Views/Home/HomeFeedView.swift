@@ -233,6 +233,7 @@ struct HomeFeedView: View {
     }
     
     func updateData() {
+        prepareHaptics()
         print("updating data")
         
         
@@ -247,7 +248,6 @@ struct HomeFeedView: View {
                     
                 }
                 
-            } else {
             }
         }
         

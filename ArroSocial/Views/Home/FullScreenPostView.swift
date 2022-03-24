@@ -45,7 +45,7 @@ struct FullScreenPostView: View {
                             if(post!.profileImage.isEqual(UIImage(named: "placeholder")!)) {
                                 // no profile picture
                                 Circle()
-                                    .fill(Color(hexString: post!.profilePictureColor)!)
+                                    .fill(Color(hexString: post!.profilePictureColor) ?? Color(.gray))
                                     .frame(width: 85, height: 85)
                                 // first 2 letters of username
                                     .overlay(

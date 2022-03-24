@@ -13,6 +13,7 @@ struct PostView: View {
     @State private var showsMenu: Bool = true
     @State private var finishedFetchingProfileImage: Bool = false
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
+    @State private var showPosterProfileView: Bool = false
     
     // data
     @State private var profileImage: UIImage = UIImage(named: "placeholder")!
@@ -61,32 +62,36 @@ struct PostView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             if finishedFetchingProfileImage {
-                                
-                                if profileImage.isEqual(UIImage(named: "placeholder")!) {
-                                    // no profile picture
-                                    Circle()
-                                        .fill(Color(hexString: self.profilePictureColor)!)
-                                        .frame(width: 50, height: 50)
-                                    // first 2 letters of username
-                                        .overlay(
-                                            Text((post.username ).prefix(2))
-                                                .font(.custom("Poppins-SemiBold", size: 20))
-                                                .foregroundColor(.white)
-                                        )
-                                    
-                                        .redacted(when: isLoading, redactionType: .customPlaceholder)
-                                    
-                                    
-                                } else {
-                                    Image(uiImage: profileImage)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 50, height: 50)
-                                        .clipShape(Circle())
-                                    
-                                        .redacted(when: isLoading, redactionType: .customPlaceholder)
-                                    
+                                // profile picture
+                                VStack {
+                                    if profileImage.isEqual(UIImage(named: "placeholder")!) {
+                                        // no profile picture
+                                        Circle()
+                                            .fill(Color(hexString: self.profilePictureColor)!)
+                                            .frame(width: 50, height: 50)
+                                        // first 2 letters of username
+                                            .overlay(
+                                                Text((post.username ).prefix(2))
+                                                    .font(.custom("Poppins-SemiBold", size: 20))
+                                                    .foregroundColor(.white)
+                                            )
+                                        
+                                            .redacted(when: isLoading, redactionType: .customPlaceholder)
+                                        
+                                        
+                                    } else {
+                                        Image(uiImage: profileImage)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 50, height: 50)
+                                            .clipShape(Circle())
+                                        
+                                            .redacted(when: isLoading, redactionType: .customPlaceholder)
+                                        
+                                    }
                                 }
+                               
+                              
                                 
                                 
                             } else {
@@ -115,6 +120,9 @@ struct PostView: View {
                             .padding(-5)
                     }
                     .padding()
+                    .onTapGesture {
+                        showProfileViewOfPoster()
+                    }
                     
                     .frame(maxWidth: UIScreen.main.bounds.width - 20)
                     //                .shadow(color: Color.black, radius: 15, x: 0, y: -10)
@@ -204,6 +212,9 @@ struct PostView: View {
             getImages()
         }
         .matchedGeometryEffect(id: post.postID, in: namespace)
+        .sheet(isPresented: $showPosterProfileView) {
+            ProfileView(isUsersOwnProfile: false, profilePosts: PostsViewModel(userID: post.userID), profilePictureVM: ProfilePictureViewModel(userID: post.userID), selectedPost: $selectedPost, profileUser: post.username)
+        }
         //                .matchedGeometryEffect(id: "container\(post.postID)", in: namespace)
         
     }
@@ -238,8 +249,14 @@ struct PostView: View {
         }
     }
     
+    func showProfileViewOfPoster() {
+        self.showPosterProfileView = true
+    }
+    
     func likePost() {
         
+        let generator =  UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
         
         guard let userID = currentUserID  else {
             print("cannot find userid while liking post")

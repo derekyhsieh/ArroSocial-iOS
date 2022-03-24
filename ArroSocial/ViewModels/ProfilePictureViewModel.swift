@@ -15,7 +15,19 @@ class ProfilePictureViewModel: ObservableObject {
     @Published var profilePicture: UIImage?
     
     // user defaults
-    @AppStorage(CurrentUserDefaults.userID) var userID = ""
+    var userID: String
+    
+    init(userID: String) {
+  
+        self.userID = userID
+        fetchData()
+    }
+    
+    init() {
+        
+            self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID)!
+    }
+    
     
     func fetchData() {
         ImageService.instance.downloadProfileImage(userID: userID) { image, hexColor in

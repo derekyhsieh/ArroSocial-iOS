@@ -18,6 +18,9 @@ struct ProfileView: View {
     
     @Binding var selectedPost: FullScreenPostModel?
     
+    // if this isn't nil then it's not the currnet user's profile
+    var profileUser: String?
+    
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     
@@ -26,6 +29,7 @@ struct ProfileView: View {
         GridItem(.flexible(), spacing: nil, alignment: nil),
         //            GridItem(.flexible(), spacing: nil, alignment: nil),
     ]
+    
     
     var body: some View {
         VStack {
@@ -50,10 +54,15 @@ struct ProfileView: View {
                             .padding(.trailing, 5)
                         
                     }
+                } else {
+                    Circle()
+                        .fill(Color.gray)
+                            .frame(width: 125, height: 125)
+                            .redacted(when: profilePictureVM.isLoading, redactionType: .customPlaceholder)
                 }
                 Spacer(minLength: 0)
                 
-                Text("@\(username)")
+                Text("@\((profileUser == nil ? username : profileUser)!)")
                     .modifier(Poppins(fontWeight: AppFont.medium, .title3))
                     .lineLimit(1)
                     .minimumScaleFactor(0.3)
@@ -133,19 +142,23 @@ struct ProfileView: View {
             
             Divider()
             
-            HStack {
-                Spacer()
-                Button(action: {
-                    withAnimation {
-                        isEditing.toggle()
+            if isUsersOwnProfile {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        withAnimation {
+                            isEditing.toggle()
+                        }
+                        
+                    }) {
+                        Text(isEditing ? "done" : "edit")
+                            .foregroundColor(isEditing ? Color.red : Color.blue)
+                            .font(.custom("Poppins-regular", size: 15))
                     }
-                    
-                }) {
-                    Text(isEditing ? "done" : "edit")
-                        .foregroundColor(isEditing ? Color.red : Color.blue)
-                        .font(.custom("Poppins-regular", size: 15))
                 }
             }
+            
+        
             
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -254,7 +267,7 @@ struct PostImageView: View {
     func showFullScreenPost() {
         withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
             
-            self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: profilePicVM.profilePicture!, profilePictureColor: profilePicColorBackground)
+            self.selectedPost = FullScreenPostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreated: post.dateCreated, likeCount: post.likeCount, likedByUser: post.likedByUser, postImage: self.postImage, profileImage: ((profilePicVM.profilePicture ?? UIImage(named: "placeholder"))!) , profilePictureColor: profilePicColorBackground)
         }
     }
 }
