@@ -44,6 +44,8 @@ struct FSUserData {
     static let profilePicture = "profile_picture"
     static let userPosts = "user_posts"
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
+    static let followerCount = "follower_count"
+    static let followers = " followers"
 }
 
 // Firestore post fields

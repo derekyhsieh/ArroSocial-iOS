@@ -213,7 +213,7 @@ struct PostView: View {
         }
         .matchedGeometryEffect(id: post.postID, in: namespace)
         .sheet(isPresented: $showPosterProfileView) {
-            ProfileView(isUsersOwnProfile: false, profilePosts: PostsViewModel(userID: post.userID), profilePictureVM: ProfilePictureViewModel(userID: post.userID), selectedPost: $selectedPost, profileUser: post.username)
+            ProfileView(isUsersOwnProfile: false, profilePosts: PostsViewModel(userID: post.userID), profilePictureVM: ProfilePictureViewModel(userID: post.userID), selectedPost: $selectedPost, profileUser: post.username, postUserID: post.userID)
         }
         //                .matchedGeometryEffect(id: "container\(post.postID)", in: namespace)
         

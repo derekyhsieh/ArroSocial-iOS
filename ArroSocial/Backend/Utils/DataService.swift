@@ -21,6 +21,8 @@ class DataService {
     
     // MARK: CREATE FUNCTION
     
+    
+    
     /// Uploads post data to Firestore database "posts" collection and image data to Firebase storage
     /// - Parameters:
     ///   - image: image of post that will be uploaded to firebase storage
@@ -119,6 +121,26 @@ class DataService {
     }
     
     
+    // MARK: GET FUNCTIONS
+    
+    func getIfCurrentUserIsFollowingAndCount(currentUserID: String, targetUserID: String, handler: @escaping(_ isFollowing: Bool, _ followerCount: Int) -> ()) {
+        getUserDocument(userID: targetUserID, handler: { doc in
+            if let doc = doc {
+                var followedByUser: Bool = false
+                if let followerIDArray = doc.get(FSUserData.followers) as? [String], let userID = self.currentUserID {
+                    // if current user id is in array user follows
+                    followedByUser = followerIDArray.contains(userID)
+                }
+                
+                let followerCount = doc.get(FSUserData.followerCount) as? Int
+                
+                handler(followedByUser, followerCount ?? 0)
+                return
+                
+            }
+        })
+    }
+    
     /// Fetches user profile background color in hex code when user hasn't uploaded profile picture
     /// - Parameters:
     ///   - userID: userID of desired user data
@@ -134,6 +156,24 @@ class DataService {
             } else {
                 print(error!.localizedDescription)
                 print("document doesnt exist (DataService.getUserProfileBackgroudnColor())")
+                handler(nil)
+                return
+            }
+        }
+    }
+    
+    
+    func getUserDocument(userID: String, handler: @escaping(_ doc: DocumentSnapshot?)->()) {
+        let userDocRef = REF_USERS.document(userID)
+        
+   
+        userDocRef.getDocument { doc, error in
+            if let doc = doc {
+              handler(doc)
+                return
+            } else {
+                print("error getting user document")
+                
                 handler(nil)
                 return
             }
@@ -220,6 +260,29 @@ class DataService {
     
     // MARK: UPDATE FUNCTIONS
     
+    /// follows a specific user on databse
+    /// - Parameters:
+    ///   - followerID: user's ID who does the following
+    ///   - followedID: user's ID who is being followed
+    func followUser(followerID: String, followedID: String) {
+        let increment: Int64 = 1
+        let data: [String: Any] = [
+            FSUserData.followerCount: FieldValue.increment(increment),
+            FSUserData.followers: FieldValue.arrayUnion([followerID])
+        ]
+        
+        REF_USERS.document(followedID).updateData(data)
+    }
+    
+    func unfollowUser(followerID: String, followedID: String) {
+        let increment: Int64 = -1
+        let data: [String: Any] = [
+            FSUserData.followerCount: FieldValue.increment(increment),
+            FSUserData.followers: FieldValue.arrayRemove([followerID])
+        ]
+        
+        REF_USERS.document(followedID).updateData(data)
+    }
     
     func likePost(postID: String, currentUserID: String) {
         // update post count

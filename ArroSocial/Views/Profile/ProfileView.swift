@@ -15,14 +15,19 @@ struct ProfileView: View {
     @StateObject var profilePosts: PostsViewModel
     @StateObject var profilePictureVM: ProfilePictureViewModel
     @State private var isEditing: Bool = false
+    @State var fetchingFollowerData: Bool = true
+    @State private var followerCount: Int = 0
+    @State private var isFollowing: Bool = false
     
     @Binding var selectedPost: FullScreenPostModel?
     
     // if this isn't nil then it's not the currnet user's profile
     var profileUser: String?
+    var postUserID: String?
     
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
+    @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
     
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: nil, alignment: nil),
@@ -57,8 +62,8 @@ struct ProfileView: View {
                 } else {
                     Circle()
                         .fill(Color.gray)
-                            .frame(width: 125, height: 125)
-                            .redacted(when: profilePictureVM.isLoading, redactionType: .customPlaceholder)
+                        .frame(width: 125, height: 125)
+                        .redacted(when: profilePictureVM.isLoading, redactionType: .customPlaceholder)
                 }
                 Spacer(minLength: 0)
                 
@@ -69,25 +74,80 @@ struct ProfileView: View {
                 
             }
             if !isUsersOwnProfile {
-                Button(action: {}) {
-                    HStack {
-                        Text("Follow")
-                            .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
-                            .foregroundColor(.white)
-                        Image(systemName: "plus")
-                            .font(Font.title3.weight(.medium))
-                            .foregroundColor(.white)
+                
+                if(isFollowing) {
+                    Button(action: {
+                        withAnimation {
+                            // right now is following
+                            isFollowing.toggle()
+                            unFollowUser()
+                        }
+                        
+                    }) {
+                        HStack {
+                            
+                            
+                            
+                            Text("Following")
+                                .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
+                            
+                            Image(systemName: "checkmark")
+                                .font(Font.title3.weight(.medium))
+                            
+                            
+                        }
+                        .foregroundColor(Color(AppColors.purple))
+                        .frame(maxWidth: .infinity)
+                        
+                        .padding()
+                        //                    .background(Color(AppColors.purple).cornerRadius(30).shadow(color: Color.black.opacity(0.25), radius: 20, x: 0, y: 0))
+                        
+                        .background(RoundedRectangle(cornerRadius: 30).stroke(Color(AppColors.purple), lineWidth: 4).shadow(color: Color.black.opacity(0.25), radius: 20, x: 0, y: 0))
+                        
+                        
+                        
+                        
                         
                     }
-                    .frame(maxWidth: .infinity)
                     
-                    .padding()
-                    .background(Color(AppColors.purple).cornerRadius(30).shadow(color: Color.black.opacity(0.25), radius: 20, x: 0, y: 0))
+                }
+                else {
+                    Button(action: {
+                        withAnimation {
+                            // right now is unfollowed
+                            followUser()
+                            isFollowing.toggle()
+                            
+                        }
+                    }) {
+                        HStack {
+                            
+                            
+                            
+                            Text("Follow")
+                                .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
+                                .foregroundColor(.white)
+                            Image(systemName: "plus")
+                                .font(Font.title3.weight(.medium))
+                                .foregroundColor(.white)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        
+                        .padding()
+                        
+                        .background(RoundedRectangle(cornerRadius: 30).fill(Color(AppColors.purple)).shadow(color: Color.black.opacity(0.25), radius: 20, x: 0, y: 0))
+                        .redacted(when: fetchingFollowerData, redactionType: .customPlaceholder)
+                        
+                    }
+                    
+                    
+                    
+                    
                     
                 }
                 
             }
-            
             
             
             
@@ -129,8 +189,9 @@ struct ProfileView: View {
                 
                 VStack {
                     
-                    Text("0")
+                    Text("\(followerCount)")
                         .modifier(Poppins(fontWeight: AppFont.medium, .callout))
+                        .redacted(when: fetchingFollowerData, redactionType: .customPlaceholder)
                     Text("Followers")
                         .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                         .foregroundColor(Color.black.opacity(0.7))
@@ -143,6 +204,7 @@ struct ProfileView: View {
             Divider()
             
             if isUsersOwnProfile {
+                
                 HStack {
                     Spacer()
                     Button(action: {
@@ -156,17 +218,18 @@ struct ProfileView: View {
                             .font(.custom("Poppins-regular", size: 15))
                     }
                 }
+                
             }
             
-        
+            
             
             
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVGrid(columns: columns) {
                     ForEach(self.profilePosts.dataArray) { post in
                         PostImageView(postVM: profilePosts, isEditing: $isEditing, selectedPost: $selectedPost, post: post, profilePicVM: profilePictureVM)
-                            
-            
+                        
+                        
                     }
                     
                 }
@@ -174,6 +237,45 @@ struct ProfileView: View {
         }
         .padding()
         .padding(.top)
+        .onAppear {
+            if !isUsersOwnProfile {
+                DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: currentUserID, targetUserID: postUserID!) { isFollowing, followerCount in
+                    self.isFollowing = isFollowing
+                    self.followerCount = followerCount
+                    self.fetchingFollowerData = false
+                }
+                
+            } else {
+                DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: "", targetUserID: currentUserID) { isFollowing, followerCount in
+//                    self.isFollowing = isFollowing
+                    self.followerCount = followerCount
+                    self.fetchingFollowerData = false
+                }
+            }
+            
+            
+        }
+    }
+    
+    func checkIfUserFollows() {
+        
+    }
+    
+    func followUser() {
+        withAnimation(.easeInOut) {
+            self.followerCount += 1
+        }
+        DataService.instance.followUser(followerID: currentUserID, followedID: postUserID!)
+        
+        
+    }
+    
+    func unFollowUser() {
+        withAnimation(.easeInOut) {
+            self.followerCount -= 1
+        }
+        DataService.instance.unfollowUser(followerID: currentUserID, followedID: postUserID!)
+        
     }
 }
 
@@ -231,15 +333,15 @@ struct PostImageView: View {
                             }
                             .redacted(reason: isLoading ? .placeholder : [])
                         }
-
-                      
+                        
+                        
                         
                     }
                 }
                 
                 
             }
-    //        .redacted(when: isLoading, redactionType: .customPlaceholder)
+            //        .redacted(when: isLoading, redactionType: .customPlaceholder)
             //        .frame(width: 300, height: 150)
             .onAppear {
                 ImageService.instance.downloadPostImage(postID: post.postID) { image in
@@ -250,9 +352,11 @@ struct PostImageView: View {
                         }
                     }
                 }
+                
+                
             }
             
-      
+            
         }
     }
     
@@ -261,7 +365,7 @@ struct PostImageView: View {
         postVM.deletePost(postID: post.postID) { finished in
             
         }
-     
+        
     }
     
     func showFullScreenPost() {
@@ -271,3 +375,4 @@ struct PostImageView: View {
         }
     }
 }
+
