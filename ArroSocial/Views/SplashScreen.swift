@@ -24,7 +24,7 @@ struct SplashScreen: View {
                 .resizable()
                 .renderingMode(.original)
                 .aspectRatio(contentMode: animate ? .fill :  .fit)
-                .frame(width: animate ? nil : 85, height: animate ? nil : 85)
+                .frame(width: animate ? nil : 120, height: animate ? nil : 120)
             // scaling view
                 .scaleEffect(animate ? 10 : 1)
             // set width to avoid oversizing

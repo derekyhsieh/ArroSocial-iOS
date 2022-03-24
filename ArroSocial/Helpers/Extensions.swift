@@ -212,3 +212,21 @@ extension Array where Element: Hashable {
         return Array(thisSet.symmetricDifference(otherSet))
     }
 }
+
+
+// redacted
+
+extension View {
+    @ViewBuilder
+    func redacted(when condition: Bool, redactionType: RedactionType) -> some View {
+        if condition {
+            redacted(reason: redactionType)
+        } else {
+            unredacted()
+        }
+    }
+
+    func redacted(reason: RedactionType?) -> some View {
+        self.modifier(Redactable(type: reason))
+    }
+}

@@ -17,6 +17,7 @@ struct PostView: View {
     @State private var profileImage: UIImage = UIImage(named: "placeholder")!
     @State private var postImage: UIImage = UIImage(named: "placeholder")!
     @State private var profilePictureColor: String = ""
+    @State private var isLoading: Bool = true
     
     @Binding var show: Bool
     @Binding var selectedPost: FullScreenPostModel?
@@ -27,6 +28,7 @@ struct PostView: View {
             Image(uiImage: postImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .redacted(when: isLoading, redactionType: .customPlaceholder)
 //                .matchedGeometryEffect(id: selectedPost?.postID, in: namespace)
 
                 .onTapGesture {
@@ -67,7 +69,7 @@ struct PostView: View {
                                 if profileImage.isEqual(UIImage(named: "placeholder")!) {
                                    // no profile picture
                                     Circle()
-                                        .fill(Color(hexString: self.profilePictureColor) ?? Color(AppColors.purple))
+                                        .fill(Color(hexString: self.profilePictureColor)!)
                                         .frame(width: 50, height: 50)
                                     // first 2 letters of username
                                         .overlay(
@@ -93,6 +95,7 @@ struct PostView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
                                     .clipShape(Circle())
+                                    .redacted(when: isLoading, redactionType: .customPlaceholder)
                             }
                             
                             Text("@" + post.username)
@@ -196,20 +199,24 @@ struct PostView: View {
         
         ImageService.instance.downloadProfileImage(userID: post.userID) { image, hexColor  in
             // error checking image for nil
-            if let image = image {
+            if let hexColor = hexColor {
+                self.profilePictureColor = hexColor
+                self.finishedFetchingProfileImage = true
+            } else if let image = image {
                 self.profileImage = image
-            } else {
-                if let hexColor = hexColor {
-                    self.profilePictureColor = hexColor
-                }
+                self.finishedFetchingProfileImage = true
             }
-            self.finishedFetchingProfileImage = true
+           
+            
             
         }
         
         ImageService.instance.downloadPostImage(postID: post.postID) { image in
             if let image = image {
                 self.postImage = image
+                withAnimation {
+                    self.isLoading = false
+                }
             }
             
         }

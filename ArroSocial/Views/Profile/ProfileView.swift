@@ -16,6 +16,7 @@ struct ProfileView: View {
     @StateObject var profilePictureVM: ProfilePictureViewModel
     @State private var isEditing: Bool = false
     
+    
     @AppStorage(CurrentUserDefaults.username) var username: String = ""
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColorBackground: String = ""
     
@@ -150,6 +151,7 @@ struct ProfileView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(self.profilePosts.dataArray) { post in
                         PostImageView(postVM: profilePosts, isEditing: $isEditing, post: post)
+            
                     }
                     
                 }
@@ -170,6 +172,7 @@ struct ProfileView_Previews: PreviewProvider {
 
 
 struct PostImageView: View {
+    @State var isLoading: Bool = true
     @StateObject var postVM: PostsViewModel
     @Binding var isEditing: Bool
     @State var post: PostModel
@@ -177,45 +180,53 @@ struct PostImageView: View {
     var body: some View {
         
         VStack {
-            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
-                Image(uiImage: postImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                
-                    .cornerRadius(10)
-                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
-                
-                if isEditing {
-                    Button {
-                        deletePost()
-                    } label: {
-                        ZStack {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color.red)
-                            
-                            Image(systemName: "minus.circle")
-                                .font(.system(size: 25))
-                                .foregroundColor(Color.white)
-                        }
-                    }
-
-                  
+            VStack {
+                ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
+                    Image(uiImage: postImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                     
+                        .cornerRadius(10)
+                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
+                        .redacted(when: isLoading, redactionType: .customPlaceholder)
+                    
+                    if isEditing {
+                        Button {
+                            deletePost()
+                        } label: {
+                            ZStack {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(Color.red)
+                                
+                                Image(systemName: "minus.circle")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(Color.white)
+                            }
+                            .redacted(reason: isLoading ? .placeholder : [])
+                        }
+
+                      
+                        
+                    }
+                }
+                
+                
+            }
+    //        .redacted(when: isLoading, redactionType: .customPlaceholder)
+            //        .frame(width: 300, height: 150)
+            .onAppear {
+                ImageService.instance.downloadPostImage(postID: post.postID) { image in
+                    if let image = image {
+                        self.postImage = image
+                        isLoading = false
+                        print(isLoading)
+                    }
                 }
             }
             
-            
+      
         }
-        //        .frame(width: 300, height: 150)
-        .onAppear {
-            ImageService.instance.downloadPostImage(postID: post.postID) { image in
-                if let image = image {
-                    self.postImage = image
-                }
-            }
-        }
-        
     }
     
     func deletePost() {
