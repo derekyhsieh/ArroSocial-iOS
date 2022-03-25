@@ -241,7 +241,7 @@ struct ProfileView: View {
             
             
             if !isUsersOwnProfile {
-                DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: currentUserID, targetUserID: postUserID!) { isFollowing, followerCount in
+                DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: currentUserID, targetUserID: postUserID ?? "") { isFollowing, followerCount in
                     self.isFollowing = isFollowing
                     self.followerCount = followerCount
                     self.fetchingFollowerData = false

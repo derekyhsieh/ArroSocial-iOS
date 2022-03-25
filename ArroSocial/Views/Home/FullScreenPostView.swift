@@ -17,7 +17,11 @@ struct FullScreenPostView: View {
     @AppStorage(CurrentUserDefaults.username) var currentUsername = ""
     @AppStorage(CurrentUserDefaults.userID) var currentUserID = ""
     @State var showActionSheet: Bool = false
+    @State var showPosterProfileView: Bool = false
+    @State var isUsersOwnPost: Bool = true
     
+
+
     
     
     var body: some View {
@@ -95,6 +99,9 @@ struct FullScreenPostView: View {
                                 .foregroundColor(Color.gray)
                                 .font(.system(.title))
                         }
+                    }
+                    .onTapGesture {
+                        self.showPosterProfileView = true
                     }
                     
                     Text(post?.caption ?? "")
@@ -193,6 +200,16 @@ struct FullScreenPostView: View {
             
             
 
+        }
+        .sheet(isPresented: $showPosterProfileView) {
+            ProfileView(isUsersOwnProfile: isUsersOwnPost, profilePosts: PostsViewModel(userID: post?.userID ?? ""), profilePictureVM: ProfilePictureViewModel(userID: post?.userID ?? ""), selectedPost: $post, profileUser: post?.username ?? "", postUserID: post?.userID ?? "")
+        }
+        .onAppear {
+            if currentUserID == post?.userID {
+                self.isUsersOwnPost = true
+            } else {
+                self.isUsersOwnPost = false
+            }
         }
     }
     
