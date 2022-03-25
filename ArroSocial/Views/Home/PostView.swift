@@ -20,6 +20,7 @@ struct PostView: View {
     @State private var postImage: UIImage = UIImage(named: "placeholder")!
     @State private var profilePictureColor: String = ""
     @State private var isLoading: Bool = true
+    @StateObject var commentVM: CommentViewModel
     
     @Binding var show: Bool
     @Binding var selectedPost: FullScreenPostModel?
@@ -164,7 +165,7 @@ struct PostView: View {
                             VStack(spacing: 4) {
                                 Image(systemName: "message.fill")
                                     .font(.title.bold())
-                                Text("\(12)")
+                                Text("\(commentVM.commentArray.count)")
                                     .font(.subheadline)
                             }
                             .foregroundColor(.white)

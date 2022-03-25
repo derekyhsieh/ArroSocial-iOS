@@ -212,7 +212,7 @@ struct HomeFeedView: View {
                         VStack(spacing: 15) {
                             
                             ForEach(posts.dataArray, id: \.self) { post in
-                                PostView(post: post, show: $show, selectedPost: $selectedPost, namespace: namespace)
+                                PostView(post: post, commentVM: CommentViewModel(postID: post.postID), show: $show, selectedPost: $selectedPost, namespace: namespace)
                             }
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)

@@ -11,15 +11,40 @@ struct CommentView: View {
     var username: String
     var commment: String
     var dateCreated: Date
+    var commentID: String
+    var userID: String
+    
+    @StateObject var profilePicVM: ProfilePictureViewModel
+    
     var body: some View {
         HStack {
-            Image(uiImage: UIImage(named: "person")!)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 50)
-                .clipShape(Circle())
+            
+            if(profilePicVM.hexColor != nil) {
+                Circle()
+                    .fill(Color(hexString: profilePicVM.hexColor!)!)
+                    .frame(width: 50, height: 50)
+                    .overlay(
+                        Text(username.prefix(2))
+                            .modifier(Poppins(fontWeight: AppFont.medium, .caption))
+                            .foregroundColor(Color.white)
+                    )
+            } else {
                 
-            VStack(alignment: .leading) {
+                Image(uiImage: (profilePicVM.profilePicture ?? UIImage(named: "placeholder")!))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                
+                
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
+                    .redacted(when: profilePicVM.isLoading, redactionType: .customPlaceholder)
+            
+            }
+           
+            
+            
+                
+            VStack(alignment: .leading, spacing: 3) {
                 HStack {
                     Text(username)
                         .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
@@ -37,9 +62,6 @@ struct CommentView: View {
                     .modifier(Poppins(fontWeight: AppFont.regular, .caption))
                     .foregroundColor(Color.gray)
             }
-            
-        
-            
         }
             
     }
@@ -59,10 +81,11 @@ struct CommentView: View {
         }
         
     }
+       
 }
 
-struct CommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommentView(username: "derekhsieh", commment: "tes tcomment", dateCreated: Date())
-    }
-}
+//struct CommentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CommentView(username: "derekhsieh", commment: "tes tcomment", dateCreated: Date())
+//    }
+//}

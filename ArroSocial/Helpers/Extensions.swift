@@ -30,6 +30,12 @@ extension Color {
     }
 }
 
+// get first letter capital in string: for first name and last name in creating new user
+extension StringProtocol {
+    var firstUppercased: String { return prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { return prefix(1).capitalized + dropFirst() }
+}
+
 
 // manuallly hide keyboard for iOS 14 and lower users
 

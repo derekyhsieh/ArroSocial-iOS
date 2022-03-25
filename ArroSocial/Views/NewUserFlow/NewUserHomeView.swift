@@ -135,9 +135,9 @@ struct NewUserHomeView: View {
                                     self.isLoading = true
                                     
                                     if profilePic != UIImage(named: "placeholder") {
-                                        AuthenticationService.instance.updateUserInfo(profilePicture: profilePic, username: self.username, firstName: self.fName, lastName: self.lName, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
+                                        AuthenticationService.instance.updateUserInfo(profilePicture: profilePic, username: self.username.lowercased(), firstName: self.fName.firstCapitalized, lastName: self.lName.firstCapitalized, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
                                             
-                                            // make sure user id isn't nil
+                                        // make sure user id isn't nil
                                             if let userID = userID {
                                                 
                                                 if isError {
