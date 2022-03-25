@@ -99,7 +99,7 @@ struct FullScreenPostView: View {
                         Divider()
                             .padding()
                         
-                        ScrollView(.vertical, showsIndicators: false) {
+                        ScrollView(.vertical, showsIndicators: true) {
                             ForEach(commentVM.commentArray, id: \.self) { comment in
                                 CommentView(username: comment.username, commment: comment.content, dateCreated: comment.dateCreated, commentID: comment.commentID, userID: comment.userID, profilePicVM: ProfilePictureViewModel(userID: comment.userID))
                             }
@@ -138,6 +138,26 @@ struct FullScreenPostView: View {
                         }
                         
                         TextField("Write comment here", text: $commentText).textFieldStyle(RoundedBorderTextFieldStyle())
+                            .onAppear {
+                                withAnimation(.spring()) {
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
+                                        DispatchQueue.main.async {
+                                            let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                            let height = value.height
+                                            
+                                            self.value = height
+                                        }
+                                    }
+                                    
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { noti in
+                                        DispatchQueue.main.async {
+                                            let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                            let height = value.height
+                                            self.value = height
+                                        }
+                                    }
+                                }
+                            }
                         
                         
                         
@@ -146,6 +166,8 @@ struct FullScreenPostView: View {
                                 // upload comment
                                 
                                 
+                                    self.value = 0
+                                    hideKeyboard()
                                 commentVM.uploadComment(userID: currentUserID, postID: post!.postID, username: currentUsername, content: self.commentText) { isFinished in
                                     self.commentText = ""
                                 }
@@ -163,26 +185,7 @@ struct FullScreenPostView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).fill(Color(AppColors.bg)))
                     .offset(y: -self.value)
-                    .onAppear {
-                        withAnimation(.spring()) {
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
-                                DispatchQueue.main.async {
-                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                    let height = value.height
-                                    
-                                    self.value = height
-                                }
-                            }
-                            
-                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { noti in
-                                DispatchQueue.main.async {
-                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                    let height = value.height
-                                    self.value = height
-                                }
-                            }
-                        }
-                    }
+             
                 }
                 .background(Color(AppColors.bg))
                 .frame(width: UIScreen.main.bounds.width)

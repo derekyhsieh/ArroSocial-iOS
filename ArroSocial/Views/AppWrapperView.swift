@@ -136,8 +136,6 @@ struct AppWrapperView: View {
             }
             
             // full screen
-        
-            
             if selectedPost != nil  && profilePicVM.isFinishedFetchingProfilePicture {
                 VStack {
                     FullScreenPostView(post: self.$selectedPost, show: $show, namespace: namespace, currentUserProfileImage: (profilePicVM.profilePicture ?? UIImage(named: "placeholder"))!, currentUserProfileBackground: self.profilePicColor, commentVM: CommentViewModel(postID: self.selectedPost?.postID ?? ""))

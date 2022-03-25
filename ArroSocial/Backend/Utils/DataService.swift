@@ -333,9 +333,7 @@ class DataService {
             $0.dateCreated > $1.dateCreated
             
         }
-        
         return sortedPosts
-        
     }
     
     // MARK: UPDATE FUNCTIONS

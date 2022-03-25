@@ -20,7 +20,8 @@ class CommentViewModel: ObservableObject {
     
     func fetchComment() {
         DataService.instance.downloadCommentForPost(postID: postID) { commentArray in
-            self.commentArray = commentArray
+//            self.commentArray = self.sortCommentsByDate()
+            self.commentArray = self.sortCommentsByDate(commentArray: commentArray)
         }
     }
     
@@ -37,4 +38,15 @@ class CommentViewModel: ObservableObject {
     }
     
     
+    private func sortCommentsByDate(commentArray: [CommentModel]) -> [CommentModel]{
+        
+        
+        let sortedComments = commentArray.sorted {
+            $0.dateCreated > $1.dateCreated
+            
+        }
+        
+        return sortedComments
+        
+    }
 }
