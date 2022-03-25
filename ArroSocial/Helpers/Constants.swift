@@ -34,6 +34,7 @@ struct AppColors {
 struct FSCollections {
     static let users = "users"
     static let posts = "posts"
+    static let comments = "comments"
 }
 
 // Firestore user data constants
@@ -57,6 +58,16 @@ struct FSPostFields {
     static let dateCreated = "date_created"
     static let likeCount = "like_count" // Int
     static let likedBy = "liked_by" 
+}
+
+// Firestore comment fields
+struct FSCommentFields {
+   static let commentID = "comment_id"
+    static let postID = "post_id"
+    static let username = "user_name"
+    static let content = "content"
+    static let userID = "user_id"
+    static let dateCreated = "date_created"
 }
 
 

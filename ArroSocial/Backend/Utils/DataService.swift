@@ -16,6 +16,7 @@ class DataService {
     
     private var REF_POSTS = DB_BASE.collection(FSCollections.posts)
     private var REF_USERS = DB_BASE.collection(FSCollections.users)
+    private var REF_COMMENTS = DB_BASE.collection(FSCollections.comments)
     
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     
@@ -70,6 +71,30 @@ class DataService {
                 print("Error uploading post image to firebase (DataService.uploadPost())")
                 handler(false, postID)
                 return
+            }
+        }
+    }
+    
+    func uploadComment(commentID: String, postID: String, username: String, content: String, userID: String, handler: @escaping(_ isSuccessful: Bool) -> ()) {
+        let commentRef = REF_COMMENTS.document(commentID)
+        
+        let commentData: [String: Any] = [
+            FSCommentFields.postID: postID,
+            FSCommentFields.userID: userID,
+            FSCommentFields.username: username,
+            FSCommentFields.content: content,
+            FSCommentFields.dateCreated: FieldValue.serverTimestamp()
+        ]
+        
+        commentRef.setData(commentData) { error in
+            if let error = error {
+                // error setting comment data
+                print("\(error.localizedDescription): UPLOAD COMMENT")
+                handler(false)
+                return
+            } else {
+               handler(true)
+            return
             }
         }
     }
@@ -326,5 +351,6 @@ class DataService {
         
         REF_POSTS.document(postID).updateData(data)
     }
+    
     
 }

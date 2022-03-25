@@ -36,6 +36,7 @@
 		4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */; };
 		4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42724927D1E0C600984206 /* AuthenticationService.swift */; };
 		4B5A732B27DAA38C0033363E /* PermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B5A732A27DAA38C0033363E /* PermissionsSwiftUI */; };
+		4B66F01927EE351A00F6C22B /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B66F01827EE351A00F6C22B /* CommentModel.swift */; };
 		4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */; };
 		4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF01027C6F9660070B7E8 /* ContentView.swift */; };
 		4B6AF01327C6F9670070B7E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF01227C6F9670070B7E8 /* Assets.xcassets */; };
@@ -86,6 +87,7 @@
 		4B3EB73827D09D20004C002C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4B40A56B27D9CA5500813CEF /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		4B42724927D1E0C600984206 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		4B66F01827EE351A00F6C22B /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		4B6AF00B27C6F9660070B7E8 /* ArroSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArroSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6AF00E27C6F9660070B7E8 /* ArroSocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroSocialApp.swift; sourceTree = "<group>"; };
 		4B6AF01027C6F9660070B7E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				4B1533CE27CC3F930059C7C7 /* PostModel.swift */,
 				4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */,
 				4B27E5E027EB92090029D92A /* FullScreenPostModel.swift */,
+				4B66F01827EE351A00F6C22B /* CommentModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				4B1533EF27CDDEC10059C7C7 /* FirstLastNameSubmission.swift in Sources */,
 				4B23415D27E967350079F1C1 /* ProfileView.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
+				4B66F01927EE351A00F6C22B /* CommentModel.swift in Sources */,
 				4BB26CA427E504BB003FBF72 /* Floats.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 				4B8B4DA227EC01A7007C8FF3 /* Redaction.swift in Sources */,
