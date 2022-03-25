@@ -27,7 +27,7 @@ struct FullScreenPostView: View {
     
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
             ZStack(alignment: .topTrailing) {
                 VStack(spacing: 0) {
                     Image(uiImage: (post?.postImage ?? UIImage(named: "placeholder"))!)
@@ -176,11 +176,12 @@ struct FullScreenPostView: View {
                             
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { noti in
                                 DispatchQueue.main.async {
-                                    self.value = 0
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    self.value = height
                                 }
                             }
                         }
-                        
                     }
                 }
                 .background(Color(AppColors.bg))
