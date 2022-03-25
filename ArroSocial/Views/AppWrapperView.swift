@@ -140,7 +140,7 @@ struct AppWrapperView: View {
             
             if selectedPost != nil  && profilePicVM.isFinishedFetchingProfilePicture {
                 VStack {
-                    FullScreenPostView(post: self.$selectedPost, show: $show, namespace: namespace, currentUserProfileImage: (profilePicVM.profilePicture ?? UIImage(named: "placeholder"))!, currentUserProfileBackground: self.profilePicColor)
+                    FullScreenPostView(post: self.$selectedPost, show: $show, namespace: namespace, currentUserProfileImage: (profilePicVM.profilePicture ?? UIImage(named: "placeholder"))!, currentUserProfileBackground: self.profilePicColor, commentVM: CommentViewModel(postID: self.selectedPost?.postID ?? ""))
                 .matchedGeometryEffect(id: "(selectedPost!.postID)", in: namespace)
 
                             

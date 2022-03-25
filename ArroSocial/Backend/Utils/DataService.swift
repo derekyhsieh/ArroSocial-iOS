@@ -75,8 +75,9 @@ class DataService {
         }
     }
     
-    func uploadComment(commentID: String, postID: String, username: String, content: String, userID: String, handler: @escaping(_ isSuccessful: Bool) -> ()) {
-        let commentRef = REF_COMMENTS.document(commentID)
+    func uploadComment(postID: String, username: String, content: String, userID: String, handler: @escaping(_ isSuccessful: Bool, _ postID: String) -> ()) {
+        let document = REF_COMMENTS.document()
+        let commentID = document.documentID
         
         let commentData: [String: Any] = [
             FSCommentFields.postID: postID,
@@ -86,14 +87,15 @@ class DataService {
             FSCommentFields.dateCreated: FieldValue.serverTimestamp()
         ]
         
-        commentRef.setData(commentData) { error in
+        document.setData(commentData) { error in
+            print("finished DDD")
             if let error = error {
                 // error setting comment data
                 print("\(error.localizedDescription): UPLOAD COMMENT")
-                handler(false)
+                handler(false, commentID)
                 return
             } else {
-               handler(true)
+               handler(true, commentID)
             return
             }
         }
@@ -113,7 +115,7 @@ class DataService {
                 handler(true)
                 return
             }
-        }
+    }
 
     }
     
@@ -160,8 +162,23 @@ class DataService {
         }
     }
     
+    func downloadCommentForPost(postID: String, handler: @escaping(_ commentArray: [CommentModel])->()) {
+        REF_COMMENTS.whereField(FSCommentFields.postID, isEqualTo: postID).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("\(error.localizedDescription): download comment for post")
+            } else {
+                let comments = self.getCommentsFromQuerySnapshot(querySnapshot: querySnapshot)
+                handler(comments)
+                return
+            }
+        }
+    }
+    
     
     // MARK: GET FUNCTIONS
+    
+    
+    
     
     func getIfCurrentUserIsFollowingAndCount(currentUserID: String, targetUserID: String, handler: @escaping(_ isFollowing: Bool, _ followerCount: Int) -> ()) {
         getUserDocument(userID: targetUserID, handler: { doc in
@@ -220,7 +237,30 @@ class DataService {
         }
     }
     
+    
     // MARK: PRIVATE FUNCTIONS
+    
+    private func getCommentsFromQuerySnapshot(querySnapshot: QuerySnapshot?) -> [CommentModel] {
+        var commentArray = [CommentModel]()
+        
+        if let querySnapshot = querySnapshot, querySnapshot.documents.count > 0 {
+            for document in querySnapshot.documents {
+                
+                if let postID = document.get(FSCommentFields.postID) as? String,
+                   let userID = document.get(FSCommentFields.userID) as? String,
+                    let timestamp = document.get(FSPostFields.dateCreated) as? Timestamp,
+                    let username = document.get(FSCommentFields.username) as? String {
+                    let content = document.get(FSCommentFields.content) as? String
+                    let date = timestamp.dateValue()
+                   let commentID = document.documentID
+                    let newComment = CommentModel(commentID: commentID, postID: postID, username: username, content: content ?? "", userID: userID, dateCreated: date)
+                    commentArray.append(newComment)
+                }
+            }
+            return commentArray
+        }
+        return commentArray
+    }
     
     /// Decodes posts from query snapshot into a PostModel array
     /// - Parameter querySnapshot: Firebase QuerySnapshot of post data

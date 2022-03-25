@@ -13,6 +13,7 @@ class ProfilePictureViewModel: ObservableObject {
     @Published var isFinishedFetchingProfilePicture: Bool = false
     @Published var isLoading: Bool = true
     @Published var profilePicture: UIImage?
+    @Published var hexColor: String?
     
     
     // user defaults
@@ -41,6 +42,7 @@ class ProfilePictureViewModel: ObservableObject {
             } else {
 //                self.profilePicture = UIImage(named: "placeholder")
                 withAnimation {
+                    self.hexColor = hexColor
                     self.isFinishedFetchingProfilePicture = true
                     self.isLoading = false
                 }
