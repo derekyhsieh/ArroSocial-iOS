@@ -126,7 +126,7 @@ struct AppWrapperView: View {
                 UploadView(profilePicVM: self.profilePicVM)
                   }
             .sheet(isPresented: $isShowingProfileView, content: {
-                ProfileView(isUsersOwnProfile: true, profilePosts: PostsViewModel(userID: userID), profilePictureVM: self.profilePicVM, selectedPost: $selectedPost)
+                ProfileView(isUsersOwnProfile: .constant(true), profilePosts: PostsViewModel(userID: userID), profilePictureVM: self.profilePicVM, selectedPost: $selectedPost)
                     
             })
             

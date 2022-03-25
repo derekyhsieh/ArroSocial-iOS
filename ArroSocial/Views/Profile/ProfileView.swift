@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 struct ProfileView: View {
     
-    var isUsersOwnProfile: Bool
+    @Binding var isUsersOwnProfile: Bool
     
     @StateObject var profilePosts: PostsViewModel
     @StateObject var profilePictureVM: ProfilePictureViewModel
