@@ -18,8 +18,9 @@ struct FullScreenPostView: View {
     @AppStorage(CurrentUserDefaults.userID) var currentUserID = ""
     @State var showActionSheet: Bool = false
     @State var showPosterProfileView: Bool = false
-    @State var isUsersOwnPost: Bool = true
+    @State var isUsersOwnPost: Bool = false
     
+    @State var value: CGFloat = 0
 
 
     
@@ -150,6 +151,7 @@ struct FullScreenPostView: View {
                     
                     TextField("Write comment here", text: $commentText).textFieldStyle(RoundedBorderTextFieldStyle())
                         
+                        
                     
                     if commentText.count > 0 {
                         Button(action: {
@@ -162,8 +164,25 @@ struct FullScreenPostView: View {
                     }
                     
                 }
-                .padding(.bottom)
+//                .frame(height: 100)
                 .padding()
+                .background(RoundedRectangle(cornerRadius: 15).fill(Color(AppColors.bg)))
+                .offset(y: -self.value)
+                .onAppear {
+                    withAnimation(.spring()) {
+                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
+                            let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                            let height = value.height
+                            
+                            self.value = height
+                        }
+                        
+                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { noti in
+                            self.value = 0
+                        }
+                    }
+                  
+                }
             }
             .background(Color(AppColors.bg))
             .frame(width: UIScreen.main.bounds.width)
@@ -192,6 +211,7 @@ struct FullScreenPostView: View {
                     .padding(.top, 50)
             }
         }
+        // for comment text field
         .confirmationDialog(Text("Why are you reporting this post?"), isPresented: $showActionSheet) {
             
             Button("Spam", role: .destructive) { print("Spam")}

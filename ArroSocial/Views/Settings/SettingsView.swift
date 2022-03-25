@@ -21,13 +21,17 @@ struct SettingsView: View {
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     @State private var floatColor: Color = Color.green
+    @State private var isSendingRequest: Bool = false
+    
     @Binding var tabCenter: CGFloat
     
     
     
     @Binding var selectedTab: String
     
+    
     var body: some View {
+        ZStack {
         NavigationView {
             VStack {
                 Text("Settings")
@@ -162,21 +166,7 @@ struct SettingsView: View {
                         Button(action: {
                             
                             //
-                            self.sendPasswordResetEmail { isSuccessful in
-                                if isSuccessful {
-                                    // success float
-                                    self.floatMessage = "Successfully sent password reset to your email"
-                                    self.floatColor = Color.green
-                                    self.showingFloat = true
-                                    
-                                } else {
-                                    // unsuccessful float
-                                    self.floatMessage = "Error sending password reset to your email"
-                                    self.floatColor = Color.red
-                                    self.showingFloat = true
-                                    
-                                }
-                            }
+                           sendResetPasswordEmail()
                             
                         }) {
                             HStack {
@@ -246,6 +236,9 @@ struct SettingsView: View {
                 Spacer(minLength: 0)
             }
             .padding()
+            .disabled(isSendingRequest)
+        }
+            CustomLoadingIndicator(isShowing: self.$isSendingRequest)
         }
         //        .padding(.bottom, UIScreen.main.bounds.height / 8)
         .present(isPresented: $showingFloat, type: .floater(), position: .top, animation: Animation.spring(), autohideDuration: 1.5, closeOnTap: true, closeOnTapOutside: true) {
@@ -264,6 +257,27 @@ struct SettingsView: View {
             
         }
     }
+    
+    private func sendResetPasswordEmail() {
+        
+        self.isSendingRequest = true
+        self.sendPasswordResetEmail { isSuccessful in
+            if isSuccessful {
+                // success float
+                self.floatMessage = "Successfully sent password reset to your email"
+                self.floatColor = Color.green
+                self.showingFloat = true
+               isSendingRequest = false
+            } else {
+                // unsuccessful float
+                self.floatMessage = "Error sending password reset to your email"
+                self.floatColor = Color.red
+                self.showingFloat = true
+                isSendingRequest = false
+            }
+        }
+    }
+    
     
     private func signOut() {
         // sign out logic
