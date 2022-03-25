@@ -21,6 +21,7 @@ struct SettingsView: View {
     @State private var floatMessage: String = ""
     @State private var showingFloat: Bool = false
     @State private var floatColor: Color = Color.green
+    @Binding var tabCenter: CGFloat
     
     
     
@@ -273,6 +274,7 @@ struct SettingsView: View {
                 } else {
                     print("successfully signed out user")
                     self.selectedTab = tabs[0]
+                    self.tabCenter = 0
                     profilePictureVM.wipeData()
                 }
             }

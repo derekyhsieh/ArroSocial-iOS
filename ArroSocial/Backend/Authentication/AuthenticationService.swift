@@ -247,7 +247,8 @@ class AuthenticationService {
             }
             if let document = document, document.exists {
                 
-                let userID = document.documentID
+                let userID = Auth.auth().currentUser?.uid
+                print(userID)
                 let username = document.get(FSUserData.username) as! String
                 let firstName = document.get(FSUserData.fName) as! String
                 let lastName = document.get(FSUserData.lName) as! String
@@ -406,6 +407,8 @@ class AuthenticationService {
                     }
                     // no error set user defaults
                     withAnimation {
+                    
+                        
                         UserDefaults.standard.set(userID, forKey: CurrentUserDefaults.userID)
                         UserDefaults.standard.set(username, forKey: CurrentUserDefaults.username)
                         UserDefaults.standard.set(firstName, forKey: CurrentUserDefaults.fName)

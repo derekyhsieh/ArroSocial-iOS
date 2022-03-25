@@ -16,7 +16,7 @@ struct AppWrapperView: View {
     @State var tabBarCenter: CGFloat = 0
     @State private var profileImage: UIImage = UIImage(named: "arro")!
     @State private var isFinishedLoadingData: Bool = false
-    @StateObject var profilePicVM: ProfilePictureViewModel
+    @StateObject var profilePicVM: ProfilePictureViewModel = ProfilePictureViewModel()
     
     
     @AppStorage(CurrentUserDefaults.profilePicColor) var profilePicColor: String = ""
@@ -41,6 +41,9 @@ struct AppWrapperView: View {
                     HomeFeedView(profilePictureVM: profilePicVM, isShowingUploadView: $isShowingUploadView, showPermissionsModal: $showPermissionsModal, isShowingProfileView: $isShowingProfileView, selectedPost: $selectedPost, show: $show, namespace: namespace, posts: PostsViewModel(currentUserID: self.userID))
                         .tag(tabs[0])
                         .ignoresSafeArea(.all, edges: [.leading, .trailing, .bottom])
+                        .onAppear {
+                            print("APPEARED ASDJFKILASDF")
+                        }
                     Color.blue
                         .overlay(Text(tabs[1]))
                         .tag(tabs[1])
@@ -49,7 +52,7 @@ struct AppWrapperView: View {
                         .overlay(Text(tabs[2]))
                         .tag(tabs[2])
                         .ignoresSafeArea(.all, edges: .all)
-                    SettingsView(profilePictureVM: self.profilePicVM, selectedTab: $selectedTab)
+                    SettingsView(profilePictureVM: self.profilePicVM, tabCenter: $tabBarCenter, selectedTab: $selectedTab)
                         .tag(tabs[3])
                         .ignoresSafeArea(.all, edges: [.leading, .trailing])
                 }
@@ -157,8 +160,16 @@ struct AppWrapperView: View {
             
             
         }
+        .onAppear {
+            print(" appeared app wrapper")
+        }
         
         
+    }
+    
+    public func updateProfilePicVM() {
+        
+        self.profilePicVM.fetchData()
     }
 }
 

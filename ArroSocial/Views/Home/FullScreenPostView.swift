@@ -202,7 +202,7 @@ struct FullScreenPostView: View {
 
         }
         .sheet(isPresented: $showPosterProfileView) {
-            ProfileView(isUsersOwnProfile: isUsersOwnPost, profilePosts: PostsViewModel(userID: post?.userID ?? ""), profilePictureVM: ProfilePictureViewModel(userID: post?.userID ?? ""), selectedPost: $post, profileUser: post?.username ?? "", postUserID: post?.userID ?? "")
+            ProfileView(isUsersOwnProfile: isUsersOwnPost, profilePosts: PostsViewModel(userID: post?.userID ?? ""), profilePictureVM: ProfilePictureViewModel(userID: post?.userID ?? "62lnkEVO6WZpXnlm1zAOybFOHfW2"), selectedPost: $post, profileUser: post?.username ?? "", postUserID: post?.userID ?? "")
         }
         .onAppear {
             if currentUserID == post?.userID {

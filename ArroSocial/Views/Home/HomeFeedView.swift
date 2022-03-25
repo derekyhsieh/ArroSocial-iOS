@@ -216,6 +216,9 @@ struct HomeFeedView: View {
                             }
                             Rectangle()
                                 .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height / 2)
+                                .onAppear {
+                                    profilePictureVM.fetchData()
+                                }
                                 .opacity(0)
                             
                             

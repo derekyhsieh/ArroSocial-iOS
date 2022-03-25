@@ -12,7 +12,6 @@ struct ContentView: View {
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     @State private var animate = false
     @State private var endSplash = false
-    @StateObject var profilePicVM: ProfilePictureViewModel = ProfilePictureViewModel()
     
     init() {
         // hidden since tab bar will be custom
@@ -30,17 +29,15 @@ struct ContentView: View {
             WelcomeView(isShowingWelcome: $isShowingWelcome)
                 .environment(\.colorScheme, .light)
                 .transition(.move(edge: .leading))
-                .onDisappear {
-                    profilePicVM.fetchData()
-                }
         } else {
             
             ZStack {
                 
             
                 
-                AppWrapperView(profilePicVM: profilePicVM)
+                AppWrapperView()
                     .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                
                 
                 
                 SplashScreen()

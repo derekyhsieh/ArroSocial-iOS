@@ -14,8 +14,9 @@ class ProfilePictureViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var profilePicture: UIImage?
     
+    
     // user defaults
-    var userID: String
+    var userID: String = "62lnkEVO6WZpXnlm1zAOybFOHfW2"
     
     init(userID: String) {
   
@@ -25,7 +26,7 @@ class ProfilePictureViewModel: ObservableObject {
     
     init() {
         
-            self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID) ?? ""
+            self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID) ?? "62lnkEVO6WZpXnlm1zAOybFOHfW2"
     }
     
     
@@ -54,6 +55,7 @@ class ProfilePictureViewModel: ObservableObject {
         self.profilePicture = nil
         self.isFinishedFetchingProfilePicture = false
     }
+    
     
     
     // used when user uploads new profile picture
