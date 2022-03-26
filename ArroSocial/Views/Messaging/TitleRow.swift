@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TitleRow: View {
+    @StateObject var profilePicVM: ProfilePictureViewModel
     var username: String
     var body: some View {
         HStack(spacing: 20) {
@@ -19,20 +20,10 @@ struct TitleRow: View {
             }
             
             Spacer()
-            Image("person")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 50)
-                .cornerRadius(50)
-            VStack(alignment: .leading) {
+            ProfilePicture(dimension: 50, username: username, profilePicVM: profilePicVM)
                Text("@" + username)
                     .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
-//                    .foregroundColor(.white)
                 
-                Text("Following")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
             
             Spacer()
            
@@ -48,8 +39,8 @@ struct TitleRow: View {
     }
 }
 
-struct TitleRow_Previews: PreviewProvider {
-    static var previews: some View {
-        TitleRow(username: "derekhsieh")
-    }
-}
+//struct TitleRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TitleRow(username: "derekhsieh")
+//    }
+//}

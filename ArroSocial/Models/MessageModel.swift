@@ -9,7 +9,7 @@ import Foundation
 
 struct MessageModel: Identifiable, Codable {
     var id = UUID()
-    var commentID: String
+    var messageID: String
     var text: String
     var received: Bool // if user is receiver, false, if user is recipient then true
     var timestamp: Date
