@@ -28,6 +28,7 @@ struct AppColors {
     static let purple = "purple"
     static let blue = "blue"
     static let lightBlue = "lightBlue"
+    static let messageGray = "messageGray"
 }
 
 // Firestore Collection constants

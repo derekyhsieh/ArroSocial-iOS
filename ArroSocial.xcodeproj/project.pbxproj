@@ -49,6 +49,12 @@
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
 		4B8B4DA227EC01A7007C8FF3 /* Redaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */; };
+		4B8B4DAD27EEC419007C8FF3 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DAC27EEC419007C8FF3 /* MessagingView.swift */; };
+		4B8B4DAF27EECF8F007C8FF3 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DAE27EECF8F007C8FF3 /* TitleRow.swift */; };
+		4B8B4DB127EED4B0007C8FF3 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DB027EED4B0007C8FF3 /* MessageModel.swift */; };
+		4B8B4DB327EED512007C8FF3 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DB227EED512007C8FF3 /* MessageBubble.swift */; };
+		4B8B4DB527EED700007C8FF3 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DB427EED700007C8FF3 /* ConversationView.swift */; };
+		4B8B4DB727EED874007C8FF3 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DB627EED874007C8FF3 /* MessageField.swift */; };
 		4B99E38427E7E0BB00AFC20F /* ProfilePictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */; };
 		4B99E38627E7EE4D00AFC20F /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */; };
 		4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA2177827DF0A1500A8F72F /* SplashScreen.swift */; };
@@ -103,6 +109,12 @@
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
 		4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redaction.swift; sourceTree = "<group>"; };
+		4B8B4DAC27EEC419007C8FF3 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
+		4B8B4DAE27EECF8F007C8FF3 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
+		4B8B4DB027EED4B0007C8FF3 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		4B8B4DB227EED512007C8FF3 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
+		4B8B4DB427EED700007C8FF3 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		4B8B4DB627EED874007C8FF3 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
 		4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewModel.swift; sourceTree = "<group>"; };
 		4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
 		4BA2177827DF0A1500A8F72F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -140,6 +152,7 @@
 				4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */,
 				4B27E5E027EB92090029D92A /* FullScreenPostModel.swift */,
 				4B66F01827EE351A00F6C22B /* CommentModel.swift */,
+				4B8B4DB027EED4B0007C8FF3 /* MessageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -266,6 +279,7 @@
 		4B6AF01C27C724430070B7E8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4B8B4DA927EEC402007C8FF3 /* Messaging */,
 				4B23415B27E967260079F1C1 /* Profile */,
 				4B2B475B27D7E73200804B99 /* Upload Post */,
 				4BEE709C27D0802E00F42F8C /* Settings */,
@@ -293,6 +307,18 @@
 				4BB26CA327E504BB003FBF72 /* Floats.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4B8B4DA927EEC402007C8FF3 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				4B8B4DAC27EEC419007C8FF3 /* MessagingView.swift */,
+				4B8B4DAE27EECF8F007C8FF3 /* TitleRow.swift */,
+				4B8B4DB227EED512007C8FF3 /* MessageBubble.swift */,
+				4B8B4DB427EED700007C8FF3 /* ConversationView.swift */,
+				4B8B4DB627EED874007C8FF3 /* MessageField.swift */,
+			);
+			path = Messaging;
 			sourceTree = "<group>";
 		};
 		4B99E38127E7DF2F00AFC20F /* ViewModels */ = {
@@ -424,6 +450,7 @@
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
 				4B66F01B27EE39E300F6C22B /* CommentViewModel.swift in Sources */,
 				4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */,
+				4B8B4DB127EED4B0007C8FF3 /* MessageModel.swift in Sources */,
 				4B1D9E0B27E4450200FF151F /* DataService.swift in Sources */,
 				4B1D9E0927E1A0B600FF151F /* ImageService.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
@@ -431,15 +458,18 @@
 				4B1533DE27CC7FBA0059C7C7 /* SignUpView.swift in Sources */,
 				4B1533E027CC80330059C7C7 /* LoginView.swift in Sources */,
 				4B1533ED27CDDD0E0059C7C7 /* UsernameSubmissionView.swift in Sources */,
+				4B8B4DAF27EECF8F007C8FF3 /* TitleRow.swift in Sources */,
 				4B1533EB27CDCD600059C7C7 /* OffsetPageTabView.swift in Sources */,
 				4B1533D527CC7F030059C7C7 /* WelcomeView.swift in Sources */,
 				4B070C3927EB74D400E89E4A /* CommentView.swift in Sources */,
 				4B1533E227CC83940059C7C7 /* Extensions.swift in Sources */,
 				4BED1BB227D314FA00DB6830 /* Animations.swift in Sources */,
+				4B8B4DB727EED874007C8FF3 /* MessageField.swift in Sources */,
 				4BA2177927DF0A1500A8F72F /* SplashScreen.swift in Sources */,
 				4B6AF00F27C6F9660070B7E8 /* ArroSocialApp.swift in Sources */,
 				4B1533E927CDCC8F0059C7C7 /* UserIntroModel.swift in Sources */,
 				4B27E5E127EB92090029D92A /* FullScreenPostModel.swift in Sources */,
+				4B8B4DAD27EEC419007C8FF3 /* MessagingView.swift in Sources */,
 				4B1533F127CDDFFC0059C7C7 /* ProfilePictureSubmission.swift in Sources */,
 				4B070C3527EB6A9400E89E4A /* FullScreenPostView.swift in Sources */,
 				4B40A56C27D9CA5500813CEF /* PhotoPicker.swift in Sources */,
@@ -454,6 +484,8 @@
 				4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */,
 				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
 				4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */,
+				4B8B4DB327EED512007C8FF3 /* MessageBubble.swift in Sources */,
+				4B8B4DB527EED700007C8FF3 /* ConversationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
