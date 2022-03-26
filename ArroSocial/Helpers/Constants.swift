@@ -36,6 +36,8 @@ struct FSCollections {
     static let users = "users"
     static let posts = "posts"
     static let comments = "comments"
+    static let conversations = "conversations"
+    static let messages = "messages"
 }
 
 // Firestore user data constants
@@ -48,6 +50,13 @@ struct FSUserData {
     static let generatedProfilePictureBackgroundColorInHex = "generated_profile_picture_background_in_hex"
     static let followerCount = "follower_count"
     static let followers = " followers"
+}
+
+// Firestore message fields
+struct FSMessageFields {
+    static let text = "text"
+    static let userID = "user_id"
+    static let dateCreated = "dateCreated"
 }
 
 // Firestore post fields

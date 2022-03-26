@@ -10,9 +10,12 @@ import SwiftUI
 struct MessagingView: View {
     
     var body: some View {
-        TitleRow(username: "derekhsieh")
-            .background(Color(AppColors.purple).opacity(0.3))
-            .foregroundColor(Color.white)
+//        TitleRow(username: "derekhsieh")
+//            .background(Color(AppColors.purple).opacity(0.3))
+//            .foregroundColor(Color.white)
+        VStack {
+            Text("hello messaging")
+        }
     }
 }
 

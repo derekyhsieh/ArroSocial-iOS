@@ -17,6 +17,7 @@ class DataService {
     private var REF_POSTS = DB_BASE.collection(FSCollections.posts)
     private var REF_USERS = DB_BASE.collection(FSCollections.users)
     private var REF_COMMENTS = DB_BASE.collection(FSCollections.comments)
+    private var REF_CONVERSATIONS = DB_BASE.collection(FSCollections.conversations)
     
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String?
     
@@ -74,6 +75,61 @@ class DataService {
             }
         }
     }
+    
+    func uploadMessage(conversationID: String?, otherUserID: String,  messageText: String, handler: @escaping(_ messageID: String?, _ conversationID: String?) -> ()) {
+        if let conversationID = conversationID {
+            // not first message since conversation document has already been created, so no need for creating participants field
+            let messageDoc = REF_CONVERSATIONS.document(conversationID).collection(FSCollections.messages).document()
+            let messageID = messageDoc.documentID
+            
+            let messageData: [String: Any] = [
+                FSMessageFields.userID :(currentUserID!), 
+                FSMessageFields.text: messageText,
+                FSMessageFields.dateCreated: FieldValue.serverTimestamp()
+            ]
+            
+            messageDoc.setData(messageData) { error in
+                if let error = error {
+                    // error uploading message
+                    print("\(error.localizedDescription) - uploadMessage()")
+                    handler(nil, nil)
+                    return
+                } else {
+                    // success
+                    handler(messageID, nil)
+                    return
+                }
+            }
+        } else {
+            // case where conversation hasn't been created yet
+            // 1: create document in conversation collection with convo id
+            // 2: set participants to current user and other user id
+            // 3: recursion this function to upload again
+            
+            let conversationDoc = REF_CONVERSATIONS.document()
+            let convoID = conversationDoc.documentID
+            
+            let participantData: [String: Any] = [
+                "participants": FieldValue.arrayUnion([currentUserID!, otherUserID])
+            ]
+            conversationDoc.setData(participantData) { error in
+                if let error = error {
+                    print("\(error.localizedDescription) uploadMessage(in creating new donverstaaion document)")
+                    handler(nil, convoID)
+                } else {
+                    // success
+                    print("successfully init new conversation document with new participants")
+                    // recursion
+                    self.uploadMessage(conversationID: convoID, otherUserID: otherUserID, messageText: messageText) { messageID, conversationID in
+                        handler(messageID, conversationID)
+                    }
+                }
+            }
+            
+            
+        }
+    }
+    
     
     func uploadComment(postID: String, username: String, content: String, userID: String, handler: @escaping(_ isSuccessful: Bool, _ postID: String) -> ()) {
         let document = REF_COMMENTS.document()
