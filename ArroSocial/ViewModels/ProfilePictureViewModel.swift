@@ -22,33 +22,59 @@ class ProfilePictureViewModel: ObservableObject {
     init(userID: String) {
   
         self.userID = userID
-        fetchData()
+        print(userID)
+//        fetchData(userID: self.userID)
+        
     }
     
     init() {
         
             self.userID =  UserDefaults.standard.string(forKey: CurrentUserDefaults.userID) ?? "62lnkEVO6WZpXnlm1zAOybFOHfW2"
+        fetchData(userID: self.userID)
     }
     
     
-    func fetchData() {
-        ImageService.instance.downloadProfileImage(userID: userID) { image, hexColor in
-            if let profileImage = image {
-                withAnimation {
-                    self.profilePicture = profileImage
-                    self.isFinishedFetchingProfilePicture = true
-                    self.isLoading = false
+    func fetchData(userID: String?) {
+        if let userID = userID {
+            ImageService.instance.downloadProfileImage(userID: userID) { image, hexColor in
+                
+                if let profileImage = image {
+                    withAnimation {
+                        self.profilePicture = profileImage
+                        self.isFinishedFetchingProfilePicture = true
+                        self.isLoading = false
+                    }
+                } else {
+    //                self.profilePicture = UIImage(named: "placeholder")
+                    withAnimation {
+                        self.hexColor = hexColor
+                        self.isFinishedFetchingProfilePicture = true
+                        self.isLoading = false
+                    }
                 }
-            } else {
-//                self.profilePicture = UIImage(named: "placeholder")
-                withAnimation {
-                    self.hexColor = hexColor
-                    self.isFinishedFetchingProfilePicture = true
-                    self.isLoading = false
-                }
+                
             }
-            
+        } else {
+            ImageService.instance.downloadProfileImage(userID: self.userID) { image, hexColor in
+                
+                if let profileImage = image {
+                    withAnimation {
+                        self.profilePicture = profileImage
+                        self.isFinishedFetchingProfilePicture = true
+                        self.isLoading = false
+                    }
+                } else {
+    //                self.profilePicture = UIImage(named: "placeholder")
+                    withAnimation {
+                        self.hexColor = hexColor
+                        self.isFinishedFetchingProfilePicture = true
+                        self.isLoading = false
+                    }
+                }
+                
+            }
         }
+  
         
     }
     

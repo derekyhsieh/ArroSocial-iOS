@@ -59,6 +59,14 @@ struct FSMessageFields {
     static let dateCreated = "dateCreated"
 }
 
+struct FSConvoFields {
+    static let participants = "participants"
+    static let lastMessage = "latest_message"
+    static let lastTimestamp = "last_timestamp"
+    static let lastMessageSender = "last_message_sender"
+    static let messages = "messages"
+}
+
 // Firestore post fields
 struct FSPostFields {
     static let postID = "post_id"

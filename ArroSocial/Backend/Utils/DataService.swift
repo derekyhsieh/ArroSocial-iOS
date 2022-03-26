@@ -76,6 +76,25 @@ class DataService {
         }
     }
     
+    func createConversation(otherUserID: String, handler: @escaping(_ convoID: String?, _ success: Bool) -> ()) {
+        let conversationDoc = REF_CONVERSATIONS.document()
+        let convoID = conversationDoc.documentID
+        
+        let data: [String: Any] = [
+            FSConvoFields.participants: FieldValue.arrayUnion([currentUserID!, otherUserID]),
+            FSConvoFields.lastTimestamp: FieldValue.serverTimestamp()
+        ]
+        
+        conversationDoc.setData(data) { error in
+            if let error = error {
+                print("\(error.localizedDescription): createConversation()")
+                handler(nil, false)
+            } else {
+                handler(convoID, true)
+            }
+        }
+    }
+    
     func uploadMessage(conversationID: String?, otherUserID: String,  messageText: String, handler: @escaping(_ messageID: String?, _ conversationID: String?) -> ()) {
         if let conversationID = conversationID {
             // not first message since conversation document has already been created, so no need for creating participants field
@@ -192,6 +211,17 @@ class DataService {
         
     }
     
+    func downloadConvosForUser(userID: String, handler: @escaping(_ convos: [ConvoModel]) -> ()) {
+        REF_CONVERSATIONS.whereField(FSConvoFields.participants, arrayContains: userID).getDocuments { querySnap, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            let convos = self.getConvoFromSnapshot(snapshot: querySnap)
+            
+            handler(convos)
+        }
+    }
+    
     
     /// Downloads posts from database that were posted by the user
     /// - Parameters:
@@ -228,6 +258,17 @@ class DataService {
                 return
             }
         }
+    }
+    
+    // MARK: Search functions
+    
+    func searchForUser(searchQuery: String, handler: @escaping(_ returnedUsers: [UsersModel]) -> ()) {
+        REF_USERS.whereField(FSUserData.username, isGreaterThanOrEqualTo: searchQuery).whereField(FSUserData.username, isLessThanOrEqualTo: searchQuery + "z").limit(to: 10).getDocuments { querySnap, error in
+            
+            handler(self.getUsersFromQuerySnapshot(querySnapshot: querySnap))
+            return
+        }
+        
     }
     
     
@@ -317,6 +358,31 @@ class DataService {
         }
         return commentArray
     }
+   
+    private func getConvoFromSnapshot(snapshot: QuerySnapshot?) -> [ConvoModel] {
+        var convoArray = [ConvoModel]()
+        if let snapshot = snapshot {
+            for doc in snapshot.documents {
+                if let convoID = doc.documentID as? String, let participantsID = doc.get(FSConvoFields.participants) as? [String], let timestamp = doc.get(FSConvoFields.lastTimestamp) as? Timestamp {
+                    let lastMessageDate = timestamp.dateValue()
+                    let lastMessage = doc.get(FSConvoFields.lastMessage) as? String?
+                    // check if last sender is current user
+                    let lastMessageSender = doc.get(FSConvoFields.lastMessageSender)
+                    var lastMessageWasCurrentUser: Bool? = nil
+                    if lastMessageSender != nil {
+                        lastMessageWasCurrentUser = (lastMessageSender as! String == currentUserID! ? true : false)
+                    }
+                    let newConvo = ConvoModel(convoID: convoID, participantsID: participantsID, lastMessageDate: lastMessageDate , lastMessage: lastMessage ?? nil, messages: [], lastMessageWasCurrentUser: lastMessageWasCurrentUser)
+                    print(newConvo)
+                    convoArray.append(newConvo)
+                }
+            }
+            return convoArray
+        } else {
+            return convoArray
+        }
+        
+    }
     
     /// Decodes posts from query snapshot into a PostModel array
     /// - Parameter querySnapshot: Firebase QuerySnapshot of post data
@@ -351,6 +417,27 @@ class DataService {
             print("no documents in snapshot found")
             return postArray
         }
+    }
+    
+    private func getUsersFromQuerySnapshot(querySnapshot: QuerySnapshot?) -> [UsersModel] {
+        var userArray = [UsersModel]()
+        if let querySnapshot = querySnapshot {
+            for doc in querySnapshot.documents {
+                if let userID = doc.documentID as? String,
+                   let username = doc.get(FSUserData.username) as? String {
+                    let firstName = doc.get(FSUserData.fName) as? String
+                    let lastName = doc.get(FSUserData.lName) as? String
+                    let followerCount = doc.get(FSUserData.followerCount) as? Int
+                    let followers = doc.get(FSUserData.followers) as? [String]
+                    
+                    let newUser = UsersModel(userID: userID, username: username, firstName: firstName!, lastName: lastName! , followerCount: followerCount ?? 0, followers: followers ?? [])
+                    
+                    userArray.append(newUser)
+                }
+            }
+        }
+        
+        return userArray
     }
     
     /// Uploads the post ID of new post to user data array (may be deprecated in the future and instead use firestore queries for post filtering)
@@ -392,7 +479,7 @@ class DataService {
         return sortedPosts
     }
     
-    // MARK: UPDATE FUNCTIONS
+// MARK: UPDATE FUNCTIONS
     
     /// follows a specific user on databse
     /// - Parameters:

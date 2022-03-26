@@ -81,7 +81,7 @@ class ImageService {
         let path = getProfileImagePath(userID: userID)
         
         // download image from storage using path
-        
+       print(path)
         downloadImage(path: path) { returnedImage in
             if returnedImage == nil {
                // user has no profile pic and we need to get profile pic background color from user store
@@ -193,6 +193,7 @@ class ImageService {
     ///   - handler: returns an optional image 
     private func downloadImage(path: StorageReference, handler: @escaping(_ image: UIImage?) -> ()) {
         // check if image is already cached
+        print(path)
         if let cachedImage = imageCache.object(forKey: path) {
             print("image found in cache")
             handler(cachedImage)

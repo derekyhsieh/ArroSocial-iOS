@@ -20,7 +20,7 @@ struct TitleRow: View {
             }
             
             Spacer()
-            ProfilePicture(dimension: 50, username: username, profilePicVM: profilePicVM)
+            ProfilePicture(dimension: 50, username: username, userID: profilePicVM.userID, profilePicVM: profilePicVM)
                Text("@" + username)
                     .modifier(Poppins(fontWeight: AppFont.medium, .subheadline))
                 

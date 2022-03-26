@@ -15,6 +15,7 @@ struct MessageBubble: View {
         VStack(alignment: message.received ? .leading: .trailing) {
             HStack {
                 Text(message.text)
+//                    .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
                     .padding()
                     .background(message.received ? Color(AppColors.messageGray) : Color(AppColors.purple).opacity(0.3))
                     .cornerRadius(30)
@@ -25,7 +26,7 @@ struct MessageBubble: View {
             }
             if showTime {
                 Text("\(message.timestamp.formatted(.dateTime.hour().minute()))")
-                    .font(.caption2)
+//                    .modifier(Poppins(fontWeight: AppFont.regular, .caption2))
                     .foregroundColor(.gray)
                     .padding(message.received ? .leading : .trailing, 25)
             }

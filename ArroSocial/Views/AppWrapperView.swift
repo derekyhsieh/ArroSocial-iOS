@@ -44,7 +44,10 @@ struct AppWrapperView: View {
                         .onAppear {
                             print("APPEARED ASDJFKILASDF")
                         }
-                    ConversationView(profilePicVM: ProfilePictureViewModel(userID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2"), otherUserID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2", convoID: nil)
+                    
+                    MessagingView()
+                        .ignoresSafeArea(edges: [.top, .bottom])
+//                    ConversationView(profilePicVM: ProfilePictureViewModel(userID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2"), otherUserID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2", convoID: nil)
                         .tag(tabs[1])
 //                        .ignoresSafeArea(.all, edges: .all)
                     Color.yellow
@@ -131,7 +134,7 @@ struct AppWrapperView: View {
             
             .onAppear {
                 print("appeared")
-                profilePicVM.fetchData()
+                profilePicVM.fetchData(userID: nil)
             }
             
             // full screen
@@ -164,10 +167,10 @@ struct AppWrapperView: View {
         
     }
     
-    public func updateProfilePicVM() {
-        
-        self.profilePicVM.fetchData()
-    }
+//    public func updateProfilePicVM() {
+//
+//        self.profilePicVM.fetchData(userID: <#String#>)
+//    }
 }
 
 

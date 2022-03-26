@@ -51,7 +51,7 @@ struct ProfileView: View {
                             .padding(.trailing, 5)
                     } else {
                         Circle()
-                            .fill(Color(hexString: profilePicColorBackground) ?? Color(AppColors.purple))
+                            .fill(Color(hexString: profilePicColorBackground) ?? Color(.gray))
                             .frame(width: 125, height: 125)
                             .overlay(Text(username.prefix(2)))
                             .font(.custom("Poppins-SemiBold", size: 40))

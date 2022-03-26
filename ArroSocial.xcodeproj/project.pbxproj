@@ -48,6 +48,11 @@
 		4B6AF02527C724790070B7E8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */; };
 		4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */; };
 		4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */; };
+		4B736CDD27EF74EB0067EB4B /* ConvoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CDC27EF74EB0067EB4B /* ConvoModel.swift */; };
+		4B736CDF27EF75890067EB4B /* ConvoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CDE27EF75890067EB4B /* ConvoViewModel.swift */; };
+		4B736CE127EF78B60067EB4B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE027EF78B60067EB4B /* UserModel.swift */; };
+		4B736CE327EF88D90067EB4B /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE227EF88D90067EB4B /* SearchView.swift */; };
+		4B736CE527EF897B0067EB4B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE427EF897B0067EB4B /* UsersViewModel.swift */; };
 		4B8B4DA227EC01A7007C8FF3 /* Redaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */; };
 		4B8B4DAD27EEC419007C8FF3 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DAC27EEC419007C8FF3 /* MessagingView.swift */; };
 		4B8B4DAF27EECF8F007C8FF3 /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DAE27EECF8F007C8FF3 /* TitleRow.swift */; };
@@ -109,6 +114,11 @@
 		4B6AF02627C724890070B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B6AF02727C7255A0070B7E8 /* FontDynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDynamic.swift; sourceTree = "<group>"; };
 		4B6AF02927C7283F0070B7E8 /* AppWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWrapperView.swift; sourceTree = "<group>"; };
+		4B736CDC27EF74EB0067EB4B /* ConvoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoModel.swift; sourceTree = "<group>"; };
+		4B736CDE27EF75890067EB4B /* ConvoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoViewModel.swift; sourceTree = "<group>"; };
+		4B736CE027EF78B60067EB4B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		4B736CE227EF88D90067EB4B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		4B736CE427EF897B0067EB4B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redaction.swift; sourceTree = "<group>"; };
 		4B8B4DAC27EEC419007C8FF3 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		4B8B4DAE27EECF8F007C8FF3 /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
@@ -151,10 +161,12 @@
 			isa = PBXGroup;
 			children = (
 				4B1533CE27CC3F930059C7C7 /* PostModel.swift */,
+				4B736CDC27EF74EB0067EB4B /* ConvoModel.swift */,
 				4B1533E827CDCC8F0059C7C7 /* UserIntroModel.swift */,
 				4B27E5E027EB92090029D92A /* FullScreenPostModel.swift */,
 				4B66F01827EE351A00F6C22B /* CommentModel.swift */,
 				4B8B4DB027EED4B0007C8FF3 /* MessageModel.swift */,
+				4B736CE027EF78B60067EB4B /* UserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,6 +332,7 @@
 				4B8B4DB227EED512007C8FF3 /* MessageBubble.swift */,
 				4B8B4DB427EED700007C8FF3 /* ConversationView.swift */,
 				4B8B4DB627EED874007C8FF3 /* MessageField.swift */,
+				4B736CE227EF88D90067EB4B /* SearchView.swift */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -330,6 +343,8 @@
 				4B99E38327E7E0BB00AFC20F /* ProfilePictureViewModel.swift */,
 				4B99E38527E7EE4D00AFC20F /* PostsViewModel.swift */,
 				4B66F01A27EE39E300F6C22B /* CommentViewModel.swift */,
+				4B736CDE27EF75890067EB4B /* ConvoViewModel.swift */,
+				4B736CE427EF897B0067EB4B /* UsersViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -444,12 +459,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BE5188327D56AF400548EEC /* CustomErrors.swift in Sources */,
+				4B736CE527EF897B0067EB4B /* UsersViewModel.swift in Sources */,
+				4B736CDD27EF74EB0067EB4B /* ConvoModel.swift in Sources */,
 				4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */,
 				4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */,
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B99E38427E7E0BB00AFC20F /* ProfilePictureViewModel.swift in Sources */,
 				4B99E38627E7EE4D00AFC20F /* PostsViewModel.swift in Sources */,
 				4B6AF02827C7255A0070B7E8 /* FontDynamic.swift in Sources */,
+				4B736CE127EF78B60067EB4B /* UserModel.swift in Sources */,
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
 				4B66F01B27EE39E300F6C22B /* CommentViewModel.swift in Sources */,
 				4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */,
@@ -481,6 +499,7 @@
 				4B23415D27E967350079F1C1 /* ProfileView.swift in Sources */,
 				4B6AF02A27C7283F0070B7E8 /* AppWrapperView.swift in Sources */,
 				4B66F01927EE351A00F6C22B /* CommentModel.swift in Sources */,
+				4B736CE327EF88D90067EB4B /* SearchView.swift in Sources */,
 				4BB26CA427E504BB003FBF72 /* Floats.swift in Sources */,
 				4B6AF01F27C7245A0070B7E8 /* Constants.swift in Sources */,
 				4B8B4DA227EC01A7007C8FF3 /* Redaction.swift in Sources */,
@@ -488,6 +507,7 @@
 				4BB26CA027E3BD7A003FBF72 /* CustomLoadingIndicator.swift in Sources */,
 				4BEE709E27D080F400F42F8C /* SettingsView.swift in Sources */,
 				4B42724A27D1E0C600984206 /* AuthenticationService.swift in Sources */,
+				4B736CDF27EF75890067EB4B /* ConvoViewModel.swift in Sources */,
 				4B8B4DB327EED512007C8FF3 /* MessageBubble.swift in Sources */,
 				4B8B4DB527EED700007C8FF3 /* ConversationView.swift in Sources */,
 			);

@@ -28,7 +28,7 @@ struct ArroSocialApp: App {
         // connect app to firebase
         FirebaseApp.configure()
     }
-    
+
     
     var body: some Scene {
         WindowGroup {
