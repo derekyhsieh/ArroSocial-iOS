@@ -15,6 +15,7 @@ class UsersViewModel: ObservableObject {
     
     init(userQuery: String) {
         self.userQuery = userQuery
+//        checkIfUserAlreadyHasConvo(otherUserID: "dsf")
     }
     
     func fetchUsersFromQuery() {
@@ -25,6 +26,11 @@ class UsersViewModel: ObservableObject {
             self.isFetching = false
         }
     }
+    
+//    func checkIfUserAlreadyHasConvo(otherUserID: String) {
+//        DataService.instance.checkIfUserIsAlreadyChatting(otherUserID: "GxHg4pPikUg24ucrOWpimKZbqzI3")
+//    }
+    
     
     func updateUsersFromQuery(userQuery: String) {
         self.userQuery = userQuery

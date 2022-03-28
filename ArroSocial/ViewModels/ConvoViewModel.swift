@@ -10,6 +10,7 @@ import SwiftUI
 
 class ConvoViewModel: ObservableObject {
     @Published var convosArray: [ConvoModel] = [ConvoModel]()
+    @Published var alreadyChattingUserIDs: [String] = [String]()
     @Published var isFetching = false
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
    
@@ -20,8 +21,18 @@ class ConvoViewModel: ObservableObject {
     func fetchCurrentUserConversations() {
         self.isFetching = true
        // get current from dataservice
+        
+        
+        // make a blacklisted array for other user id's that aren't the user's
         DataService.instance.downloadConvosForUser(userID: currentUserID) { convos in
+            
+            // blacklist users array
+            for convo in convos {
+                self.alreadyChattingUserIDs.append(self.returnOtherParticipantID(convo: convo))
+            }
+            print(self.alreadyChattingUserIDs)
             self.convosArray = self.sortByDate(convos: convos)
+            
             
 //            self.convosArray.append(contentsOf: testdata)
 //             test case
@@ -49,6 +60,14 @@ class ConvoViewModel: ObservableObject {
             $0.lastMessageDate! > $1.lastMessageDate!
         }
         return sortedConvos
+    }
+    
+    private func returnOtherParticipantID(convo: ConvoModel) -> String {
+        for participant in convo.participantsID {
+            if participant != (currentUserID) { return participant }
+        }
+        
+        return ""
     }
     
 }

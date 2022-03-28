@@ -63,6 +63,9 @@ struct CommentView: View {
                     .foregroundColor(Color.gray)
             }
         }
+        .onAppear {
+            profilePicVM.fetchData(userID: userID)
+        }
             
     }
     

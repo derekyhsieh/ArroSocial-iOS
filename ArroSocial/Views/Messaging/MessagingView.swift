@@ -126,11 +126,12 @@ struct CenterView: View {
                 
                 cellView(data: convo)
                     .onAppear {
-                        
                         self.expand = true
                     }
                     .onDisappear {
-                        self.expand = false
+                        if convoVM.convosArray.count > 7 {
+                            self.expand = false
+                        }
                     }
             } else {
                 
@@ -140,6 +141,9 @@ struct CenterView: View {
         }
         .background(Color(AppColors.bg))
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .onAppear {
+            self.expand = true
+        }
     }
 }
 
@@ -165,7 +169,7 @@ struct cellView : View {
                     .redacted(reason: isLoading ? .placeholder : [])
             }
             
-         
+            
             
             VStack(alignment: .leading, spacing: 12) {
                 
@@ -188,13 +192,13 @@ struct cellView : View {
         .onAppear {
             self.isLoading = true
             
-                self.otherUserID = getOtherParticipantID()
-                DataService.instance.getUserDocument(userID: otherUserID) { doc in
-                    if let doc = doc {
-                        self.username = doc.get(FSUserData.username) as! String
-       
-                        self.isLoading = false
-                    }
+            self.otherUserID = getOtherParticipantID()
+            DataService.instance.getUserDocument(userID: otherUserID) { doc in
+                if let doc = doc {
+                    self.username = doc.get(FSUserData.username) as! String
+                    
+                    self.isLoading = false
+                }
                 
             }
         }

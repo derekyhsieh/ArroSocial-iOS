@@ -76,6 +76,8 @@ class DataService {
         }
     }
     
+    
+    
     func createConversation(otherUserID: String, handler: @escaping(_ convoID: String?, _ success: Bool) -> ()) {
         let conversationDoc = REF_CONVERSATIONS.document()
         let convoID = conversationDoc.documentID
@@ -261,6 +263,15 @@ class DataService {
     }
     
     // MARK: Search functions
+    
+//    func searchForUserWhoHasntHadConvo(searchQuery: String, handler: @escaping(_ returnedUsers: [UsersModel]) -> ()) {
+//        searchForUser(searchQuery: searchQuery) { returnedUsers in
+//
+//        }
+//    }
+    
+    
+   
     
     func searchForUser(searchQuery: String, handler: @escaping(_ returnedUsers: [UsersModel]) -> ()) {
         REF_USERS.whereField(FSUserData.username, isGreaterThanOrEqualTo: searchQuery).whereField(FSUserData.username, isLessThanOrEqualTo: searchQuery + "z").limit(to: 10).getDocuments { querySnap, error in

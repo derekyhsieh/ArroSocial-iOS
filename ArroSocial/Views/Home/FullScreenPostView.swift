@@ -102,6 +102,7 @@ struct FullScreenPostView: View {
                         ScrollView(.vertical, showsIndicators: true) {
                             ForEach(commentVM.commentArray, id: \.self) { comment in
                                 CommentView(username: comment.username, commment: comment.content, dateCreated: comment.dateCreated, commentID: comment.commentID, userID: comment.userID, profilePicVM: ProfilePictureViewModel(userID: comment.userID))
+                                  
                             }
                             
                         }

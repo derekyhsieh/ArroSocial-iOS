@@ -11,6 +11,7 @@ struct SearchView: View {
     @State private var searchQuery: String = ""
     @StateObject var usersVM: UsersViewModel = UsersViewModel(userQuery: "")
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
+    @State private var isFetching: Bool = false
     @StateObject var convoVM: ConvoViewModel
     
     var body: some View {
@@ -43,7 +44,7 @@ struct SearchView: View {
                     List(usersVM.usersArray) { user in
                         if user.userID != currentUserID {
                             
-                            UserCellView(convoVM: convoVM, data: user)
+                            UserCellView(isFetching: $isFetching, isAlreadyChatting: convoVM.alreadyChattingUserIDs.contains(user.userID), convoVM: convoVM, data: user)
                         }
                     }
                     
@@ -52,6 +53,7 @@ struct SearchView: View {
                 Spacer(minLength: 0)
                 
             }
+            CustomLoadingIndicator(isShowing: $isFetching)
         }
     }
 }
@@ -64,6 +66,8 @@ struct SearchView: View {
 
 struct UserCellView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Binding var isFetching: Bool
+    var isAlreadyChatting: Bool
     @StateObject var convoVM: ConvoViewModel
     
     var data: UsersModel
@@ -76,14 +80,23 @@ struct UserCellView: View {
             Button {
                 
                 // create new convo
-                convoVM.uploadNewConvo(userID: data.userID) { success in
+                
+                if isAlreadyChatting {
                     presentationMode.wrappedValue.dismiss()
+                } else {
+                    isFetching = true
+                    convoVM.uploadNewConvo(userID: data.userID) { success in
+                        presentationMode.wrappedValue.dismiss()
+                        isFetching = false
+                    }
                 }
                 
-                    
+                
+                
                 
             } label: {
-                Image(systemName: "plus")
+                Image(systemName: isAlreadyChatting ? "checkmark" : "plus")
+                    .foregroundColor(isAlreadyChatting ? .green : .blue)
             }
             
         }
