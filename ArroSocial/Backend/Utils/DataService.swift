@@ -121,34 +121,7 @@ class DataService {
                     return
                 }
             }
-        } else {
-            // case where conversation hasn't been created yet
-            // 1: create document in conversation collection with convo id
-            // 2: set participants to current user and other user id
-            // 3: recursion this function to upload again
-            
-            let conversationDoc = REF_CONVERSATIONS.document()
-            let convoID = conversationDoc.documentID
-            
-            let participantData: [String: Any] = [
-                "participants": FieldValue.arrayUnion([currentUserID!, otherUserID])
-            ]
-            conversationDoc.setData(participantData) { error in
-                if let error = error {
-                    print("\(error.localizedDescription) uploadMessage(in creating new donverstaaion document)")
-                    handler(nil, convoID)
-                } else {
-                    // success
-                    print("successfully init new conversation document with new participants")
-                    // recursion
-                    self.uploadMessage(conversationID: convoID, otherUserID: otherUserID, messageText: messageText) { messageID, conversationID in
-                        handler(messageID, conversationID)
-                    }
-                }
-            }
-            
-            
-        }
+        } 
     }
     
     
@@ -213,6 +186,8 @@ class DataService {
         
     }
     
+    
+    
     func downloadConvosForUser(userID: String, handler: @escaping(_ convos: [ConvoModel]) -> ()) {
         REF_CONVERSATIONS.whereField(FSConvoFields.participants, arrayContains: userID).getDocuments { querySnap, error in
             if let error = error {
@@ -260,6 +235,21 @@ class DataService {
                 return
             }
         }
+    }
+    
+    func downloadMessages(convoID: String, handler: @escaping(_ messages: [MessageModel]?) -> ()) {
+        REF_CONVERSATIONS.document(convoID).collection("messages").order(by: FSMessageFields.dateCreated, descending: false).addSnapshotListener { querySnap, error in
+            if let error = error {
+                print("\(error.localizedDescription): download messages()")
+                handler(nil)
+                return
+            } else {
+                print("updated query")
+                handler(self.getMessagesFromQuerySnapshot(querySnapshot: querySnap))
+                return
+            }
+        }
+        
     }
     
     // MARK: Search functions
@@ -368,6 +358,35 @@ class DataService {
             return commentArray
         }
         return commentArray
+    }
+    
+    private func getMessagesFromQuerySnapshot(querySnapshot: QuerySnapshot?) -> [MessageModel] {
+       var messagesArray = [MessageModel]()
+       
+        if let querySnapshot = querySnapshot {
+            for doc in querySnapshot.documents {
+                if let messageID = doc.documentID as? String,
+                   let text = doc.get(FSMessageFields.text) as? String,
+                   let dateCreated = doc.get(FSMessageFields.dateCreated) as? Timestamp
+                {
+                    let timestamp = dateCreated.dateValue()
+                    var received = true
+                    let senderID = doc.get(FSMessageFields.userID) as? String
+                    if senderID == currentUserID! {
+                        // sent by user
+                        received = false
+                    }
+                    
+                   let newMessage = MessageModel(messageID: messageID, text: text, received: received, timestamp: timestamp)
+                    
+                    messagesArray.append(newMessage)
+                    
+                }
+            }
+            return messagesArray
+        }
+        return messagesArray
+        
     }
    
     private func getConvoFromSnapshot(snapshot: QuerySnapshot?) -> [ConvoModel] {

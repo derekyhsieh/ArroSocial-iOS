@@ -8,16 +8,28 @@
 import SwiftUI
 
 struct MessagingView: View {
+    @State private var selectedConvo: [MessageModel]? = nil
     @State private var expand: Bool = false
     @StateObject var convoVM: ConvoViewModel = ConvoViewModel()
     
     var body: some View {
         
         //        TopView(expand: $expand)
-        ZStack {
-            Color(AppColors.bg)
+        NavigationView {
             
-            Chats(convoVM: convoVM, expand: $expand)
+            ZStack {
+                Color(AppColors.bg)
+                
+                Chats(convoVM: convoVM, selectedConvo: $selectedConvo, expand: $expand)
+            }
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
+                   .navigationBarTitle("")
+                   .edgesIgnoringSafeArea(.all)
+
+       
+            
+            
         }
     }
 }
@@ -29,7 +41,7 @@ struct MessaingView_Previews: PreviewProvider {
 }
 struct Chats : View {
     @StateObject var convoVM: ConvoViewModel
-    
+    @Binding var selectedConvo: [MessageModel]?
     @Binding var expand : Bool
     
     var body : some View{
@@ -39,7 +51,7 @@ struct Chats : View {
             TopView(convoVM: convoVM, expand: self.$expand).zIndex(5)
                 .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
             
-            CenterView(convoVM: convoVM, expand: self.$expand).offset(y: -25)
+            CenterView(convoVM: convoVM, expand: self.$expand, selectedConvo: $selectedConvo).offset(y: -25)
         }
         //        .background(Color())
     }
@@ -118,24 +130,27 @@ struct SearchBar: View {
 struct CenterView: View {
     @StateObject var convoVM: ConvoViewModel
     @Binding var expand: Bool
+    @Binding var selectedConvo: [MessageModel]?
     var body : some View{
         
         List(convoVM.convosArray) { convo in
             
             if convo == convoVM.convosArray.first {
-                
-                cellView(data: convo)
-                    .onAppear {
-                        self.expand = true
-                    }
-                    .onDisappear {
-                        if convoVM.convosArray.count > 7 {
-                            self.expand = false
+                    cellView(data: convo, selectedConvo: $selectedConvo)
+                        .onAppear {
+                            self.expand = true
                         }
-                    }
+                        .onDisappear {
+                            if convoVM.convosArray.count > 7 {
+                                self.expand = false
+                            }
+                        }
+                    
+                    
             } else {
+                    cellView(data: convo, selectedConvo: $selectedConvo)
                 
-                cellView(data: convo)
+                
             }
             
         }
@@ -150,6 +165,7 @@ struct CenterView: View {
 struct cellView : View {
     
     var data: ConvoModel
+    @Binding var selectedConvo: [MessageModel]?
     @State var username: String = ""
     @State var otherUserID: String = ""
     @State private var isLoading: Bool = false
@@ -157,51 +173,59 @@ struct cellView : View {
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
     
     var body: some View {
-        
-        HStack(spacing: 12) {
-            
-            if !isLoading {
-                ProfilePicture(dimension: 50, username: username, userID: getOtherParticipantID(), profilePicVM: ProfilePictureViewModel(userID: otherUserID))
-            } else {
-                Circle()
-                    .fill(Color.gray)
-                    .frame(width: 50, height: 50)
-                    .redacted(reason: isLoading ? .placeholder : [])
-            }
-            
-            
-            
-            VStack(alignment: .leading, spacing: 12) {
+        NavigationLink {
+            ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), messagesVM: MessagesViewModel(convoID: data.convoID), otherUserID: otherUserID, convoID: data.convoID, username: username)
+                .navigationBarHidden(true)
                 
-                Text(self.username )
+        } label: {
+            HStack(spacing: 12) {
                 
-                Text(data.lastMessage ?? "").font(.caption)
-            }
-            
-            Spacer(minLength: 0)
-            
-            VStack{
-                
-                Text(data.lastMessageDate?.formatted(.dateTime.month().day()) ?? "")
-                    .foregroundColor(Color.gray)
-                
-                Spacer()
-            }
-        }
-        .padding(.vertical)
-        .onAppear {
-            self.isLoading = true
-            
-            self.otherUserID = getOtherParticipantID()
-            DataService.instance.getUserDocument(userID: otherUserID) { doc in
-                if let doc = doc {
-                    self.username = doc.get(FSUserData.username) as! String
-                    
-                    self.isLoading = false
+                if !isLoading {
+                    ProfilePicture(dimension: 50, username: username, userID: getOtherParticipantID(), profilePicVM: ProfilePictureViewModel(userID: otherUserID))
+                } else {
+                    Circle()
+                        .fill(Color.gray)
+                        .frame(width: 50, height: 50)
+                        .redacted(reason: isLoading ? .placeholder : [])
                 }
                 
+                
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    
+                    Text(self.username )
+                    
+                    Text(data.lastMessage ?? "").font(.caption)
+                }
+                
+                Spacer(minLength: 0)
+                
+                VStack{
+                    
+                    Text(data.lastMessageDate?.formatted(.dateTime.month().day()) ?? "")
+                        .foregroundColor(Color.gray)
+                    
+                    Spacer()
+                }
+            }
+            .padding(.vertical)
+            .onAppear {
+                self.isLoading = true
+                
+                self.otherUserID = getOtherParticipantID()
+                DataService.instance.getUserDocument(userID: otherUserID) { doc in
+                    if let doc = doc {
+                        self.username = doc.get(FSUserData.username) as! String
+                        
+                        self.isLoading = false
+                    }
+                    
+                }
             }
         }
+
+        
+      
         
     }
     

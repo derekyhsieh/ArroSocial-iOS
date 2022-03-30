@@ -9,11 +9,14 @@ import SwiftUI
 
 struct TitleRow: View {
     @StateObject var profilePicVM: ProfilePictureViewModel
+    @Environment(\.presentationMode) var presentationMode
     var username: String
     var body: some View {
         HStack(spacing: 20) {
            
-            Button(action: {}) {
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
                 Image(systemName: "chevron.backward")
 //                    .foregroundColor(Color.black)
                     .font(.title2)
@@ -31,6 +34,7 @@ struct TitleRow: View {
         .padding()
 //        .background(Color(AppColors.purple).opacity(0.45))
         .frame(maxWidth: .infinity, alignment: .trailing)
+        .frame(height: 100)
         
        
         

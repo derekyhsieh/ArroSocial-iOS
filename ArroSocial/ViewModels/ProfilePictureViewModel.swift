@@ -78,6 +78,19 @@ class ProfilePictureViewModel: ObservableObject {
         
     }
     
+    func getUsername(userID: String, handler: @escaping(_ username: String?)->()) {
+        DataService.instance.getUserDocument(userID: userID) { doc in
+            if let doc = doc {
+                let username = doc.get(FSUserData.username) as? String
+               handler(username)
+                return
+            } else {
+                handler(nil)
+                return
+            }
+        }
+    }
+    
     // used when user signs out
     func wipeData() {
         self.profilePicture = nil

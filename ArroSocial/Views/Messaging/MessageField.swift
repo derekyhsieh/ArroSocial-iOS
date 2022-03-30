@@ -11,7 +11,7 @@ struct MessageField: View {
     @State private var message = ""
     @State private var isUploading: Bool = false
     var otherUserID: String
-    var conversationID: String?
+    var conversationID: String
     var body: some View {
         HStack {
             CustomTextField(placeholder: Text("enter your message here"), text: $message)
@@ -43,9 +43,10 @@ struct MessageField: View {
            // not empty
             isUploading = true
             
-            DataService.instance.uploadMessage(conversationID: nil, otherUserID: otherUserID, messageText: message) { messageID, conversationID in
+            DataService.instance.uploadMessage(conversationID: conversationID, otherUserID: otherUserID, messageText: message) { messageID, conversationID in
                 print("successful")
                 isUploading = false
+                self.message = ""
             }
         }
     }
