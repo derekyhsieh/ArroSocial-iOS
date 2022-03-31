@@ -20,9 +20,15 @@ import Firebase
        }
      }
     */
+class AppState: ObservableObject {
+    static let shared = AppState()
+
+    @Published var appID = UUID()
+}
 
 @main
 struct ArroSocialApp: App {
+    @StateObject var appState = AppState.shared
     
     init() {
         // connect app to firebase
@@ -34,6 +40,7 @@ struct ArroSocialApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .id(appState.appID)
         }
     }
 }

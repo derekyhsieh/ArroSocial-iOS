@@ -290,6 +290,11 @@ struct SettingsView: View {
                     self.selectedTab = tabs[0]
                     self.tabCenter = 0
                     profilePictureVM.wipeData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        // wipe app state 
+                        AppState.shared.appID = UUID()
+                        
+                    }
                 }
             }
             

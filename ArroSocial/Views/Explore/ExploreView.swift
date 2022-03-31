@@ -87,6 +87,7 @@ struct ExploreView: View {
                 
             }
             .padding(.top, 10)
+            .padding(.bottom, 30)
             
             
         }
