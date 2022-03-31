@@ -66,6 +66,7 @@ struct CardBack: View {
                 .foregroundColor(.white)
             
         }
+        .padding(.horizontal)
     }
 }
 
