@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MessageField: View {
     @State private var message = ""
+    @Binding var data: ConvoModel
     @State private var isUploading: Bool = false
     var otherUserID: String
     var conversationID: String
@@ -41,6 +42,8 @@ struct MessageField: View {
           // don't do anything since empty
         } else {
            // not empty
+            data.lastMessage = message
+            data.lastMessageDate = Date()
             isUploading = true
             
             DataService.instance.uploadMessage(conversationID: conversationID, otherUserID: otherUserID, messageText: message) { messageID, conversationID in

@@ -30,7 +30,7 @@ class CommentViewModel: ObservableObject {
         DataService.instance.uploadComment(postID: postID, username: username, content: content, userID: userID) { isSuccessful, commentID in
             self.isUploading = false
         let newComment = CommentModel(commentID: commentID, postID: postID, username: username, content: content, userID: userID, dateCreated: Date())
-            self.commentArray.append(newComment)
+            self.commentArray.insert(newComment, at: 0)
             handler(true)
             return
         }

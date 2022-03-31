@@ -51,7 +51,7 @@ struct ProfileView: View {
                             .padding(.trailing, 5)
                     } else {
                         Circle()
-                            .fill(Color(hexString: profilePicColorBackground) ?? Color(.gray))
+                            .fill(Color(hexString: profilePictureVM.hexColor ?? "FFF") ?? Color(.gray))
                             .frame(width: 125, height: 125)
                             .overlay(Text(username.prefix(2)))
                             .font(.custom("Poppins-SemiBold", size: 40))
@@ -241,6 +241,9 @@ struct ProfileView: View {
             
             
             if !isUsersOwnProfile {
+                
+                self.profilePictureVM.fetchData(userID: nil)
+                
                 DataService.instance.getIfCurrentUserIsFollowingAndCount(currentUserID: currentUserID, targetUserID: postUserID ?? "") { isFollowing, followerCount in
                     self.isFollowing = isFollowing
                     self.followerCount = followerCount
@@ -257,10 +260,6 @@ struct ProfileView: View {
             
             
         }
-    }
-    
-    func checkIfUserFollows() {
-        
     }
     
     func followUser() {
@@ -316,8 +315,10 @@ struct PostImageView: View {
                         .onTapGesture {
                             // show full screen
                             presentationMode.wrappedValue.dismiss()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                self.showFullScreenPost()
+                            }
                             
-                            self.showFullScreenPost()
                         }
                     
                     if isEditing {

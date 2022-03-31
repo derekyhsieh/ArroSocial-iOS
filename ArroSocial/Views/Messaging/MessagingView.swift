@@ -164,17 +164,18 @@ struct CenterView: View {
 
 struct cellView : View {
     
-    var data: ConvoModel
+    @State var data: ConvoModel
     @Binding var selectedConvo: [MessageModel]?
     @State var username: String = ""
     @State var otherUserID: String = ""
     @State private var isLoading: Bool = false
     
+    
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
     
     var body: some View {
         NavigationLink {
-            ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), messagesVM: MessagesViewModel(convoID: data.convoID), otherUserID: otherUserID, convoID: data.convoID, username: username)
+            ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), messagesVM: MessagesViewModel(convoID: data.convoID), data: $data, otherUserID: otherUserID, convoID: data.convoID, username: username)
                 .navigationBarHidden(true)
                 
         } label: {
@@ -196,13 +197,14 @@ struct cellView : View {
                     Text(self.username )
                     
                     Text(data.lastMessage ?? "").font(.caption)
+                        .foregroundColor(Color.gray)
                 }
                 
                 Spacer(minLength: 0)
                 
                 VStack{
                     
-                    Text(data.lastMessageDate?.formatted(.dateTime.month().day()) ?? "")
+                    Text(messageDate())
                         .foregroundColor(Color.gray)
                     
                     Spacer()
@@ -227,6 +229,23 @@ struct cellView : View {
         
       
         
+    }
+    
+    func messageDate() -> String {
+        if isSameDay(date1: Date(), date2: data.lastMessageDate ?? Date()) {
+            return data.lastMessageDate?.formatted(.dateTime.hour().minute()) ?? ""
+        } else {
+            return data.lastMessageDate?.formatted(.dateTime.month().day()) ?? ""
+        }
+    }
+    
+    func isSameDay(date1: Date, date2: Date) -> Bool {
+        let diff = Calendar.current.dateComponents([.day], from: date1, to: date2)
+        if diff.day == 0 {
+            return true
+        } else {
+            return false
+        }
     }
     
     func getOtherParticipantID() -> String {

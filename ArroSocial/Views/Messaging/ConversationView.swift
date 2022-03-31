@@ -10,6 +10,7 @@ import SwiftUI
 struct ConversationView: View, KeyboardReadable {
     @StateObject var profilePicVM: ProfilePictureViewModel
     @StateObject var messagesVM: MessagesViewModel
+    @Binding var data: ConvoModel
     var otherUserID: String
     var convoID: String
     var username: String
@@ -30,27 +31,22 @@ struct ConversationView: View, KeyboardReadable {
                             
                             ForEach(messagesVM.messagesArray, id: \.messageID) { message in
                                 MessageBubble(message: MessageModel(messageID: message.messageID, text: message.text, received: message.received   , timestamp: message.timestamp))
+                                    .id(message.messageID)
                                 //                        Text(message.text)
                             }
                         }
                         
                         .onChange(of: messagesVM.messagesArray) { _ in
-                            print("scrolling")
-                        }
-                        
-                        .onChange(of: scrollIndex, perform: { _ in
-                            print("will scrol")
-                            if scrollIndex != nil {
-                                withAnimation {
-                                    proxy.scrollTo(scrollIndex, anchor: .bottom)
-                                }
+                            
+                            withAnimation(.spring()) {
+                                
+                                proxy.scrollTo(messagesVM.messagesArray.last?.messageID, anchor: .bottom)
                             }
-                        })
-                        
+                        }
                         
                         
                     }
-               
+                    
                     //                .frame(height: UIScreen.main.bounds.height / 2)
                     
                 }
@@ -62,7 +58,7 @@ struct ConversationView: View, KeyboardReadable {
             }
             .background(Color(AppColors.purple).opacity(0.3))
             
-            MessageField(otherUserID: otherUserID, conversationID: convoID)
+            MessageField(data: $data, otherUserID: otherUserID, conversationID: convoID)
                 .onReceive(keyboardPublisher) { newIsKeyboardVisible in
                     //                             print("Is keyboard visible? ", newIsKeyboardVisible)
                     isKeyboardVisible = newIsKeyboardVisible
@@ -72,7 +68,6 @@ struct ConversationView: View, KeyboardReadable {
         }
         .onAppear {
             self.messagesVM.fetchMessages { _ in
-                "scrolled"
                 self.scrollIndex = messagesVM.messagesArray.count - 1
             }
         }

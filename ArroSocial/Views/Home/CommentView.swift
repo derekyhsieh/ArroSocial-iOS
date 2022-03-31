@@ -70,17 +70,16 @@ struct CommentView: View {
     }
     
     func getDifferenceBetweenTwoDates(lhs: Date, rhs: Date) -> String {
-        let diffComponents = Calendar.current.dateComponents([.minute, .day, .hour], from: lhs, to: rhs)
+        let diffComponents = Calendar.current.dateComponents([.minute], from: lhs, to: rhs)
         let minutes = diffComponents.minute
-        let hours = diffComponents.hour
-        let days = diffComponents.day
         
         if minutes! < 60  {
             return ("\(String(describing: minutes!))m")
-        } else if hours! < 24 {
-            return ("\(String(describing: hours!))h")
+        } else if minutes! < 1440 {
+            // calcualte minutes -> hours
+            return("\(Int(minutes!/60))h")
         } else {
-            return ("\(String(describing: days!))d")
+            return("\(Int(minutes!/1440))d")
         }
         
     }

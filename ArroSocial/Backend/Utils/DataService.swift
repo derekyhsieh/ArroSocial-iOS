@@ -99,7 +99,11 @@ class DataService {
     
     func uploadMessage(conversationID: String?, otherUserID: String,  messageText: String, handler: @escaping(_ messageID: String?, _ conversationID: String?) -> ()) {
         if let conversationID = conversationID {
-            // not first message since conversation document has already been created, so no need for creating participants field
+            // first update conversation document with new date
+            
+            REF_CONVERSATIONS.document(conversationID).updateData([FSConvoFields.lastTimestamp: Date(), FSConvoFields.lastMessage: messageText, FSConvoFields.lastMessageSender: currentUserID!])
+            
+            
             let messageDoc = REF_CONVERSATIONS.document(conversationID).collection(FSCollections.messages).document()
             let messageID = messageDoc.documentID
             

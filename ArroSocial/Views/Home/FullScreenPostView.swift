@@ -152,9 +152,10 @@ struct FullScreenPostView: View {
                                     
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { noti in
                                         DispatchQueue.main.async {
+                                            print("dismissing")
                                             let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                            let height = value.height
-                                            self.value = height
+                                            let height = 0
+                                            self.value = 0
                                         }
                                     }
                                 }
