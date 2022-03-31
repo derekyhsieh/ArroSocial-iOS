@@ -24,6 +24,9 @@ struct ConvoModel: Identifiable, Codable, Equatable, Hashable {
     var messages: [MessageModel]
     var lastMessageWasCurrentUser: Bool?
     
+    // for filtering by username
+    var isFiltered: Bool = true // false if should not show
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

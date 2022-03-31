@@ -24,10 +24,10 @@ struct MessagingView: View {
             }
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
-                   .navigationBarTitle("")
-                   .edgesIgnoringSafeArea(.all)
-
-       
+            .navigationBarTitle("")
+            .edgesIgnoringSafeArea(.all)
+            
+            
             
             
         }
@@ -42,16 +42,17 @@ struct MessaingView_Previews: PreviewProvider {
 struct Chats : View {
     @StateObject var convoVM: ConvoViewModel
     @Binding var selectedConvo: [MessageModel]?
+    @State private var sortingSearchText: String = ""
     @Binding var expand : Bool
     
     var body : some View{
         
         VStack(spacing: 0){
             
-            TopView(convoVM: convoVM, expand: self.$expand).zIndex(5)
+            TopView(convoVM: convoVM, search: $sortingSearchText, expand: self.$expand).zIndex(5)
                 .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
             
-            CenterView(convoVM: convoVM, expand: self.$expand, selectedConvo: $selectedConvo).offset(y: -25)
+            CenterView(convoVM: convoVM, search: $sortingSearchText, expand: self.$expand, selectedConvo: $selectedConvo).offset(y: -25)
         }
         //        .background(Color())
     }
@@ -60,7 +61,7 @@ struct Chats : View {
 
 struct TopView: View {
     @StateObject var convoVM: ConvoViewModel
-    @State var search = ""
+    @Binding var search: String
     @Binding var expand: Bool
     @State private var showAddSheet: Bool = false
     
@@ -98,7 +99,7 @@ struct TopView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .animation(.default)
         .sheet(isPresented: $showAddSheet) {
-            SearchView(convoVM: convoVM)
+            MessagingSearchView(convoVM: convoVM)
         }
     }
 }
@@ -129,14 +130,16 @@ struct SearchBar: View {
 
 struct CenterView: View {
     @StateObject var convoVM: ConvoViewModel
+    @Binding var search: String
     @Binding var expand: Bool
     @Binding var selectedConvo: [MessageModel]?
     var body : some View{
         
         List(convoVM.convosArray) { convo in
             
-            if convo == convoVM.convosArray.first {
-                    cellView(data: convo, selectedConvo: $selectedConvo)
+            if convo.isFiltered {
+                if convo == convoVM.convosArray.first {
+                    cellView(convoVM: convoVM, data: convo, selectedConvo: $selectedConvo, searchText: $search)
                         .onAppear {
                             self.expand = true
                         }
@@ -147,11 +150,16 @@ struct CenterView: View {
                         }
                     
                     
-            } else {
-                    cellView(data: convo, selectedConvo: $selectedConvo)
-                
-                
+                } else {
+                    cellView(convoVM: convoVM, data: convo, selectedConvo: $selectedConvo, searchText: $search)
+                    
+                    
+                }
             }
+            
+            
+            
+            
             
         }
         .background(Color(AppColors.bg))
@@ -163,12 +171,14 @@ struct CenterView: View {
 }
 
 struct cellView : View {
-    
+    @StateObject var convoVM: ConvoViewModel
     @State var data: ConvoModel
     @Binding var selectedConvo: [MessageModel]?
     @State var username: String = ""
     @State var otherUserID: String = ""
     @State private var isLoading: Bool = false
+    @State private var isFiltered: Bool = false
+    @Binding var searchText: String
     
     
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
@@ -177,7 +187,7 @@ struct cellView : View {
         NavigationLink {
             ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), messagesVM: MessagesViewModel(convoID: data.convoID), data: $data, otherUserID: otherUserID, convoID: data.convoID, username: username)
                 .navigationBarHidden(true)
-                
+            
         } label: {
             HStack(spacing: 12) {
                 
@@ -194,7 +204,7 @@ struct cellView : View {
                 
                 VStack(alignment: .leading, spacing: 12) {
                     
-                    Text(self.username )
+                    Text(self.username)
                     
                     Text(data.lastMessage ?? "").font(.caption)
                         .foregroundColor(Color.gray)
@@ -212,23 +222,51 @@ struct cellView : View {
             }
             .padding(.vertical)
             .onAppear {
+                
                 self.isLoading = true
                 
                 self.otherUserID = getOtherParticipantID()
                 DataService.instance.getUserDocument(userID: otherUserID) { doc in
+                    
+                    
                     if let doc = doc {
+                        
+                        
                         self.username = doc.get(FSUserData.username) as! String
+                        
                         
                         self.isLoading = false
                     }
                     
                 }
             }
+            .onChange(of: searchText) { newValue in
+                print(searchText)
+                
+                if searchText != "" {
+                    if username.contains(searchText.lowercased()) || data.convoID.contains(searchText.lowercased()) {
+                        self.updateFilteredStatus(filteredStatus: true)
+                    } else {
+                        self.updateFilteredStatus(filteredStatus: false)
+                    }
+                    
+                } else {
+                    self.updateFilteredStatus(filteredStatus: true)
+                }
+                
+            }
         }
-
         
-      
         
+        
+        
+        
+    }
+    
+    func updateFilteredStatus(filteredStatus: Bool) {
+        if let i = convoVM.convosArray.firstIndex(where: { $0.convoID == data.convoID }) {
+            convoVM.convosArray[i].isFiltered = filteredStatus
+        }
     }
     
     func messageDate() -> String {

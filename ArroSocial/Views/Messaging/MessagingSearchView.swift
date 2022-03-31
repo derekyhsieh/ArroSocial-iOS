@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct MessagingSearchView: View {
     @State private var searchQuery: String = ""
     @StateObject var usersVM: UsersViewModel = UsersViewModel(userQuery: "")
     @AppStorage(CurrentUserDefaults.userID) var currentUserID: String = ""
