@@ -15,6 +15,7 @@ class UsersViewModel: ObservableObject {
     
     init(userQuery: String) {
         self.userQuery = userQuery
+        fetchUsersFromQuery()
 //        checkIfUserAlreadyHasConvo(otherUserID: "dsf")
     }
     

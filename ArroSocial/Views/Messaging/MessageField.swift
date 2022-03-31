@@ -11,6 +11,7 @@ struct MessageField: View {
     @State private var message = ""
     @Binding var data: ConvoModel
     @State private var isUploading: Bool = false
+    @StateObject var convoVM: ConvoViewModel
     var otherUserID: String
     var conversationID: String
     var body: some View {
@@ -44,6 +45,10 @@ struct MessageField: View {
            // not empty
             data.lastMessage = message
             data.lastMessageDate = Date()
+            
+            
+            convoVM.convosArray = convoVM.sortByDate(convos: convoVM.convosArray)
+            
             isUploading = true
             
             DataService.instance.uploadMessage(conversationID: conversationID, otherUserID: otherUserID, messageText: message) { messageID, conversationID in

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConversationView: View, KeyboardReadable {
     @StateObject var profilePicVM: ProfilePictureViewModel
+    @StateObject var convoVM: ConvoViewModel
     @StateObject var messagesVM: MessagesViewModel
     @Binding var data: ConvoModel
     var otherUserID: String
@@ -58,7 +59,7 @@ struct ConversationView: View, KeyboardReadable {
             }
             .background(Color(AppColors.purple).opacity(0.3))
             
-            MessageField(data: $data, otherUserID: otherUserID, conversationID: convoID)
+            MessageField(data: $data, convoVM: convoVM, otherUserID: otherUserID, conversationID: convoID)
                 .onReceive(keyboardPublisher) { newIsKeyboardVisible in
                     //                             print("Is keyboard visible? ", newIsKeyboardVisible)
                     isKeyboardVisible = newIsKeyboardVisible

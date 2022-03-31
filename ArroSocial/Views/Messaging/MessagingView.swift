@@ -185,7 +185,7 @@ struct cellView : View {
     
     var body: some View {
         NavigationLink {
-            ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), messagesVM: MessagesViewModel(convoID: data.convoID), data: $data, otherUserID: otherUserID, convoID: data.convoID, username: username)
+            ConversationView(profilePicVM: ProfilePictureViewModel(userID: otherUserID), convoVM: convoVM, messagesVM: MessagesViewModel(convoID: data.convoID), data: $data, otherUserID: otherUserID, convoID: data.convoID, username: username)
                 .navigationBarHidden(true)
             
         } label: {

@@ -50,10 +50,10 @@ struct AppWrapperView: View {
 //                    ConversationView(profilePicVM: ProfilePictureViewModel(userID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2"), otherUserID: "RYh4POBI6kYMYuKmxyxtA2nMwhK2", convoID: nil)
                         .tag(tabs[1])
 //                        .ignoresSafeArea(.all, edges: .all)
-                    Color.yellow
-                        .overlay(Text(tabs[2]))
+                    
+                    ExploreView(selectedPost: $selectedPost)
                         .tag(tabs[2])
-                        .ignoresSafeArea(.all, edges: .all)
+                        .ignoresSafeArea(edges: [.top, .bottom])
                     SettingsView(profilePictureVM: self.profilePicVM, tabCenter: $tabBarCenter, selectedTab: $selectedTab)
                         .tag(tabs[3])
                         .ignoresSafeArea(.all, edges: [.leading, .trailing])

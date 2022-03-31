@@ -55,7 +55,7 @@ class ConvoViewModel: ObservableObject {
         }
     }
     
-    private func sortByDate(convos: [ConvoModel]) -> [ConvoModel] {
+    func sortByDate(convos: [ConvoModel]) -> [ConvoModel] {
         let sortedConvos = convos.sorted {
             $0.lastMessageDate! > $1.lastMessageDate!
         }
