@@ -41,6 +41,7 @@ struct ArroSocialApp: App {
             ContentView()
                 .preferredColorScheme(.light)
                 .id(appState.appID)
+                .previewInterfaceOrientation(.portrait)
         }
     }
 }

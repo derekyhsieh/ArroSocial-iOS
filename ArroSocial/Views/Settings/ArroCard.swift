@@ -38,7 +38,6 @@ struct ArroCard<Front, Back>: View where Front: View, Back: View {
         )
         .cornerRadius(20)
 
-        .padding()
         .onTapGesture {
             flipFlashcard()
         }

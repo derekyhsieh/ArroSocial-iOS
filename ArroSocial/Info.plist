@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string></string>
 		<string>Poppins-Regular.ttf</string>
 		<string>Lobster-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
@@ -17,5 +18,7 @@
 		<key>UIImageName</key>
 		<string>logo</string>
 	</dict>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>Appease Testflight</string>
 </dict>
 </plist>

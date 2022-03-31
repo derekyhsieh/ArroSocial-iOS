@@ -147,6 +147,7 @@
 		4BB26C9F27E3BD7A003FBF72 /* CustomLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingIndicator.swift; sourceTree = "<group>"; };
 		4BB26CA127E4F928003FBF72 /* ChangeEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailView.swift; sourceTree = "<group>"; };
 		4BB26CA327E504BB003FBF72 /* Floats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floats.swift; sourceTree = "<group>"; };
+		4BCF4E9A27F642390045717A /* ArroSocial.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ArroSocial.entitlements; sourceTree = "<group>"; };
 		4BE5188227D56AF400548EEC /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		4BED1BB127D314FA00DB6830 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		4BEE709D27D080F400F42F8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -278,6 +279,7 @@
 		4B6AF00D27C6F9660070B7E8 /* ArroSocial */ = {
 			isa = PBXGroup;
 			children = (
+				4BCF4E9A27F642390045717A /* ArroSocial.entitlements */,
 				4B6AF02627C724890070B7E8 /* Info.plist */,
 				4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */,
 				4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */,
@@ -671,28 +673,41 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ArroSocial/ArroSocial.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ArroSocial/Preview Content\"";
 				DEVELOPMENT_TEAM = V5P29Y93LL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArroSocial/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App needs access to camera in order to take photos for posts";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App needs access to photo library to post images";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Appease Testflight";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access to post pictures and videos";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Appease Testflight";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need photo access to post pictures and videos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Appease testflight";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.derekhsieh.ArroSocial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -706,28 +721,41 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ArroSocial/ArroSocial.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ArroSocial/Preview Content\"";
 				DEVELOPMENT_TEAM = V5P29Y93LL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ArroSocial/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App needs access to camera in order to take photos for posts";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App needs access to photo library to post images";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Appease Testflight";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access to post pictures and videos";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Appease Testflight";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Appease testflight";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need photo access to post pictures and videos";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Appease testflight";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.derekhsieh.ArroSocial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

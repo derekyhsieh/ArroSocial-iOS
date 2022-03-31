@@ -134,7 +134,7 @@ struct NewUserHomeView: View {
                                 withAnimation {
                                     self.isLoading = true
                                     
-                                    if profilePic != UIImage(named: "placeholder") {
+                                    if profilePic.isEqualToImage(image: UIImage(named: "placeholder")!) == false {
                                         AuthenticationService.instance.updateUserInfo(profilePicture: profilePic, username: self.username.lowercased(), firstName: self.fName.firstCapitalized, lastName: self.lName.firstCapitalized, profilePictureBackgroundColor: (CustomColorHelper.instance.hexStringFromColor(color: UIColor(self.backgroundColor)))) { isError, userID in
                                             
                                         // make sure user id isn't nil
@@ -147,6 +147,7 @@ struct NewUserHomeView: View {
                                                     print("successfully written user data to firestore: \(userID)")
                                                     self.isLoading = false
                                                     self.isShowingWelcome = false
+                                                    self.userIsInMiddleOfWalkthrough = false
                                                 }
                                                 
                                                 
@@ -177,7 +178,7 @@ struct NewUserHomeView: View {
                                                     self.isLoading = false
                                                     self.isShowingWelcome = false
                                                     self.userIsInMiddleOfWalkthrough = false
-                                                    self.userIsInMiddleOfWalkthrough = false
+                                                    
                                                 }
                                                 
                                                 

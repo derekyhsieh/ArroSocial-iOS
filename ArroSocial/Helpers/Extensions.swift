@@ -11,6 +11,16 @@ import SwiftUI
 import Combine
 
 
+extension UIImage {
+
+    func isEqualToImage(image: UIImage) -> Bool {
+        let data1: NSData = self.pngData()! as NSData
+        let data2: NSData = image.pngData()! as NSData
+        return data1.isEqual(data2)
+    }
+
+}
+
 // let back swipe functionality still work when navigation bar is hidden
 extension UINavigationController: UIGestureRecognizerDelegate {
     override open func viewDidLoad() {

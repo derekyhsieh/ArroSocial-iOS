@@ -30,7 +30,8 @@ struct ProfilePictureSubmission: View {
                 
             }) {
                 
-                if(postImage != UIImage(named: "placeholder")) {
+                if(postImage.isEqualToImage(image: UIImage(named: "placeholder")!) == false) {
+                    
                     Image(uiImage: postImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -38,7 +39,6 @@ struct ProfilePictureSubmission: View {
                         .frame(width: 200, height: 200)
                         
                 } else {
-                    
                     Circle()
                         .fill(generatedProfileColor)
                         .frame(width: 200, height: 200)
@@ -48,6 +48,8 @@ struct ProfilePictureSubmission: View {
                             //                            .modifier(Poppins(fontWeight: AppFont.semiBold, .largeTitle))
                                 .font(.custom(("Poppins-"+AppFont.semiBold), size: 90))
                         )
+      
+            
                 }
                 
             }
