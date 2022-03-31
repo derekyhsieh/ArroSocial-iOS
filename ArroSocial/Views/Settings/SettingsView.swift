@@ -108,7 +108,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading) {
                         
                         NavigationLink {
-                            Text("transactions")
+                            TransactionView()
                                 .navigationBarHidden(true)
                         } label: {
                             
@@ -291,7 +291,7 @@ struct SettingsView: View {
                     self.tabCenter = 0
                     profilePictureVM.wipeData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        // wipe app state 
+                        // wipe app state
                         AppState.shared.appID = UUID()
                         
                     }

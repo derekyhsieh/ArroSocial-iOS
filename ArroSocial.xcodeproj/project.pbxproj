@@ -54,7 +54,9 @@
 		4B736CE127EF78B60067EB4B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE027EF78B60067EB4B /* UserModel.swift */; };
 		4B736CE327EF88D90067EB4B /* MessagingSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE227EF88D90067EB4B /* MessagingSearchView.swift */; };
 		4B736CE527EF897B0067EB4B /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B736CE427EF897B0067EB4B /* UsersViewModel.swift */; };
-		4B7D000427F5774D004CB036 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D000327F5774D004CB036 /* CardView.swift */; };
+		4B7D000427F5774D004CB036 /* ArroCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D000327F5774D004CB036 /* ArroCard.swift */; };
+		4B7D000727F61EFB004CB036 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D000627F61EFB004CB036 /* TransactionView.swift */; };
+		4B7D000927F6255F004CB036 /* AnimatedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D000827F6255F004CB036 /* AnimatedBackground.swift */; };
 		4B7DFFE327F566B8004CB036 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7DFFE227F566B8004CB036 /* ExploreView.swift */; };
 		4B7DFFE527F56AF9004CB036 /* ExploreUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7DFFE427F56AF9004CB036 /* ExploreUser.swift */; };
 		4B8B4DA227EC01A7007C8FF3 /* Redaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */; };
@@ -124,7 +126,10 @@
 		4B736CE027EF78B60067EB4B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		4B736CE227EF88D90067EB4B /* MessagingSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingSearchView.swift; sourceTree = "<group>"; };
 		4B736CE427EF897B0067EB4B /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
-		4B7D000327F5774D004CB036 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		4B7D000327F5774D004CB036 /* ArroCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArroCard.swift; sourceTree = "<group>"; };
+		4B7D000527F61E5D004CB036 /* Inconsolata.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inconsolata.ttf; sourceTree = "<group>"; };
+		4B7D000627F61EFB004CB036 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		4B7D000827F6255F004CB036 /* AnimatedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBackground.swift; sourceTree = "<group>"; };
 		4B7DFFE227F566B8004CB036 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		4B7DFFE427F56AF9004CB036 /* ExploreUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUser.swift; sourceTree = "<group>"; };
 		4B8B4DA127EC01A7007C8FF3 /* Redaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redaction.swift; sourceTree = "<group>"; };
@@ -277,6 +282,7 @@
 				4B6AF02227C724790070B7E8 /* Poppins-Medium.ttf */,
 				4B6AF02127C724790070B7E8 /* Poppins-Regular.ttf */,
 				4BFD91FB27C81AC3007A95F7 /* Lobster-Regular.ttf */,
+				4B7D000527F61E5D004CB036 /* Inconsolata.ttf */,
 				4B6AF02027C724790070B7E8 /* Poppins-SemiBold.ttf */,
 				4B42724727D1E03A00984206 /* Backend */,
 				4B6AF01D27C7244F0070B7E8 /* Helpers */,
@@ -373,7 +379,9 @@
 			children = (
 				4BEE709D27D080F400F42F8C /* SettingsView.swift */,
 				4BB26CA127E4F928003FBF72 /* ChangeEmailView.swift */,
-				4B7D000327F5774D004CB036 /* CardView.swift */,
+				4B7D000327F5774D004CB036 /* ArroCard.swift */,
+				4B7D000627F61EFB004CB036 /* TransactionView.swift */,
+				4B7D000827F6255F004CB036 /* AnimatedBackground.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -483,6 +491,7 @@
 				4B301EED27F3671200F67280 /* MessagesViewModel.swift in Sources */,
 				4B736CDD27EF74EB0067EB4B /* ConvoModel.swift in Sources */,
 				4B1DB73427CF2D400075ED5D /* HomeFeedView.swift in Sources */,
+				4B7D000727F61EFB004CB036 /* TransactionView.swift in Sources */,
 				4B1533CF27CC3F930059C7C7 /* PostModel.swift in Sources */,
 				4B1533DA27CC7F640059C7C7 /* PrimaryButton.swift in Sources */,
 				4B99E38427E7E0BB00AFC20F /* ProfilePictureViewModel.swift in Sources */,
@@ -492,13 +501,14 @@
 				4B1533E727CDCB930059C7C7 /* NewUserHomeView.swift in Sources */,
 				4B66F01B27EE39E300F6C22B /* CommentViewModel.swift in Sources */,
 				4BB26CA227E4F928003FBF72 /* ChangeEmailView.swift in Sources */,
-				4B7D000427F5774D004CB036 /* CardView.swift in Sources */,
+				4B7D000427F5774D004CB036 /* ArroCard.swift in Sources */,
 				4B8B4DB127EED4B0007C8FF3 /* MessageModel.swift in Sources */,
 				4B1D9E0B27E4450200FF151F /* DataService.swift in Sources */,
 				4B1D9E0927E1A0B600FF151F /* ImageService.swift in Sources */,
 				4B6AF01127C6F9660070B7E8 /* ContentView.swift in Sources */,
 				4B1DB73627CF33FA0075ED5D /* PostView.swift in Sources */,
 				4B8B4DB927EEE1F7007C8FF3 /* ProfilePicture.swift in Sources */,
+				4B7D000927F6255F004CB036 /* AnimatedBackground.swift in Sources */,
 				4B1533DE27CC7FBA0059C7C7 /* SignUpView.swift in Sources */,
 				4B1533E027CC80330059C7C7 /* LoginView.swift in Sources */,
 				4B1533ED27CDDD0E0059C7C7 /* UsernameSubmissionView.swift in Sources */,
