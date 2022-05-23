@@ -85,8 +85,8 @@ struct AppWrapperView: View {
                                     .overlay(
                                         // make clickable area bigger so it's easier to tap on tab bar buttons
                                         Circle()
-                                            .fill(Color.clear)
-                                            .frame(width: 75, height: 75)
+                                            .fill(Color.red.opacity(0.0))
+                                            .frame(width: 90, height: 90)
                                             .offset(y: 10)
                                     )
                                 

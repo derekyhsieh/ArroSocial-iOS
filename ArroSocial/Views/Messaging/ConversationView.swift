@@ -48,7 +48,6 @@ struct ConversationView: View, KeyboardReadable {
                         
                     }
                     
-                    //                .frame(height: UIScreen.main.bounds.height / 2)
                     
                 }
                 
@@ -78,9 +77,3 @@ struct ConversationView: View, KeyboardReadable {
         
     }
 }
-
-//struct ConversationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConversationView()
-//    }
-//}

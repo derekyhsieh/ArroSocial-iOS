@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExploreUser: View {
     @State private var username: String = ""
-    var userID: String
+    @State var userID: String
     @Binding var selectedPost: FullScreenPostModel?
     @Binding var showProfile: Bool
     
