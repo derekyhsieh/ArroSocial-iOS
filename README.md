@@ -1,4 +1,4 @@
-# 🔥Arro Social🔥
+# 🚀 Arro Social 🚀
 
 Welcome to Arro Social, the ultimate social media platform that pays users their fair share.
 
